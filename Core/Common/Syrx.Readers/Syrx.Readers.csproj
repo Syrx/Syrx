@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <Authors>@sextondjc</Authors>
+    <Company />
+    <Description>Interface for building Syrx command readers used within the Syrx framework.</Description>
+    <PackageLicenseUrl>https://sextondjc.github.io/Syrx/</PackageLicenseUrl>
+    <PackageProjectUrl>https://sextondjc.github.io/Syrx/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sextondjc/Syrx/</RepositoryUrl>
+    <PackageReleaseNotes>1.0.0 release, ported to .NET Standard 2.0.</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Syrx.Settings\Syrx.Settings.csproj" />
+  </ItemGroup>
+
+</Project>

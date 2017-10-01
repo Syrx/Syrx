@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <PackageLicenseUrl>https://sextondjc.github.io/Syrx/</PackageLicenseUrl>
+    <PackageProjectUrl>https://sextondjc.github.io/Syrx/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sextondjc/Syrx/</RepositoryUrl>
+    <Description>A collection of classes used for managing the configuration of Syrx implementations against relational databases.</Description>
+    <PackageReleaseNotes>1.0.0 release, ported to .NET Standard 2.0 based on Drapper</PackageReleaseNotes>
+    <Authors>@sextondjc</Authors>
+    <Company />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syrx.Validation" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Syrx.Settings\Syrx.Settings.csproj" />
+  </ItemGroup>
+
+</Project>
