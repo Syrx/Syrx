@@ -7,9 +7,9 @@
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>Creates connections to relational databases.</Description>
-    <PackageLicenseUrl>https://sextondjc.github.io/Syrx/</PackageLicenseUrl>
-    <PackageProjectUrl>https://sextondjc.github.io/Syrx/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/sextondjc/Syrx/</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/SyrxCommander/Syrx</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/SyrxCommander/Syrx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SyrxCommander/Syrx</RepositoryUrl>
     <PackageReleaseNotes>1.0.0 release, ported to .NET Standard 2.0.</PackageReleaseNotes>
   </PropertyGroup>
 

@@ -23,13 +23,7 @@ namespace Syrx.Commanders.Databases
                 return connection.Query<TResult>(command);
             }
         }
-
-        public IEnumerable<TResult> Query<T1, TResult>(object parameters = null,
-            [CallerMemberName] string method = null)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public IEnumerable<TResult> Query<T1, T2, TResult>(Func<T1, T2, TResult> map, object parameters = null,
             [CallerMemberName] string method = null)
         {
@@ -45,8 +39,7 @@ namespace Syrx.Commanders.Databases
                     splitOn: setting.Split,
                     commandTimeout: setting.CommandTimeout,
                     commandType: setting.CommandType);
-            }
-            throw new NotImplementedException();
+            }            
         }
 
         public IEnumerable<TResult> Query<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> map, object parameters = null,

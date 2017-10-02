@@ -11,6 +11,7 @@ using System.Data.Common;
 using System.Linq;
 using Syrx.Settings.Databases;
 using static Syrx.Validation.Contract;
+// ReSharper disable PossibleNullReferenceException
 
 namespace Syrx.Connectors.Databases
 {

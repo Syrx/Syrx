@@ -10,6 +10,7 @@ using System.Linq;
 using Syrx.Settings;
 using Syrx.Settings.Databases;
 using static Syrx.Validation.Contract;
+// ReSharper disable PossibleNullReferenceException
 
 namespace Syrx.Readers.Databases
 {
@@ -41,7 +42,7 @@ namespace Syrx.Readers.Databases
                 type.FullName,
                 namespaceSetting.Namespace);
 
-            var commandSetting = GetCommandSetting(namespaceSetting, typeSetting, key);
+            var commandSetting = GetCommandSetting(typeSetting, key);
             Require<NullReferenceException>(commandSetting != null,
                 ErrorMessages.NoCommandSetting,
                 key,
@@ -88,27 +89,11 @@ namespace Syrx.Readers.Databases
             return namespaceSetting.Types?.SingleOrDefault(x => x.Name == type.FullName);
         }
 
-        private DatabaseCommandSetting GetCommandSetting(
-            INamespaceSetting<DatabaseCommandSetting> namespaceSetting,
+        private DatabaseCommandSetting GetCommandSetting(            
             ITypeSetting<DatabaseCommandSetting> typeSetting,
             string key)
         {
-            var entry = typeSetting.Commands?.SingleOrDefault(x => x.Key == key);
-
-
-            // might be part of the type setting already.
-            if (entry != null)
-            {
-                if (!string.IsNullOrWhiteSpace(entry.Value.Key))
-                {
-                    return entry.Value.Value;
-                }
-            }
-
-
-            return entry.Value.Value;
-
-            //return typeSetting.CommandSetting;
+            return typeSetting.Commands?.SingleOrDefault(x => x.Key == key).Value;            
         }
 
 

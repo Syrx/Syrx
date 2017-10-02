@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
+// ReSharper disable UnusedTypeParameter
 
 #endregion
 

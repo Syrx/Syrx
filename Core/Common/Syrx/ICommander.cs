@@ -8,6 +8,7 @@
 #region
 
 using System;
+// ReSharper disable UnusedTypeParameter
 
 #endregion
 
