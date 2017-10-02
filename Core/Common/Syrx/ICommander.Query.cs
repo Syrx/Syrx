@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+// ReSharper disable UnusedTypeParameter
 
 #endregion
 
@@ -29,9 +30,7 @@ namespace Syrx
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
         /// <returns></returns>
         IEnumerable<T> Query<T>(object parameters = null, [CallerMemberName] string method = null);
-
-
-        IEnumerable<TResult> Query<T1, TResult>(object parameters = null, [CallerMemberName] string method = null);
+        
 
         /// <summary>
         ///     Use a multimap query with two generic inputs.

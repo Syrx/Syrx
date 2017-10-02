@@ -7,10 +7,10 @@
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>Core interface for building connections into arbitrary data sources.</Description>
-    <PackageLicenseUrl>https://sextondjc.github.io/Syrx/</PackageLicenseUrl>
-    <PackageProjectUrl>https://sextondjc.github.io/Syrx/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/sextondjc/Syrx/</RepositoryUrl>
-    <PackageReleaseNotes>1.0.0 release, ported to .NET Standard 2.0.</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/SyrxCommander/Syrx</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/SyrxCommander/Syrx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SyrxCommander/Syrx</RepositoryUrl>
+    <PackageReleaseNotes>• Updated package information.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

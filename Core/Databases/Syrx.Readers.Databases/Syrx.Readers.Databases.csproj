@@ -7,10 +7,10 @@
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>Reads commands for relational databases from configration sources.</Description>
-    <PackageProjectUrl>https://sextondjc.github.io/Syrx/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/sextondjc/Syrx/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/SyrxCommander/Syrx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SyrxCommander/Syrx</RepositoryUrl>
     <PackageReleaseNotes>1.0.0 release, ported to .NET Standard 2.0.</PackageReleaseNotes>
-    <PackageLicenseUrl>https://sextondjc.github.io/Syrx/</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/SyrxCommander/Syrx</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
