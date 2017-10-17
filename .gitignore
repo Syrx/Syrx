@@ -75,3 +75,11 @@ Temporary Items
 /Tests/Databases/Syrx.Connectors.Databases.Unit.Tests/bin/Release/netcoreapp2.0
 /Tests/Databases/Syrx.Readers.Databases.Unit.Tests/bin/Release/netcoreapp2.0
 /_NCrunch_Syrx
+/Syrx/bin/Release
+/Syrx/obj
+/Syrx.Connectors/bin/Release
+/Syrx.Connectors/obj
+/Syrx.Readers/bin/Release
+/Syrx.Readers/obj
+/Syrx.Settings/bin/Release
+/Syrx.Settings/obj

@@ -7,11 +7,13 @@
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>Home of the Syrx ICommander. Free your code to connect to any source you choose with minimal effort.</Description>
-    <PackageLicenseUrl>https://github.com/SyrxCommander/Syrx</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/SyrxCommander/Syrx</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/SyrxCommander/Syrx</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/Syrx</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Syrx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
     <PackageReleaseNotes>• Updated package information.
 • Minor bug fix.</PackageReleaseNotes>
+    <Copyright>https://github.com/Syrx</Copyright>
+    <PackageTags>syrx</PackageTags>
   </PropertyGroup>
 
 </Project>

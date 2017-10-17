@@ -3,14 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>A collection of interfaces for building configuration sources and types for use in the Syrx framework.</Description>
-    <PackageLicenseUrl>https://github.com/SyrxCommander/Syrx</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/SyrxCommander/Syrx</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/SyrxCommander/Syrx</RepositoryUrl>
-    <PackageReleaseNotes>1.0.0 release, ported to .NET Standard 2.0.</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/Syrx</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Syrx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
+    <PackageReleaseNotes>• Removed redundant Types setting on ISettings.
+• Improved documentation.</PackageReleaseNotes>
+    <Copyright>https://github.com/Syrx</Copyright>
+    <PackageTags>syrx</PackageTags>
   </PropertyGroup>
 
 </Project>

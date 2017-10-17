@@ -9,9 +9,22 @@ using System.Collections.Generic;
 
 namespace Syrx.Settings
 {
+    /// <summary>
+    /// Provides the grouping of <see cref="ITypeSetting{TCommandSetting}"/> according 
+    /// to namespaces allowing the configuration to be structured similarly to 
+    /// the code.
+    /// </summary>
+    /// <typeparam name="TCommandSetting"></typeparam>
     public interface INamespaceSetting<TCommandSetting> where TCommandSetting : ICommandSetting
     {
+        /// <summary>
+        /// The fully qualified namespace.
+        /// </summary>
         string Namespace { get; set; }
+
+        /// <summary>
+        /// The collection of types within this namespace to which this configuration applies. 
+        /// </summary>
         IEnumerable<ITypeSetting<TCommandSetting>> Types { get; set; }
     }
 }
