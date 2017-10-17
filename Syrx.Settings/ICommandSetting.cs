@@ -7,8 +7,15 @@
 
 namespace Syrx.Settings
 {
+    /// <summary>
+    /// Represents the configuration of a command to be 
+    /// executed against a data source.
+    /// </summary>
     public interface ICommandSetting
     {
-        string ConnectionAlias { get; } // not sure about this. 
+        /// <summary>
+        /// Bridges this command setting to its connection. 
+        /// </summary>
+        string ConnectionAlias { get; } 
     }
 }

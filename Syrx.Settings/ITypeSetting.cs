@@ -9,9 +9,21 @@ using System.Collections.Generic;
 
 namespace Syrx.Settings
 {
+    /// <summary>
+    /// Represents a type which will be used for persistence and retrieval operations. 
+    /// This is typically a repository.
+    /// </summary>
+    /// <typeparam name="TCommandSetting"></typeparam>
     public interface ITypeSetting<TCommandSetting> where TCommandSetting : ICommandSetting
     {
+        /// <summary>
+        /// The fully qualified name of the type.
+        /// </summary>
         string Name { get; }
+
+        /// <summary>
+        /// The collection of commands used by this type for peristence and retrieval operations. 
+        /// </summary>
         IDictionary<string, TCommandSetting> Commands { get; }
     }
 }

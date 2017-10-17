@@ -5,14 +5,19 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-using System;
 using System.Collections.Generic;
 
 namespace Syrx.Settings
 {
+    /// <summary>
+    /// This is the root settings element for all Syrx commanders.
+    /// </summary>
+    /// <typeparam name="TCommandSetting"></typeparam>
     public interface ISettings<TCommandSetting> where TCommandSetting : ICommandSetting
     {
-        IEnumerable<INamespaceSetting<TCommandSetting>> Namespaces { get; }
-        IEnumerable<Type> Types { get; set; }
+        /// <summary>
+        /// The collection of all types, grouped into namespaces. 
+        /// </summary>
+        IEnumerable<INamespaceSetting<TCommandSetting>> Namespaces { get; }        
     }
 }

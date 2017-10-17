@@ -7,10 +7,12 @@
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>Core interface for building connections into arbitrary data sources.</Description>
-    <PackageLicenseUrl>https://github.com/SyrxCommander/Syrx</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/SyrxCommander/Syrx</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/SyrxCommander/Syrx</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/Syrx</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Syrx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
     <PackageReleaseNotes>• Updated package information.</PackageReleaseNotes>
+    <Copyright>https://github.com/Syrx</Copyright>
+    <PackageTags>syrx</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
