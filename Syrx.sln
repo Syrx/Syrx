@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Settings", "Syrx.Settings\Syrx.Settings.csproj", "{902AF707-AFC6-40DE-9334-47081FBFAF97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Settings", "src\Syrx.Settings\Syrx.Settings.csproj", "{902AF707-AFC6-40DE-9334-47081FBFAF97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Readers", "Syrx.Readers\Syrx.Readers.csproj", "{B0FD39CE-2117-415D-93F4-C8FB5192E796}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Readers", "src\Syrx.Readers\Syrx.Readers.csproj", "{B0FD39CE-2117-415D-93F4-C8FB5192E796}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Connectors", "Syrx.Connectors\Syrx.Connectors.csproj", "{33719456-6BAB-47A5-84F4-C612C7E93A6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Connectors", "src\Syrx.Connectors\Syrx.Connectors.csproj", "{33719456-6BAB-47A5-84F4-C612C7E93A6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx", "Syrx\Syrx.csproj", "{6D8D2E3F-EE1D-4CC4-AE4F-7462696549F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx", "src\Syrx\Syrx.csproj", "{6D8D2E3F-EE1D-4CC4-AE4F-7462696549F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C701ED5F-4C3A-4232-AD4C-6DB10E84CEEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D3144577-E4FF-4B60-A299-E86B8F01017F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6AE85D2D-5AD3-4196-AA71-EB6CA42DF388}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +42,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{902AF707-AFC6-40DE-9334-47081FBFAF97} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{B0FD39CE-2117-415D-93F4-C8FB5192E796} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{33719456-6BAB-47A5-84F4-C612C7E93A6B} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{6D8D2E3F-EE1D-4CC4-AE4F-7462696549F1} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E10C114-A98F-4FCC-BCB7-528DEA8B47B5}
