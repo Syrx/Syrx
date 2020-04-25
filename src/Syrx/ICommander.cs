@@ -18,7 +18,7 @@ namespace Syrx
     /// <summary>
     ///     Basically breaks down into two distinct operations for mutating data/retrieving data.
     /// </summary>
-    public partial interface ICommander<TRepository> : IDisposable
+    public partial interface ICommander<TRepository> : IExecuteAsyncCommander<TRepository>, IQueryAsyncCommander<TRepository>
     {
     }
 }

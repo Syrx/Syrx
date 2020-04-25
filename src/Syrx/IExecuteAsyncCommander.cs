@@ -18,11 +18,10 @@ using System.Transactions;
 
 namespace Syrx
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Basically breaks down into two distinct operations for mutating data/retrieving data
     /// </summary>
-    public partial interface ICommander<TRepository>
+    public partial interface IExecuteAsyncCommander<TRepository> : IDisposable
     {
         /// <summary>
         ///     Executes an arbitrary command against the underlying datastore asynchronously.
@@ -30,7 +29,7 @@ namespace Syrx
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        Task<bool> ExecuteAsync<T>(CancellationToken cancellationToken = default(CancellationToken),
+        Task<bool> ExecuteAsync<T>(CancellationToken cancellationToken = default,
             [CallerMemberName] string method = null);
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace Syrx
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        Task<bool> ExecuteAsync<T>(T model, CancellationToken cancellationToken = default(CancellationToken),
+        Task<bool> ExecuteAsync<T>(T model, CancellationToken cancellationToken = default,
             [CallerMemberName] string method = null);
 
         /// <summary>
@@ -58,6 +57,6 @@ namespace Syrx
         Task<TResult> ExecuteAsync<TResult>(Func<TResult> map,
             TransactionScopeOption scopeOption = TransactionScopeOption.Suppress,
             TransactionScopeAsyncFlowOption asyncFlowOption = TransactionScopeAsyncFlowOption.Enabled,
-            CancellationToken cancellationToken = default(CancellationToken), [CallerMemberName] string method = null);
+            CancellationToken cancellationToken = default, [CallerMemberName] string method = null);
     }
 }
