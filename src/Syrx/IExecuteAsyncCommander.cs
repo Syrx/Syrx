@@ -5,23 +5,13 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-#region
-
-using System;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
-// ReSharper disable UnusedTypeParameter
-
-#endregion
-
 namespace Syrx
 {
     /// <summary>
-    ///     Basically breaks down into two distinct operations for mutating data/retrieving data
+    /// Provides asychronous write operations. 
     /// </summary>
-    public partial interface IExecuteAsyncCommander<TRepository> : IDisposable
+    /// <typeparam name="TRepository"></typeparam>
+    public interface IExecuteAsyncCommander<TRepository> : IDisposable
     {
         /// <summary>
         ///     Executes an arbitrary command against the underlying datastore asynchronously.
@@ -29,18 +19,18 @@ namespace Syrx
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        Task<bool> ExecuteAsync<T>(CancellationToken cancellationToken = default,
+        Task<bool> ExecuteAsync<TResult>(CancellationToken cancellationToken = default,
             [CallerMemberName] string method = null);
 
         /// <summary>
         ///     Executes a potentially state changing operation asynchronously.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
         /// <param name="model">The model.</param>        
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        Task<bool> ExecuteAsync<T>(T model, CancellationToken cancellationToken = default,
+        Task<bool> ExecuteAsync<TResult>(TResult model, CancellationToken cancellationToken = default,
             [CallerMemberName] string method = null);
 
         /// <summary>

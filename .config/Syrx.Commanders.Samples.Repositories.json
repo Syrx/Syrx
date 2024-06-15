@@ -1,0 +1,47 @@
+{
+  "Namespaces": [
+    {
+      "Namespace": "Syrx.Commanders.Samples",
+      "Types": [
+        {
+          "Name": "Syrx.Commanders.Samples.Repositories.CurrencyCodeRepository",
+          "Commands": {
+            "CreateAsync": {
+              "CommandText": "select 1/0;",
+              "Flags": 1,
+              "ConnectionAlias": "Syrx.Sql"
+            },
+            "RetriveAsync": {
+              "CommandText":
+                "select [code],[numeric],[name],[decimals] from [Currency].[Iso4217] where [code] = @identifier;",
+              "Flags": 1,
+              "ConnectionAlias": "Syrx.Sql"
+            },
+            "RetrieveAllAsync": {
+              "CommandText": "select [code],[numeric],[name],[decimals] from [Currency].[Iso4217];",
+              "Flags": 1,
+              "ConnectionAlias": "Syrx.Sql"
+            },
+            "UpdateAsync": {
+              "CommandText": "waitfor delay '00:00:05';",
+              "Flags": 1,
+              "ConnectionAlias": "Syrx.Sql"
+            },
+            "DeleteAsync#": {
+              "CommandText": "waitfor delay '00:00:05';",
+              "Flags": 1,
+              "ConnectionAlias": "Syrx.Sql"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "Connections": [
+    {
+      "Alias": "Syrx.Sql",
+      "ConnectionString": "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=Syrx.Samples;Integrated Security=true;",
+      "Connector": "Syrx.Commanders.Databases.Connectors.SqlServer.SqlServerDatabaseConnector"
+    }
+  ]
+}

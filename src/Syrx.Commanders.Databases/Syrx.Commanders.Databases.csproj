@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors\Syrx.Commanders.Databases.Connectors.csproj" />
+    <ProjectReference Include="..\Syrx.Commanders.Databases.Settings.Readers\Syrx.Commanders.Databases.Settings.Readers.csproj" />
+    <ProjectReference Include="..\Syrx\Syrx.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
+    <ProjectReference Include="..\Syrx.Readers\Syrx.Readers.csproj" />
+  </ItemGroup>
+
+</Project>

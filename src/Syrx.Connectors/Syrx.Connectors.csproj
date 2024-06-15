@@ -1,30 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+	  <TargetFramework>net8.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.0</Version>
+    <Version>2.0.0</Version>
     <Authors>@sextondjc</Authors>
     <Company />
     <Description>Core interface for building connections into arbitrary data sources.</Description>
+    <PackageLicenseUrl>https://github.com/Syrx</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Syrx</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
-    <PackageReleaseNotes>Updated to .NET standard 2.1.</PackageReleaseNotes>
+    <PackageReleaseNotes>• Updated package information.</PackageReleaseNotes>
     <Copyright>https://github.com/Syrx</Copyright>
     <PackageTags>syrx</PackageTags>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageLicenseFile>license.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Syrx.Settings\Syrx.Settings.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\license.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

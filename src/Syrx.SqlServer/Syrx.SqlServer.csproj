@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Syrx.SqlServer</AssemblyName>
+
+		<Version>2.0.0</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>sextondjc</Authors>
+		<Company>Syrx</Company>
+		<Copyright>https://github.com/Syrx/Syrx</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/Syrx</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
+		<Description>Package built specifically for SQL Server, contains all the necessary package references for simplified installation.</Description>
+		<PackageReleaseNotes>Updated runtime and widened API surface for multiamp types.</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.SqlServer.Extensions\Syrx.Commanders.Databases.Connectors.SqlServer.Extensions.csproj" />
+	  <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.SqlServer\Syrx.Commanders.Databases.Connectors.SqlServer.csproj" />
+	  <ProjectReference Include="..\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
+	  <ProjectReference Include="..\Syrx.Extensions\Syrx.Extensions.csproj" />
+	</ItemGroup>
+
+</Project>
