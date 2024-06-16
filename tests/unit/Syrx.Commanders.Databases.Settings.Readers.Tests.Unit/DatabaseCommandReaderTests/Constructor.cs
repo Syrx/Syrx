@@ -5,6 +5,9 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
+using Microsoft.Extensions.Options;
+using Syrx.Commanders.Databases.Extensions.Configuration;
+
 namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandReaderTests
 {
     public class Constructor
@@ -12,15 +15,19 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
         [Fact]
         public void NullSettingsThrowsArgumentNullException()
         {
-            var result = Throws<ArgumentNullException>(() => new DatabaseCommandReader(null));
-            const string expected = "Value cannot be null. (Parameter 'settings. No settings were passed to DatabaseCommandReader.')";
+            // todo: replace with null
+            CommanderOptions options = null;
+            var result = Throws<ArgumentNullException>(() => new DatabaseCommandReader(options));
+            const string expected = "Value cannot be null. (Parameter 'options. No settings were passed to DatabaseCommandReader.')";
             result.HasMessage(expected);
         }
 
         [Fact]
         public void Successfully()
         {
-            var result = new DatabaseCommandReader(SettingsDouble.GetSettings());
+            var settings = SettingsDouble.GetOptions();
+            var options = Options.Create(settings);
+            var result = new DatabaseCommandReader(settings);
             NotNull(result);
         }
     }

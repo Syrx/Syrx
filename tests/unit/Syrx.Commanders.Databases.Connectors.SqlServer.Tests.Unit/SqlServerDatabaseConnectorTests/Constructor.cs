@@ -5,7 +5,8 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-using Syrx.Commanders.Databases.Settings;
+using Syrx.Commanders.Databases.Extensions.Configuration;
+using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
 using Syrx.Tests.Extensions;
 using static Xunit.Assert;
 
@@ -13,29 +14,16 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Tests.Unit.SqlServerDat
 {
     public class Constructor
     {
-        private readonly IDatabaseCommanderSettings _settings;
+        private readonly CommanderOptions _settings;
         public Constructor()
         {
-            _settings = new DatabaseCommanderSettings(
-                new List<DatabaseCommandNamespaceSetting>
-                {
-                    new DatabaseCommandNamespaceSetting(
-                        typeof(DatabaseCommandNamespaceSetting).Namespace,
-                        new List<DatabaseCommandTypeSetting>
-                        {
-                            new DatabaseCommandTypeSetting(
-                                typeof(DatabaseCommandTypeSetting).FullName,
-                                new Dictionary<string, DatabaseCommandSetting>
-                                {
-                                    ["Retrieve"] =
-                                    new DatabaseCommandSetting("test.alias", "select 'Readers.Test.Settings'")
-                                })
-                        })
-                }
-                , new List<ConnectionStringSetting>
-                {
-                    new ConnectionStringSetting("test.alias", "connectionString")
-                });
+            _settings = CommanderOptionsBuilderExtensions.Build(
+                a => a.AddCommand(
+                    b => b.ForType<Constructor>(
+                        c => c.ForMethod(nameof(Successfully),
+                        d => d.UseConnectionAlias("test-alias")
+                        .UseCommandText("test-command-text")))));
+
         }
 
         [Fact]

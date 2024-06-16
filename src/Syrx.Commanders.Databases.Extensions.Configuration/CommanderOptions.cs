@@ -1,10 +1,15 @@
-﻿
-namespace Syrx.Commanders.Databases.Extensions.Configuration
+﻿namespace Syrx.Commanders.Databases.Extensions.Configuration
 {
-    public sealed record CommanderOptions
+    public interface ICommanderOptions
+    {
+        List<ConnectionStringSettingOptions>? Connections { get; init; }
+        List<NamespaceSettingOptions> Namespaces { get; init; }
+    }
+
+    public sealed record CommanderOptions : ICommanderOptions
     {
         public required List<NamespaceSettingOptions> Namespaces { get; init; }
-        
+
         public List<ConnectionStringSettingOptions>? Connections { get; init; }
     }
 }

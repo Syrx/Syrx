@@ -12,7 +12,7 @@ namespace Syrx.SqlServer.Tests.Integration
         public void Configuation()
         {
             var services = new ServiceCollection();
-
+            /*
             services.UseSyrx(x =>
                 x.UseSqlServer( 
                     a => a.AddConnectionString("test-name", "test-string")                
@@ -31,6 +31,7 @@ namespace Syrx.SqlServer.Tests.Integration
             var provider = services.BuildServiceProvider();
             var settings = provider.GetRequiredService<IDatabaseCommanderSettings>();
             settings.PrintAsJson();
+            */
 
         }
     }

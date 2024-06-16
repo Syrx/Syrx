@@ -84,7 +84,10 @@ New connection string: {options.ConnectionString}");
                         return;
                     }
 
-
+                    // as we're already in the same namespace, add
+                    // to that one instead. 
+                    ns.Types.AddRange(option.Types);
+                    return;
                 }
             }
 

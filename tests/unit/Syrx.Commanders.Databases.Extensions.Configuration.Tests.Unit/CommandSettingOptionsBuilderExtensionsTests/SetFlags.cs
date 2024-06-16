@@ -32,7 +32,7 @@ namespace Syrx.Commanders.Databases.Extensions.Configuration.Tests.Unit.CommandS
         }
 
 
-        private static IEnumerable<object[]> AllFlags()
+        public static IEnumerable<object[]> AllFlags()
         {
             var flags = EnumExtensions.GetFlags<CommandFlagSetting>();
             var settings = flags as CommandFlagSetting[] ?? flags.ToArray();

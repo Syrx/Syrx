@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Connectors\Syrx.Commanders.Databases.Connectors.csproj" />
+    <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Extensions.Configuration\Syrx.Commanders.Databases.Extensions.Configuration.csproj" />
+    <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Settings.Extensions\Syrx.Commanders.Databases.Settings.Extensions.csproj" />
     <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
     <ProjectReference Include="..\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj" />
   </ItemGroup>

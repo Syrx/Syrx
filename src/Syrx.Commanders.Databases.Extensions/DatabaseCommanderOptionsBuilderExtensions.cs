@@ -4,10 +4,23 @@
 // site        : https://www.github.com/syrx
 // ========================================================================================================================================================
 
+using Syrx.Commanders.Databases.Extensions.Configuration;
+
 namespace Syrx.Commanders.Databases.Extensions
 {
     public static class DatabaseCommanderOptionsBuilderExtensions
     {
+        /*public static SyrxOptionsBuilder UseDatabaseCommander(
+            this SyrxOptionsBuilder options,
+            CommanderOptions settings)
+        {
+            options.ServiceCollection
+                .AddDatabaseCommander(settings);
+            return options;
+        }*/
+
+
+        /*
         public static SyrxOptionsBuilder UseDatabaseCommander(
             this SyrxOptionsBuilder options,
             IDatabaseCommanderSettings settings)
@@ -32,6 +45,7 @@ namespace Syrx.Commanders.Databases.Extensions
         {
             return options.UseDatabaseCommander(factory);
         }
+        */
 
     }
 }

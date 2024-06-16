@@ -5,6 +5,9 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
+using Syrx.Commanders.Databases.Extensions.Configuration;
+using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
+using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandReaderTests;
 
 namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit
@@ -13,33 +16,18 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit
     {
         public static IDatabaseCommanderSettings GetSettings()
         {
-            return new DatabaseCommanderSettings(
-                new List<DatabaseCommandNamespaceSetting>
-                {
-                    new DatabaseCommandNamespaceSetting(
-                        typeof(GetCommand).Namespace,
-                        new List<DatabaseCommandTypeSetting>
-                        {
-                            new DatabaseCommandTypeSetting(
-                                typeof(Constructor).FullName,
-                                new Dictionary<string, DatabaseCommandSetting>
-                                {
-                                    ["Retrieve"] =
-                                    new DatabaseCommandSetting("test_alias", "select 'Readers.Test.Settings'")
-                                }),
-                            new DatabaseCommandTypeSetting(
-                                typeof(GetCommand).FullName,
-                                new Dictionary<string, DatabaseCommandSetting>
-                                {
-                                    ["Retrieve"] =
-                                    new DatabaseCommandSetting("test_alias", "select 'Readers.Test.Settings'")
-                                })
-                        })
-                }
-                , new List<ConnectionStringSetting>
-                {
-                    new ConnectionStringSetting("test_alias", "connectionString")
-                });
+            return GetOptions().ToSettings();
+        }
+
+        public static CommanderOptions GetOptions()
+        {
+            return CommanderOptionsBuilderExtensions.Build(
+                a => a.AddConnectionString("test-alias", "test-connection-string")
+                      .AddCommand(
+                        b => b.ForType<GetCommand>(
+                            c => c.ForMethod("Retrieve",
+                                d => d.UseCommandText("test-command-text")
+                                      .UseConnectionAlias("test-alias")))));
         }
     }
 }

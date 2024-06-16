@@ -16,7 +16,10 @@ namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
             Setup();
         }
 
-        internal protected ICommander<TRepository> GetCommander<TRepository>() => _services.GetService<ICommander<TRepository>>();
+        internal protected ICommander<TRepository> GetCommander<TRepository>()
+        {
+            return _services.GetService<ICommander<TRepository>>();
+        }
 
         internal protected void Setup(string name = "Syrx")
         {

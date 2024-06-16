@@ -5,6 +5,8 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
+using Syrx.Commanders.Databases.Extensions.Configuration;
+using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
 using Syrx.Commanders.Databases.Settings;
 using System.Data;
 using static Xunit.Assert;
@@ -13,32 +15,20 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Tests.Unit.SqlServerDat
 {
     public class CreateConnection
     {
-        private readonly IDatabaseCommanderSettings _settings;
+        private readonly CommanderOptions _settings;
         private readonly IDatabaseConnector _connector;
         public CreateConnection()
         {
-            _settings = new DatabaseCommanderSettings(
-                new List<DatabaseCommandNamespaceSetting>
-                {
-                    new DatabaseCommandNamespaceSetting(
-                        typeof(DatabaseCommandNamespaceSetting).Namespace,
-                        new List<DatabaseCommandTypeSetting>
-                        {
-                            new DatabaseCommandTypeSetting(
-                                typeof(DatabaseCommandTypeSetting).FullName,
-                                new Dictionary<string, DatabaseCommandSetting>
-                                {
-                                    ["Retrieve"] =
-                                    new DatabaseCommandSetting("test.alias", "select 'Readers.Test.Settings'")
-                                })
-                        })
-                }
-                , new List<ConnectionStringSetting>
-                {
-                    new ConnectionStringSetting("test.alias", "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=master;Integrated Security=true;")
-                });
+            _settings = CommanderOptionsBuilderExtensions.Build(
+                a => a.AddConnectionString("test.alias", "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=master;Integrated Security=true;")
+                .AddCommand(
+                    b => b.ForType<CreateConnection>(
+                    c => c.ForMethod(nameof(Successfully), 
+                    d => d.UseConnectionAlias("test.alias")
+                          .UseCommandText("select 'readers.test.settings'")))));
 
             _connector = new SqlServerDatabaseConnector(_settings);
+
         }
 
         [Fact]

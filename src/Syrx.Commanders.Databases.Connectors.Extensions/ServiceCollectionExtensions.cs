@@ -6,7 +6,7 @@ namespace Syrx.Commanders.Databases.Connectors.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-
+        /*
         public static IServiceCollection AddProvider(
             this IServiceCollection services,
             Func<DbProviderFactory> providerFactory)
@@ -26,5 +26,6 @@ namespace Syrx.Commanders.Databases.Connectors.Extensions
                 typeof(TImplementation),
                 lifetime);
         }
+        */
     }
 }

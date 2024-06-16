@@ -6,7 +6,9 @@
 
 namespace Syrx.Commanders.Databases.Settings.Readers
 {
-    public interface IDatabaseCommandReader : ICommandReader<DatabaseCommandSetting>
+    public interface IDatabaseCommandReader //: ICommandReader<DatabaseCommandSetting>
     {
+        //DatabaseCommandSetting GetCommand(Type type, string key);
+        Extensions.Configuration.CommandSettingOptions GetCommand(Type type, string key);
     }
 }

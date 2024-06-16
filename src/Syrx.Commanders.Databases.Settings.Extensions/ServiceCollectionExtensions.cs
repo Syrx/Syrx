@@ -1,8 +1,8 @@
-﻿
-namespace Syrx.Commanders.Databases.Settings.Extensions
+﻿namespace Syrx.Commanders.Databases.Settings.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        /*
         public static IServiceCollection AddSettings(
          this IServiceCollection services,
          IDatabaseCommanderSettings settings)
@@ -11,6 +11,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions
                 typeof(IDatabaseCommanderSettings),
                 settings);
         }
-
+        */
     }
 }

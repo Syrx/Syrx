@@ -4,13 +4,17 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
+using Syrx.Commanders.Databases.Extensions.Configuration;
+
 namespace Syrx.Commanders.Databases.Connectors
 {
     /// <summary>
     ///     Used to create database connections against an underlying data store.
     /// </summary>
-    public interface IDatabaseConnector : IConnector<IDbConnection, DatabaseCommandSetting>
+    public interface IDatabaseConnector //: IConnector<IDbConnection, DatabaseCommandSetting>
     {
+        //IDbConnection CreateConnection(DatabaseCommandSetting commandSetting);
+        IDbConnection CreateConnection(CommandSettingOptions options);
     }
 }
 

@@ -1,28 +1,34 @@
-﻿using Syrx.Commanders.Databases.Settings.Extensions.Options;
+﻿using Syrx.Commanders.Databases.Extensions.Configuration;
+using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
+using Syrx.Commanders.Databases.Settings.Extensions.Options;
 using Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests;
 
 namespace Syrx.Commanders.Databases.Tests.Integration.Setup
 {
     public static class DatabaseSetupExtensions
     {
-        const string alias = "Syrx.Sql";
+        const string Alias = "Syrx.Sql";
 
-        public static DatabaseCommanderSettingsOptions AddConnectionStrings(this DatabaseCommanderSettingsOptions options)
+        public static CommanderOptionsBuilder AddConnectionStrings(this CommanderOptionsBuilder builder)
         {
-            options
-                .AddConnectionString(alias, "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=Syrx;Integrated Security=true;")
-                .AddConnectionString("Syrx.Sql.Master", "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=master;Integrated Security=true;");
-            return options;
+            return builder
+                .AddConnectionString(a => a
+                    .UseAlias(Alias)
+                    .UseConnectionString("Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=Syrx;Integrated Security=true;"))
+                .AddConnectionString(a => a
+                    .UseAlias("Syrx.Sql.Master")
+                    .UseConnectionString("Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=master;Integrated Security=true;"));
         }
-
-        public static DatabaseCommanderSettingsOptions AddSetupBuilderCommands(this DatabaseCommanderSettingsOptions options)
+        
+        public static CommanderOptionsBuilder AddSetupBuilderOptions(this CommanderOptionsBuilder builder)
         {
-            options
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateDatabase))
-                       .AgainstConnectionAlias("Syrx.Sql.Master")
-                       .UseCommandText(@"declare @sql nvarchar(max)
+            return builder.AddCommand(
+                a => a.ForType<DatabaseBuilder>(
+                    b => b
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateDatabase), c => c
+                        .UseConnectionAlias("Syrx.Sql.Master")
+                        .UseCommandText(@"declare @sql nvarchar(max)
        ,@template nvarchar(max) = N'
 -- create
 if not exists (select * from [sys].[databases] where [name] = ''%name'')
@@ -33,16 +39,14 @@ end';
 select @sql = replace(@template, '%name', @name);
 exec [sys].[sp_executesql] @sql;
 "))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.DropTableCreatorProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"drop procedure if exists [dbo].[usp_create_table];"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateTableCreatorProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"create procedure [dbo].[usp_create_table]
+                    .ForMethod(
+                        nameof(DatabaseBuilder.DropTableCreatorProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"drop procedure if exists [dbo].[usp_create_table];"))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateTableCreatorProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"create procedure [dbo].[usp_create_table]
 (@name nvarchar(max))
 as
 begin
@@ -70,22 +74,19 @@ begin
     select @sql = replace(@template, '%name', @name);
     exec [sys].[sp_executesql] @sql;
 end;"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateTable))
-                       .AgainstConnectionAlias(alias)
-                       .UsingCommandType(System.Data.CommandType.StoredProcedure)
-                       .UseCommandText(@"[dbo].[usp_create_table]"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.DropIdentityTesterProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"drop procedure if exists [dbo].[usp_identity_tester];"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateIdentityTesterProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"create procedure [dbo].[usp_identity_tester]
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateTable), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"[dbo].[usp_create_table]")
+                        .SetCommandType(System.Data.CommandType.StoredProcedure))                    
+                    .ForMethod(
+                        nameof(DatabaseBuilder.DropIdentityTesterProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"drop procedure if exists [dbo].[usp_identity_tester];"))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateIdentityTesterProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"create procedure [dbo].[usp_identity_tester]
     @name varchar(50)
    ,@value decimal(18, 2)
 as
@@ -102,16 +103,14 @@ begin
 
     select scope_identity();
 end;"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.DropBulkInsertProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"drop procedure if exists [dbo].[usp_bulk_insert];"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateBulkInsertProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"create procedure [dbo].[usp_bulk_insert]
+                    .ForMethod(
+                        nameof(DatabaseBuilder.DropBulkInsertProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"drop procedure if exists [dbo].[usp_bulk_insert];"))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateBulkInsertProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"create procedure [dbo].[usp_bulk_insert]
 (@path varchar(max))
 as
 begin
@@ -125,16 +124,14 @@ begin
     select @command = replace(@template, '%path', @path);
     exec [sys].[sp_executesql] @command;
 end;"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.DropBulkInsertAndReturnProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"drop procedure if exists [dbo].[usp_bulk_insert_and_return];"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateBulkInsertAndReturnProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"create procedure [dbo].[usp_bulk_insert_and_return]
+                    .ForMethod(
+                        nameof(DatabaseBuilder.DropBulkInsertAndReturnProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"drop procedure if exists [dbo].[usp_bulk_insert_and_return];"))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateBulkInsertAndReturnProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"create procedure [dbo].[usp_bulk_insert_and_return]
 (@path varchar(max))
 as
 begin
@@ -151,16 +148,14 @@ begin
     select *
     from [dbo].[bulk_insert];
 end;"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.DropTableClearingProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"drop procedure if exists [dbo].[usp_clear_table];"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.CreateTableClearingProcedure))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"create procedure [dbo].[usp_clear_table]
+                    .ForMethod(
+                        nameof(DatabaseBuilder.DropTableClearingProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"drop procedure if exists [dbo].[usp_clear_table];"))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.CreateTableClearingProcedure), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"create procedure [dbo].[usp_clear_table]
 (@name nvarchar(max))
 as
 begin
@@ -174,56 +169,50 @@ begin
     select @sql = replace(@template, '%name', @name);
     exec [sys].[sp_executesql] @sql;
 end;"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.ClearTable))
-                       .AgainstConnectionAlias(alias)
-                       .UsingCommandType(System.Data.CommandType.StoredProcedure)
-                       .UseCommandText(@"[dbo].[usp_clear_table]"))
-                .AddCommand(c => c
-                       .ForRepositoryType<DatabaseBuilder>()
-                       .ForMethodNamed(nameof(DatabaseBuilder.Populate))
-                       .AgainstConnectionAlias(alias)
-                       .UseCommandText(@"insert into Poco([Name], [Value], [Modified]) select @Name, @Value, @Modified;"))
-            ;
-            return options;
+                    .ForMethod(
+                        nameof(DatabaseBuilder.ClearTable), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"[dbo].[usp_clear_table]")
+                        .SetCommandType(System.Data.CommandType.StoredProcedure))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.Populate), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"insert into Poco([Name], [Value], [Modified]) select @Name, @Value, @Modified;"))
+                    
+                    ));
         }
 
-        public static DatabaseCommanderSettingsOptions AddMultimapCommands(this DatabaseCommanderSettingsOptions options)
+        public static CommanderOptionsBuilder AddQueryMultimap(this CommanderOptionsBuilder builder)
         {
-            return options
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ExceptionsAreReturnedToCaller))
-                    .AgainstConnectionAlias(alias)
-                    .UseCommandText(@"select 1/0;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SingleType))
-                    .AgainstConnectionAlias(alias)
-                    .UseCommandText(@"
-select [id][Id]
+            return builder.AddCommand(
+                    b => b.ForType<Query>(
+                        c => c
+                        .ForMethod(
+                            nameof(Query.ExceptionsAreReturnedToCaller), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"select 1/0;"))
+                        .ForMethod(
+                            nameof(Query.SingleType), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"select [id][Id]
       ,[name][Name]
       ,[value][Value]
       ,[modified][Modified]
 from [poco];"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SingleTypeWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.SingleTypeWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [id][Id]
       ,[name][Name]
       ,[value][Value]
       ,[modified][Modified]
 from [poco]
 where [id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TwoTypes))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.TwoTypes), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -243,12 +232,10 @@ from [dbo].[poco] [a]
     ) [b]
         on [b].[Id] = ([a].[id] + 10)
 where 1 = 1;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TwoTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.TwoTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -268,12 +255,10 @@ from [dbo].[poco] [a]
     ) [b]
         on [b].[Id] = ([a].[id] + 1)
 where [a].[id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ThreeTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.ThreeTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -304,12 +289,10 @@ from [dbo].[poco] [a]
         from [dbo].[poco]
     ) [c] on [c].[Id] = ([b].[id] + 1)
 where [a].[id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FourTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.FourTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -355,12 +338,10 @@ from [dbo].[poco] [a]
     ) [d]
         on [d].[Id] = ([c].[Id] + 1)
 where [a].[id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FiveTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.FiveTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -415,12 +396,10 @@ from [dbo].[poco] [a]
         from [dbo].[poco]
     ) [e] on [e].[Id] = ([d].[Id] + 1)
 where [a].[id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SixTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.SixTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -487,12 +466,10 @@ from [dbo].[poco] [a]
         from [dbo].[poco]
     ) [f] on [f].[Id] = ([e].[Id] + 1)
 where [a].[id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SevenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.SevenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select [a].[id]
       ,[a].[name] [Name]
       ,[a].[value] [Value]
@@ -571,12 +548,10 @@ from [dbo].[poco] [a]
         from [dbo].[poco]
     ) [g] on [g].[Id] = ([f].[Id] + 1)
 where [a].[id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.EightTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.EightTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -650,12 +625,10 @@ from
     ) [h]
         on [h].[Id] = ([g].[Id] + 1)
 where [a].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.NineTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.NineTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -738,12 +711,10 @@ from
     ) [nine]
         on [nine].[Id] = ([eight].[Id] + 1)
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.TenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -835,12 +806,10 @@ from
     ) [ten]
         on [ten].[Id] = ([nine].[Id] + 1)
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ElevenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.ElevenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -939,12 +908,10 @@ from
         from [dbo].[poco]
     ) [eleven] on [eleven].[Id] = ([ten].[Id] + 1)
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TwelveTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.TwelveTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -1051,12 +1018,10 @@ from
         from [dbo].[poco]
     ) [twelve] on [twelve].[Id] = ([eleven].[Id] + 1)		
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ThirteenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.ThirteenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -1171,12 +1136,10 @@ from
         from [dbo].[poco]
     ) [thirteen] on [thirteen].[Id] = ([twelve].[Id] + 1)		
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FourteenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.FourteenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -1299,12 +1262,10 @@ from
         from [dbo].[poco]
     ) [fourteen] on [fourteen].[Id] = ([thirteen].[Id] + 1)		
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FifteenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.FifteenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -1435,12 +1396,10 @@ from
         from [dbo].[poco]
     ) [fifteen] on [fifteen].[Id] = ([fourteen].[Id] + 1)	
 where [one].[Id] = @id;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SixteenTypesWithParameters))
-                    .AgainstConnectionAlias(alias)
-                    .SplitResultsOn("Id")
-                    .UseCommandText(@"
+                        .ForMethod(
+                            nameof(Query.SixteenTypesWithParameters), d => d
+                            .UseConnectionAlias(Alias)
+                            .UseCommandText(@"
 select *
 from
 (
@@ -1578,20 +1537,17 @@ from
               ,[modified] [Modified]
         from [dbo].[poco]
     ) [sixteen] on [sixteen].[Id] = ([fifteen].[Id] + 1)
-where [one].[Id] = @id;"))
-
-                ;
-
-            //return options;
+where [one].[Id] = @id;"))));
+           
         }
-
-        public static DatabaseCommanderSettingsOptions AddMultipleCommands(this DatabaseCommanderSettingsOptions options)
+                
+        public static CommanderOptionsBuilder AddQueryMultiple(this CommanderOptionsBuilder builder)
         {
-            return options
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.OneTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+            return builder.AddCommand(
+                b => b.ForType<Query>(c => c
+                .ForMethod(
+                    nameof(Query.OneTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 1
        ,@loop int = 1
        ,@step int = 1
@@ -1615,10 +1571,35 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TwoTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.OneTypeMultiple) , d => d
+                    .UseConnectionAlias(Alias)
+                    .UseCommandText(@"declare @sets int = 1
+       ,@loop int = 1
+       ,@step int = 1
+	   ,@message nvarchar(max)
+       ,@params nvarchar(500) = N'@max int'
+       ,@template nvarchar(max) = N'
+select [id]
+      ,[name]
+      ,[value]
+      ,[modified]
+from [dbo].[poco]
+where [id] between 1 and @max';
+
+while @loop <= @sets
+begin
+
+	select @message = concat('@loop: ', @loop, ' @sets:', @sets, ' @step:', @step);
+	raiserror (@message, 10, 1) with nowait;
+	   
+    exec [sys].[sp_executesql] @template, @params, @max = @loop;
+    select @loop = @loop + 1;
+
+end;"))
+                .ForMethod(
+                    nameof(Query.TwoTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 2
        ,@loop int = 1
        ,@step int = 1
@@ -1642,10 +1623,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ThreeTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.ThreeTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 3
        ,@loop int = 1
        ,@step int = 1
@@ -1669,10 +1649,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FourTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.FourTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 4
        ,@loop int = 1
        ,@step int = 1
@@ -1696,10 +1675,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FiveTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.FiveTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 5
        ,@loop int = 1
        ,@step int = 1
@@ -1723,10 +1701,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SixTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.SixTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 6
        ,@loop int = 1
        ,@step int = 1
@@ -1750,10 +1727,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SevenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.SevenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 7
        ,@loop int = 1
        ,@step int = 1
@@ -1777,10 +1753,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.EightTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.EightTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 8
        ,@loop int = 1
        ,@step int = 1
@@ -1804,10 +1779,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.NineTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.NineTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 9
        ,@loop int = 1
        ,@step int = 1
@@ -1831,10 +1805,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.TenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 10
        ,@loop int = 1
        ,@step int = 1
@@ -1858,10 +1831,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ElevenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.ElevenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 11
        ,@loop int = 1
        ,@step int = 1
@@ -1885,10 +1857,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.TwelveTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.TwelveTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 12
        ,@loop int = 1
        ,@step int = 1
@@ -1912,10 +1883,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.ThirteenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.ThirteenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 13
        ,@loop int = 1
        ,@step int = 1
@@ -1939,10 +1909,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FourteenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.FourteenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 14
        ,@loop int = 1
        ,@step int = 1
@@ -1966,10 +1935,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.FifteenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.FifteenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 15
        ,@loop int = 1
        ,@step int = 1
@@ -1993,10 +1961,9 @@ begin
     select @loop = @loop + 1;
 
 end;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Query>()
-                    .ForMethodNamed(nameof(Query.SixteenTypeMultiple))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Query.SixteenTypeMultiple), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"declare @sets int = 16
        ,@loop int = 1
        ,@step int = 1
@@ -2019,24 +1986,20 @@ begin
     exec [sys].[sp_executesql] @template, @params, @max = @loop;
     select @loop = @loop + 1;
 
-end;"))
-                ;
-
-            //return options;
+end;"))));
         }
 
-        public static DatabaseCommanderSettingsOptions AddExecuteCommands(this DatabaseCommanderSettingsOptions options)
+        public static CommanderOptionsBuilder AddExecute(this CommanderOptionsBuilder builder)
         {
-            options
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.ExceptionsAreReturnedToCaller))
-                    .AgainstConnectionAlias(alias)
+            return builder.AddCommand(
+                b => b.ForType<Execute>(c => c
+                .ForMethod(
+                    nameof(Execute.ExceptionsAreReturnedToCaller), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText("select 1/0;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SupportParameterlessCalls))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SupportParameterlessCalls), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 declare @result table
 (
@@ -2050,24 +2013,21 @@ select 1;
 
 select *
 from @result;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed($"{nameof(Execute.SupportsRollbackOnParameterlessCalls)}.Count")
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    $"{nameof(Execute.SupportsRollbackOnParameterlessCalls)}.Count", d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 select count(1) [result]
 from [dbo].[poco];"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SupportsRollbackOnParameterlessCalls))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SupportsRollbackOnParameterlessCalls), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 delete from [dbo].[poco];
 select 1 / 0;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SupportsSuppressedDistributedTransactions))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SupportsSuppressedDistributedTransactions), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 insert into [dbo].[distributed_transaction]
 (
@@ -2078,18 +2038,16 @@ insert into [dbo].[distributed_transaction]
 select @Name
       ,@Value
       ,@Modified;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed($"{nameof(Execute.SupportsTransactionRollback)}.Count")
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    $"{nameof(Execute.SupportsTransactionRollback)}.Count", d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 select *
 from [dbo].[poco]
 where [name] = @Name;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SupportsTransactionRollback))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SupportsTransactionRollback), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 insert into [dbo].[poco]
 (
@@ -2098,10 +2056,9 @@ insert into [dbo].[poco]
 )
 select @Name
       ,@Value * power(@Value, @Value);"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SupportsEnlistingInAmbientTransactions))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SupportsEnlistingInAmbientTransactions), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 insert into [dbo].[distributed_transaction]
 (
@@ -2112,10 +2069,9 @@ insert into [dbo].[distributed_transaction]
 select @Name
       ,@Value
       ,@Modified;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SuccessfullyWithResponse))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SuccessfullyWithResponse), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 insert into [dbo].[poco]
 (
@@ -2126,10 +2082,9 @@ insert into [dbo].[poco]
 select @Name
       ,@Value
       ,@Modified;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed($"{nameof(Execute.SuccessfullyWithResponse)}.Response")
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    $"{nameof(Execute.SuccessfullyWithResponse)}.Response", d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 select [id]
       ,[name]
@@ -2137,10 +2092,9 @@ select [id]
       ,[modified]
 from [dbo].[poco]
 where [name] = @name;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.Successful))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.Successful), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 insert into [dbo].[poco]
 (
@@ -2151,10 +2105,9 @@ insert into [dbo].[poco]
 select @Name
       ,@Value
       ,@Modified;"))
-                .AddCommand(c => c
-                    .ForRepositoryType<Execute>()
-                    .ForMethodNamed(nameof(Execute.SingleType))
-                    .AgainstConnectionAlias(alias)
+                .ForMethod(
+                    nameof(Execute.SingleType), d => d
+                    .UseConnectionAlias(Alias)
                     .UseCommandText(@"
 insert into [dbo].[poco]
 (
@@ -2165,10 +2118,7 @@ insert into [dbo].[poco]
 select @Name
       ,@Value
       ,@Modified;"))
-
-
-                ;
-            return options;
+                ));
         }
 
         public static DatabaseCommanderSettingsOptions AddDisposeCommands(this DatabaseCommanderSettingsOptions options)
@@ -2176,7 +2126,7 @@ select @Name
             return options.AddCommand(
                     c => c.ForRepositoryType<Dispose>()
                         .ForMethodNamed(nameof(Dispose.Successfully))
-                        .AgainstConnectionAlias(alias)
+                        .AgainstConnectionAlias(Alias)
                         .UseCommandText(@"select cast(rand() * 100 as int);")
                         );
         }
