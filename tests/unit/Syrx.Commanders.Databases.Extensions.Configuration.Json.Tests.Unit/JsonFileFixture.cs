@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
+using Syrx.Commanders.Databases.Settings;
+using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Tests.Extensions;
 
 namespace Syrx.Commanders.Databases.Extensions.Configuration.Json.Tests.Unit
@@ -20,14 +21,14 @@ namespace Syrx.Commanders.Databases.Extensions.Configuration.Json.Tests.Unit
             ConfigurationBuilder = new ConfigurationBuilder();
         }
 
-        public string WriteToFile(CommanderOptions options)
+        public string WriteToFile(CommanderSettings options)
         {
             var path = FileName;
             File.WriteAllText(path, options.Serialize());
             return path;
         }
         
-        public CommanderOptions GetTestOptions<TType>()
+        public CommanderSettings GetTestOptions<TType>()
         {
             return
             CommanderOptionsBuilderExtensions.Build(

@@ -6,7 +6,6 @@
 //  =============================================================================================================================
 
 using Microsoft.Extensions.Options;
-using Syrx.Commanders.Databases.Extensions.Configuration;
 
 namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandReaderTests
 {
@@ -16,9 +15,9 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
         public void NullSettingsThrowsArgumentNullException()
         {
             // todo: replace with null
-            CommanderOptions options = null;
+            CommanderSettings options = null;
             var result = Throws<ArgumentNullException>(() => new DatabaseCommandReader(options));
-            const string expected = "Value cannot be null. (Parameter 'options. No settings were passed to DatabaseCommandReader.')";
+            const string expected = "Value cannot be null. (Parameter 'settings. No settings were passed to DatabaseCommandReader.')";
             result.HasMessage(expected);
         }
 

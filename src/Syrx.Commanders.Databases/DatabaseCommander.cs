@@ -3,8 +3,6 @@
 //  date         : 2017.10.15 (17:58)
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
-using Syrx.Commanders.Databases.Extensions.Configuration;
-
 namespace Syrx.Commanders.Databases
 {
     public partial class DatabaseCommander<TRepository> : ICommander<TRepository>
@@ -24,7 +22,7 @@ namespace Syrx.Commanders.Databases
 
         [Browsable(false)]
         private CommandDefinition GetCommandDefinition(
-            CommandSettingOptions setting,
+            CommandSetting setting,
             object parameters = null,
             IDbTransaction transaction = null,
             CancellationToken cancellationToken = default) => new CommandDefinition(

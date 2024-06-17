@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using Syrx.Commanders.Databases.Settings;
 using Syrx.Tests.Extensions;
 using static Xunit.Assert;
 
@@ -21,11 +21,11 @@ namespace Syrx.Commanders.Databases.Extensions.Configuration.Xml.Tests.Unit.Serv
 
             // act
             services.AddSyrxXmlFile(builder, filename);
-            services.Configure<CommanderOptions>(builder.Build());
+            services.Configure<CommanderSettings>(builder.Build());
 
             // finalze build
             var provider = services.BuildServiceProvider();
-            var resolved = provider.GetService<IOptions<CommanderOptions>>();
+            var resolved = provider.GetService<IOptions<CommanderSettings>>();
 
             // assertions
             NotNull(resolved);

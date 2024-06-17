@@ -6,8 +6,6 @@
 //  =============================================================================================================================
 
 using Moq;
-using Syrx.Commanders.Databases.Extensions.Configuration;
-using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
 using Syrx.Commanders.Databases.Settings;
 using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Tests.Extensions;
@@ -23,14 +21,14 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
         private const string ConnectionString = "test-connection-string";
         private const string CommandText = "select 'readers.test.settings'";
         private const string Method = "Retrieve";
-        private readonly CommanderOptions _settings;
+        private readonly CommanderSettings _settings;
 
         public Constructor()
         {
             _settings = CommanderOptionsBuilderExtensions.Build(
                 a => a
                 .AddConnectionString(Alias, ConnectionString)
-                .AddCommand(b => b.ForType<DatabaseCommandNamespaceSetting>(
+                .AddCommand(b => b.ForType<Constructor>(
                         c => c.ForMethod(Method, 
                         d => d.UseCommandText(CommandText).UseConnectionAlias(Alias)))));
 

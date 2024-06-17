@@ -6,14 +6,13 @@
 //  =============================================================================================================================
 
 using Microsoft.Data.SqlClient;
-using Syrx.Commanders.Databases.Extensions.Configuration;
 using Syrx.Commanders.Databases.Settings;
 
 namespace Syrx.Commanders.Databases.Connectors.SqlServer
 {
     public class SqlServerDatabaseConnector : DatabaseConnector
     {
-        public SqlServerDatabaseConnector(ICommanderOptions settings)
+        public SqlServerDatabaseConnector(ICommanderSettings settings)
             : base(settings, () => SqlClientFactory.Instance)
         {
         }

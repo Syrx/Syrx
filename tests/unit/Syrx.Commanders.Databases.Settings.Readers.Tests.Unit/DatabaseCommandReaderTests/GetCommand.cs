@@ -7,7 +7,6 @@
 
 
 using Microsoft.Extensions.Options;
-using Syrx.Commanders.Databases.Extensions.Configuration;
 using Syrx.Commanders.Databases.Settings.Extensions;
 
 namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandReaderTests
@@ -26,57 +25,57 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
             // to enforce the correct set up where as these tests are meant to
             // exercise what happens when we load a non-standard config. 
 
-            var options = new CommanderOptions
+            var options = new CommanderSettings
             {
                 Namespaces = [
-                    new NamespaceSettingOptions {
+                    new NamespaceSetting {
                         Namespace  = "Syrx",
                         Types = [
-                            new TypeSettingOptions {
+                            new TypeSetting {
                                 Name = "Syrx.RootNamespaceTest",
-                                Commands = new Dictionary<string, CommandSettingOptions>{
-                                    [Method] = new CommandSettingOptions{ ConnectionAlias = "test.alias.rootnamespace", CommandText = "root namespace" }
+                                Commands = new Dictionary<string, CommandSetting>{
+                                    [Method] = new CommandSetting{ ConnectionAlias = "test.alias.rootnamespace", CommandText = "root namespace" }
                                 }
                             },
-                            new TypeSettingOptions {
+                            new TypeSetting {
                                 Name = typeof(Syrx.Commanders.NotConfiguredNamespace.ParentNamespaceTest).FullName,
-                                Commands = new Dictionary<string, CommandSettingOptions>{
-                                    [nameof(FindsTypeInParentNamespace)] = new CommandSettingOptions{ ConnectionAlias = "test.alias.parentnamespace", CommandText = "parent namespace" }
+                                Commands = new Dictionary<string, CommandSetting>{
+                                    [nameof(FindsTypeInParentNamespace)] = new CommandSetting{ ConnectionAlias = "test.alias.parentnamespace", CommandText = "parent namespace" }
                                 }
                             }
                             ]
                     },
-                    new NamespaceSettingOptions {
+                    new NamespaceSetting {
                         Namespace = typeof(GetCommand).Namespace!,
                         Types = [
-                            new TypeSettingOptions{
+                            new TypeSetting{
                                 Name = $"{typeof(GetCommand).Namespace}.NoCommandSettingTest",
-                                Commands = new Dictionary<string, CommandSettingOptions>{
-                                    [Method] = new CommandSettingOptions{ ConnectionAlias = Alias, CommandText = CommandText }
+                                Commands = new Dictionary<string, CommandSetting>{
+                                    [Method] = new CommandSetting{ ConnectionAlias = Alias, CommandText = CommandText }
                                 }
                             },
-                            new TypeSettingOptions{
+                            new TypeSetting{
                                 Name = $"{typeof(GetCommand).Namespace}.ParentNamespaceTest",
-                                Commands = new Dictionary<string, CommandSettingOptions>{
-                                    [Method] = new CommandSettingOptions{ ConnectionAlias = "test.alias.parentnamespace", CommandText = "parent namespace" }
+                                Commands = new Dictionary<string, CommandSetting>{
+                                    [Method] = new CommandSetting{ ConnectionAlias = "test.alias.parentnamespace", CommandText = "parent namespace" }
                                 }
                             }
                             ]
                     },
-                    new NamespaceSettingOptions{
+                    new NamespaceSetting{
                         Namespace = "Syrx.Testing.Readers",
                         Types = [
-                            new TypeSettingOptions {
+                            new TypeSetting {
                                 Name =  "Syrx.Testing.Readers.FullNamespaceTest",
-                                Commands = new Dictionary<string, CommandSettingOptions>{
-                                    [Method] = new CommandSettingOptions { ConnectionAlias = "test.alias.fullnamespacetest", CommandText = "fullnamespacetest" }
+                                Commands = new Dictionary<string, CommandSetting>{
+                                    [Method] = new CommandSetting { ConnectionAlias = "test.alias.fullnamespacetest", CommandText = "fullnamespacetest" }
                                 }
                             }
                             ]
                     }
                     ],
                 Connections = [
-                    new ConnectionStringSettingOptions { Alias = Alias, ConnectionString = ConnectionString }
+                    new ConnectionStringSetting { Alias = Alias, ConnectionString = ConnectionString }
                     ]
             };
 

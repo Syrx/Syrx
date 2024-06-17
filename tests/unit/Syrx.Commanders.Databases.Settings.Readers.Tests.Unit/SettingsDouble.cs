@@ -5,8 +5,6 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-using Syrx.Commanders.Databases.Extensions.Configuration;
-using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
 using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandReaderTests;
 
@@ -14,12 +12,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit
 {
     public static class SettingsDouble
     {
-        public static IDatabaseCommanderSettings GetSettings()
-        {
-            return GetOptions().ToSettings();
-        }
-
-        public static CommanderOptions GetOptions()
+        public static CommanderSettings GetOptions()
         {
             return CommanderOptionsBuilderExtensions.Build(
                 a => a.AddConnectionString("test-alias", "test-connection-string")

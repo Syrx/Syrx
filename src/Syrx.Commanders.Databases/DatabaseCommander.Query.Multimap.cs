@@ -15,45 +15,8 @@ namespace Syrx.Commanders.Databases
             var command = GetCommandDefinition(setting, parameters);
             using var connection = _connector.CreateConnection(setting);
             return connection.Query<TResult>(command);
-        }
-
-        /* // not supported. yet. 
-        public IEnumerable<TResult> Query<T1, TResult>(
-            Func<T1, TResult> map,
-            object parameters = null,
-            [CallerMemberName] string method = null)
-        {
-            var setting = _reader.GetCommand(_type, method);
-            var command = GetCommandDefinition(setting, parameters);
-
-            var types = new Type[]
-            {
-                typeof(T1)
-            };
-
-            Func<object[], TResult> internalMapper = (a) =>
-            {
-                var one = (T1) a.Single();
-
-                return map(one);
-            };
-
-
-            using (var connection = _connector.CreateConnection(setting))
-            {
-                return connection.Query(
-                    sql: command.CommandText,
-                    types: types,
-                    map: internalMapper,
-                    param: parameters,
-                    buffered: command.Buffered,
-                    splitOn: setting.Split,
-                    commandTimeout: command.CommandTimeout,
-                    commandType: setting.CommandType);
-            }
-        }
-        */
-
+        }      
+        
         public IEnumerable<TResult> Query<T1, T2, TResult>(
             Func<T1, T2, TResult> map,
             object parameters = null,

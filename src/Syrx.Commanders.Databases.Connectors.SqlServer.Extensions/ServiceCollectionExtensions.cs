@@ -8,7 +8,6 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        /*
         internal static IServiceCollection AddSqlServer(this IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Transient)
         {
             return services.TryAddToServiceCollection(
@@ -16,6 +15,5 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Extensions
                 typeof(SqlServerDatabaseConnector),
                 lifetime);
         }
-        */
     }
 }

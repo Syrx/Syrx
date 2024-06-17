@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Syrx.Commanders.Databases.Settings;
 using static Xunit.Assert;
 
 namespace Syrx.Commanders.Databases.Extensions.Configuration.Json.Tests.Unit.ImportFromFileTests
@@ -22,10 +23,10 @@ namespace Syrx.Commanders.Databases.Extensions.Configuration.Json.Tests.Unit.Imp
             builder.AddJsonFile(fixture.FileName);
 
             // finish up the wire up
-            services.Configure<CommanderOptions>(builder.Build());
+            services.Configure<CommanderSettings>(builder.Build());
 
             var provider = services.BuildServiceProvider();
-            var resolved = provider.GetService<IOptions<CommanderOptions>>();
+            var resolved = provider.GetService<IOptions<CommanderSettings>>();
 
             // assertions
             NotNull(resolved);

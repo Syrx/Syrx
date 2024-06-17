@@ -297,7 +297,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                             IEnumerable<ImmutableType>,
                             IEnumerable<ImmutableType>>>>(
                     [
-                        new ImmutableType(1, "entry 1", 10, DateTime.UtcNow.Date)
+                        new ImmutableType(1, "entry 1", 10, DateTime.Today)
                     ],
                     (a) =>
                         [
@@ -1053,7 +1053,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
             private int _id;
             private string _name;
             private decimal _value = 1;
-            private DateTime _modified = DateTime.UtcNow.Date;
+            private DateTime _modified = DateTime.Today;
 
             public ImmutableTypeOptions()
             {

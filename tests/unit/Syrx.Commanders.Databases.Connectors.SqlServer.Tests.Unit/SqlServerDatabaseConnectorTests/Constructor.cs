@@ -5,8 +5,8 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-using Syrx.Commanders.Databases.Extensions.Configuration;
-using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
+using Syrx.Commanders.Databases.Settings;
+using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Tests.Extensions;
 using static Xunit.Assert;
 
@@ -14,7 +14,7 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Tests.Unit.SqlServerDat
 {
     public class Constructor
     {
-        private readonly CommanderOptions _settings;
+        private readonly CommanderSettings _settings;
         public Constructor()
         {
             _settings = CommanderOptionsBuilderExtensions.Build(

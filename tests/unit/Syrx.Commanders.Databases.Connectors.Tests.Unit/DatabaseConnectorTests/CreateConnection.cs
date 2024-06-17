@@ -6,8 +6,6 @@
 //  =============================================================================================================================
 
 using Moq;
-using Syrx.Commanders.Databases.Extensions.Configuration;
-using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
 using Syrx.Commanders.Databases.Settings;
 using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Tests.Extensions;
@@ -24,7 +22,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
         private const string CommandText = "select 'readers.test.settings'";
         private const string Method = "Retrieve";
 
-        private readonly CommanderOptions _settings;
+        private readonly CommanderSettings _settings;
 
         public CreateConnection()
         {
@@ -32,7 +30,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
                 a => a
                 .AddConnectionString(Alias, ConnectionString)
                 .AddCommand(
-                    b => b.ForType<DatabaseCommandNamespaceSetting>(
+                    b => b.ForType<CreateConnection>(
                     c => c.ForMethod(Method, 
                     d => d.UseConnectionAlias(Alias).UseCommandText(CommandText))))
                       );
@@ -43,7 +41,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
         {
             var providerMock = new Mock<DbProviderFactory>();
             var connector = new DatabaseConnector(_settings, () => providerMock.Object);
-            var setting = new CommandSettingOptions { ConnectionAlias = "does.not.exist", CommandText = CommandText };
+            var setting = new CommandSetting { ConnectionAlias = "does.not.exist", CommandText = CommandText };
 
             var result = Throws<NullReferenceException>(() => connector.CreateConnection(setting));
             Equal(
@@ -66,7 +64,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
             var providerMock = new Mock<DbProviderFactory>();
             providerMock.Setup(x => x.CreateConnection()).Throws(new NotImplementedException("Unit test"));
             var connector = new DatabaseConnector(_settings, () => providerMock.Object);
-            var setting = new CommandSettingOptions { CommandText = CommandText, ConnectionAlias = Alias };
+            var setting = new CommandSetting { CommandText = CommandText, ConnectionAlias = Alias };
             var result = Throws<NotImplementedException>(() => connector.CreateConnection(setting));
             Equal("Unit test", result.Message);
         }
@@ -77,7 +75,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
             var providerMock = new Mock<DbProviderFactory>();
             providerMock.Setup(x => x.CreateConnection()).Returns(() => null);
             var connector = new DatabaseConnector(_settings, () => providerMock.Object);
-            var setting = new CommandSettingOptions { CommandText = CommandText, ConnectionAlias = Alias };
+            var setting = new CommandSetting { CommandText = CommandText, ConnectionAlias = Alias };
             var result = Throws<NullReferenceException>(() => connector.CreateConnection(setting));
             Equal(
                 $"The provider predicate did not return a connection for the aliased connection '{setting.ConnectionAlias}'.",
@@ -91,7 +89,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
             var providerMock = new Mock<DbProviderFactory>();
             providerMock.Setup(x => x.CreateConnection()).Returns(() => connectionMock.Object);
             var connector = new DatabaseConnector(_settings, () => providerMock.Object);
-            var setting = new CommandSettingOptions { CommandText = CommandText, ConnectionAlias = Alias };
+            var setting = new CommandSetting { CommandText = CommandText, ConnectionAlias = Alias };
             var result = connector.CreateConnection(setting);
             NotNull(result);
             Equal(System.Data.ConnectionState.Closed, result.State);

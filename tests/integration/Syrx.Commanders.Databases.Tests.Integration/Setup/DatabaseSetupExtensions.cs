@@ -1,6 +1,4 @@
-﻿using Syrx.Commanders.Databases.Extensions.Configuration;
-using Syrx.Commanders.Databases.Extensions.Configuration.Builders;
-using Syrx.Commanders.Databases.Settings.Extensions.Options;
+﻿using Syrx.Commanders.Databases.Settings.Extensions;
 using Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests;
 
 namespace Syrx.Commanders.Databases.Tests.Integration.Setup
@@ -2121,14 +2119,14 @@ select @Name
                 ));
         }
 
-        public static DatabaseCommanderSettingsOptions AddDisposeCommands(this DatabaseCommanderSettingsOptions options)
+        public static CommanderOptionsBuilder AddDisposeCommands(this CommanderOptionsBuilder builder)
         {
-            return options.AddCommand(
-                    c => c.ForRepositoryType<Dispose>()
-                        .ForMethodNamed(nameof(Dispose.Successfully))
-                        .AgainstConnectionAlias(Alias)
-                        .UseCommandText(@"select cast(rand() * 100 as int);")
-                        );
+            return builder.AddCommand(
+                a => a.ForType<Dispose>(b => b
+                    .ForMethod(
+                        nameof(Dispose.Successfully), c => c
+                        .UseConnectionAlias(Alias)
+                        .UseCommandText(@"select cast(rand() * 100 as int);"))));
         }
     }
 }

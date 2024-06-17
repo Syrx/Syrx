@@ -4,70 +4,40 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-using Syrx.Commanders.Databases.Extensions.Configuration;
-using Syrx.Settings;
-
 namespace Syrx.Commanders.Databases.Connectors
 {
     public class DatabaseConnector : IDatabaseConnector
     {
         private readonly Func<DbProviderFactory> _providerPredicate;
-        //private readonly IDatabaseCommanderSettings _settings;
-        private readonly ICommanderOptions _options;
+        private readonly ICommanderSettings _settings;
 
         public DatabaseConnector(
-            //IDatabaseCommanderSettings settings,
-            ICommanderOptions settings,
+            ICommanderSettings settings,
             Func<DbProviderFactory> providerPredicate
         )
         {
-            //Throw<ArgumentNullException>(settings != null, nameof(settings));
             Throw<ArgumentNullException>(settings != null, nameof(settings));
             Throw<ArgumentNullException>(providerPredicate != null, nameof(providerPredicate));
 
-            //_settings = settings;
-            _options = settings;
-            _providerPredicate = providerPredicate;
+            _settings = settings!;
+            _providerPredicate = providerPredicate!;
         }
 
-        public IDbConnection CreateConnection(CommandSettingOptions options)
+        public IDbConnection CreateConnection(CommandSetting options)
         {
             Throw<ArgumentNullException>(options != null, nameof(options));
 
-            var connectionStringSetting = _options.Connections.SingleOrDefault(x => x.Alias == options.ConnectionAlias);
-            Throw<NullReferenceException>(connectionStringSetting != null, Messages.NoAliasedConnection, options.ConnectionAlias);
+            var connectionStringSetting = _settings?.Connections?.SingleOrDefault(x => x.Alias == options?.ConnectionAlias);
+            Throw<NullReferenceException>(connectionStringSetting != null, Messages.NoAliasedConnection, options?.ConnectionAlias);
 
             var connection = _providerPredicate.Invoke().CreateConnection();
-            Throw<NullReferenceException>(connection != null, Messages.NoConnectionCreated, options.ConnectionAlias);
+            Throw<NullReferenceException>(connection != null, Messages.NoConnectionCreated, options?.ConnectionAlias);
 
             // assign the connection and return
-            connection.ConnectionString = connectionStringSetting.ConnectionString;
+            connection!.ConnectionString = connectionStringSetting?.ConnectionString;
             return connection;
         }
-
-        /*
-        public virtual IDbConnection CreateConnection(DatabaseCommandSetting commandSetting)
-        {
-            // pre-conditions. 
-            Throw<ArgumentNullException>(commandSetting != null, nameof(commandSetting));
-
-            // get the connection string setting from the root connections. 
-            var connectionStringSetting =
-                _settings.Connections.SingleOrDefault(x => x.Alias == commandSetting.ConnectionAlias);
-            Throw<NullReferenceException>(connectionStringSetting != null, Messages.NoAliasedConnection,
-                commandSetting.ConnectionAlias);
-
-            // invoke the provider predicate to return a connection. 
-            var connection = _providerPredicate.Invoke().CreateConnection();
-            Throw<NullReferenceException>(connection != null, Messages.NoConnectionCreated,
-                commandSetting.ConnectionAlias);
-
-            // assign the connection and return
-            connection.ConnectionString = connectionStringSetting.ConnectionString;
-            return connection;
-        }
-        */
-
+        
         private static class Messages
         {
             internal const string NoAliasedConnection =

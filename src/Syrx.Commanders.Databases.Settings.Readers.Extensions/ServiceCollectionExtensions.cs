@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Syrx.Commanders.Databases.Extensions.Configuration;
 using Syrx.Extensions;
 
 namespace Syrx.Commanders.Databases.Settings.Readers.Extensions
@@ -9,7 +8,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Extensions
         /*
         public static IServiceCollection AddReader(
             this IServiceCollection services,
-            CommanderOptions options,
+            CommanderSettings options,
             ServiceLifetime lifetime = ServiceLifetime.Transient)
         {
             services.AddSingleton(options);
@@ -20,5 +19,15 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Extensions
                 lifetime);
         }
         */
+
+        public static IServiceCollection AddReader(
+           this IServiceCollection services,
+           ServiceLifetime lifetime = ServiceLifetime.Transient)
+        {
+            return services.TryAddToServiceCollection(
+                typeof(IDatabaseCommandReader),
+                typeof(DatabaseCommandReader),
+                lifetime);
+        }
     }
 }
