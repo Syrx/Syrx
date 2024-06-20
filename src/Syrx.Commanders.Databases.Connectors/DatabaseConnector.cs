@@ -23,15 +23,15 @@ namespace Syrx.Commanders.Databases.Connectors
             _providerPredicate = providerPredicate!;
         }
 
-        public IDbConnection CreateConnection(CommandSetting options)
+        public IDbConnection CreateConnection(CommandSetting setting)
         {
-            Throw<ArgumentNullException>(options != null, nameof(options));
+            Throw<ArgumentNullException>(setting != null, nameof(setting));
 
-            var connectionStringSetting = _settings?.Connections?.SingleOrDefault(x => x.Alias == options?.ConnectionAlias);
-            Throw<NullReferenceException>(connectionStringSetting != null, Messages.NoAliasedConnection, options?.ConnectionAlias);
+            var connectionStringSetting = _settings?.Connections?.SingleOrDefault(x => x.Alias == setting?.ConnectionAlias);
+            Throw<NullReferenceException>(connectionStringSetting != null, Messages.NoAliasedConnection, setting?.ConnectionAlias);
 
             var connection = _providerPredicate.Invoke().CreateConnection();
-            Throw<NullReferenceException>(connection != null, Messages.NoConnectionCreated, options?.ConnectionAlias);
+            Throw<NullReferenceException>(connection != null, Messages.NoConnectionCreated, setting?.ConnectionAlias);
 
             // assign the connection and return
             connection!.ConnectionString = connectionStringSetting?.ConnectionString;

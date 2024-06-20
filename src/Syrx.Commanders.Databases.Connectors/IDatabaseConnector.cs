@@ -11,7 +11,7 @@ namespace Syrx.Commanders.Databases.Connectors
     /// </summary>
     public interface IDatabaseConnector 
     {
-        IDbConnection CreateConnection(CommandSetting options);
+        IDbConnection CreateConnection(CommandSetting setting);
     }
 }
 

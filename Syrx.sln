@@ -82,6 +82,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit\Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.csproj", "{1D807140-BC0C-4A71-9A2A-41B835F9B8CB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.Extensions.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Connectors.Extensions.Tests.Unit\Syrx.Commanders.Databases.Connectors.Extensions.Tests.Unit.csproj", "{AD895A2A-333F-44C8-9DA1-D70D84E6306B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Settings.Readers.Extensions.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Settings.Readers.Extensions.Tests.Unit\Syrx.Commanders.Databases.Settings.Readers.Extensions.Tests.Unit.csproj", "{3746C9F0-F9BE-4B1C-8EE9-3CA1563EA792}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.Npgsql", "src\Syrx.Commanders.Databases.Connectors.Npgsql\Syrx.Commanders.Databases.Connectors.Npgsql.csproj", "{4175C5ED-54F8-47EF-B0D5-BA39A40C179E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.Npgsql.Extensions", "src\Syrx.Commanders.Databases.Connectors.Npgsql.Extensions\Syrx.Commanders.Databases.Connectors.Npgsql.Extensions.csproj", "{C4908D22-FBB9-4A2E-9983-17AB4E3AAA6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Npgsql.Tests.Integration", "tests\integration\Syrx.Npgsql.Tests.Integration\Syrx.Npgsql.Tests.Integration.csproj", "{8E52AF09-9378-4461-9A3E-4A516EF027D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Npgsql", "src\Syrx.Npgsql\Syrx.Npgsql.csproj", "{3B959211-A63E-4C43-AA85-CB62AC518657}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Commanders.Databases.Tests.Integration.Models", "tests\integration\Syrx.Commanders.Databases.Tests.Integration.Models\Syrx.Commanders.Databases.Tests.Integration.Models.csproj", "{8ED9E97A-A9B5-4EFA-910B-384B7840AB3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Commanders.Databases.Connectors.Npgsql.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Connectors.Npgsql.Tests.Unit\Syrx.Commanders.Databases.Connectors.Npgsql.Tests.Unit.csproj", "{D4CAA48D-3031-429A-AE4E-10DA9C717C38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Commanders.Databases.Connectors.Npgsql.Extensions.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Connectors.Npgsql.Extensions.Tests.Unit\Syrx.Commanders.Databases.Connectors.Npgsql.Extensions.Tests.Unit.csproj", "{61640196-4B68-4F9F-8E6C-9A8397B48AED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -216,6 +234,42 @@ Global
 		{1D807140-BC0C-4A71-9A2A-41B835F9B8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D807140-BC0C-4A71-9A2A-41B835F9B8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D807140-BC0C-4A71-9A2A-41B835F9B8CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD895A2A-333F-44C8-9DA1-D70D84E6306B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD895A2A-333F-44C8-9DA1-D70D84E6306B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD895A2A-333F-44C8-9DA1-D70D84E6306B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD895A2A-333F-44C8-9DA1-D70D84E6306B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3746C9F0-F9BE-4B1C-8EE9-3CA1563EA792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3746C9F0-F9BE-4B1C-8EE9-3CA1563EA792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3746C9F0-F9BE-4B1C-8EE9-3CA1563EA792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3746C9F0-F9BE-4B1C-8EE9-3CA1563EA792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4175C5ED-54F8-47EF-B0D5-BA39A40C179E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4175C5ED-54F8-47EF-B0D5-BA39A40C179E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4175C5ED-54F8-47EF-B0D5-BA39A40C179E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4175C5ED-54F8-47EF-B0D5-BA39A40C179E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4908D22-FBB9-4A2E-9983-17AB4E3AAA6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4908D22-FBB9-4A2E-9983-17AB4E3AAA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4908D22-FBB9-4A2E-9983-17AB4E3AAA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4908D22-FBB9-4A2E-9983-17AB4E3AAA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E52AF09-9378-4461-9A3E-4A516EF027D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E52AF09-9378-4461-9A3E-4A516EF027D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E52AF09-9378-4461-9A3E-4A516EF027D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E52AF09-9378-4461-9A3E-4A516EF027D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B959211-A63E-4C43-AA85-CB62AC518657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B959211-A63E-4C43-AA85-CB62AC518657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B959211-A63E-4C43-AA85-CB62AC518657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B959211-A63E-4C43-AA85-CB62AC518657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ED9E97A-A9B5-4EFA-910B-384B7840AB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED9E97A-A9B5-4EFA-910B-384B7840AB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED9E97A-A9B5-4EFA-910B-384B7840AB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ED9E97A-A9B5-4EFA-910B-384B7840AB3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4CAA48D-3031-429A-AE4E-10DA9C717C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CAA48D-3031-429A-AE4E-10DA9C717C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CAA48D-3031-429A-AE4E-10DA9C717C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CAA48D-3031-429A-AE4E-10DA9C717C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61640196-4B68-4F9F-8E6C-9A8397B48AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61640196-4B68-4F9F-8E6C-9A8397B48AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61640196-4B68-4F9F-8E6C-9A8397B48AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61640196-4B68-4F9F-8E6C-9A8397B48AED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -255,6 +309,15 @@ Global
 		{68477A04-582D-45B8-AAFF-4EFCBC5CC911} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
 		{DEED2362-1175-496D-A392-A70E9899358E} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
 		{1D807140-BC0C-4A71-9A2A-41B835F9B8CB} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
+		{AD895A2A-333F-44C8-9DA1-D70D84E6306B} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
+		{3746C9F0-F9BE-4B1C-8EE9-3CA1563EA792} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
+		{4175C5ED-54F8-47EF-B0D5-BA39A40C179E} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{C4908D22-FBB9-4A2E-9983-17AB4E3AAA6D} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{8E52AF09-9378-4461-9A3E-4A516EF027D7} = {09A14C65-D13E-44ED-9D4D-26A1DC373929}
+		{3B959211-A63E-4C43-AA85-CB62AC518657} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{8ED9E97A-A9B5-4EFA-910B-384B7840AB3F} = {09A14C65-D13E-44ED-9D4D-26A1DC373929}
+		{D4CAA48D-3031-429A-AE4E-10DA9C717C38} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
+		{61640196-4B68-4F9F-8E6C-9A8397B48AED} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E10C114-A98F-4FCC-BCB7-528DEA8B47B5}

@@ -14,7 +14,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit
     {
         public static CommanderSettings GetOptions()
         {
-            return CommanderOptionsBuilderExtensions.Build(
+            return CommanderSettingsBuilderExtensions.Build(
                 a => a.AddConnectionString("test-alias", "test-connection-string")
                       .AddCommand(
                         b => b.ForType<GetCommand>(

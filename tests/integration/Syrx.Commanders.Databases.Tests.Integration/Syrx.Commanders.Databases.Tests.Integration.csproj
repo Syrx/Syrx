@@ -32,6 +32,7 @@
     <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
     <ProjectReference Include="..\..\..\src\Syrx.Extensions\Syrx.Extensions.csproj" />
     <ProjectReference Include="..\..\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj" />
+    <ProjectReference Include="..\Syrx.Commanders.Databases.Tests.Integration.Models\Syrx.Commanders.Databases.Tests.Integration.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@
         public void Successfully()
         {
             var services = new ServiceCollection();
-            //var options = new SyrxOptionsBuilder(collection);            
+            //var options = new SyrxBuilder(collection);            
             //services.AddSyrx(a => a.UseCommander<UseDatabaseCommander>(x => { return new DatabaseCommander<UseDatabaseCommander>(new Settings.Readers.DatabaseCommandReader(null), new Connectors.DatabaseConnector (null)) } ))
 
             //services.AddDatabaseCommander()

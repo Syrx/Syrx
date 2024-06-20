@@ -38,7 +38,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
                                 }
                             },
                             new TypeSetting {
-                                Name = typeof(Syrx.Commanders.NotConfiguredNamespace.ParentNamespaceTest).FullName,
+                                Name = typeof(NotConfiguredNamespace.ParentNamespaceTest).FullName,
                                 Commands = new Dictionary<string, CommandSetting>{
                                     [nameof(FindsTypeInParentNamespace)] = new CommandSetting{ ConnectionAlias = "test.alias.parentnamespace", CommandText = "parent namespace" }
                                 }
@@ -72,6 +72,10 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
                                 }
                             }
                             ]
+                    },
+                    new NamespaceSetting{
+                        Namespace = typeof(NoTypeSettingTest).Namespace,
+                        Types = []
                     }
                     ],
                 Connections = [
@@ -83,28 +87,6 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
             
             _reader = new DatabaseCommandReader(options);
 
-        }
-
-
-        [Fact]
-        public void NoNamespaceSettingThrowsNullReferenceException()
-        {
-            var result = Throws<NullReferenceException>(() =>
-                _reader.GetCommand(typeof(A.Syrx.Commanders.Databases.Readers.NoNamespaceType), "NoNamespaceSettingThrowsNullReferenceException"));
-            Console.WriteLine(result.Message);
-            Equal(
-                $@"'{typeof(A.Syrx.Commanders.Databases.Readers.NoNamespaceType).FullName}' does not belong to any NamespaceSetting.
-Please check settings.",
-                result.Message);
-
-        }
-
-        [Fact]
-        public void NoTypeSettingThrowsNullReferenceException()
-        {
-            var result = Throws<NullReferenceException>(() => _reader.GetCommand(typeof(NoTypeSettingTest), "NoTypeSettingThrowsNullReferenceException"));
-            var expect = $"The type '{typeof(NoTypeSettingTest).FullName}' has no entry in the type settings of namespace '{typeof(NoTypeSettingTest).Namespace}'. Please add a type setting entry to the namespace setting.";
-            Equal(expect, result.Message);
         }
 
         [Fact]

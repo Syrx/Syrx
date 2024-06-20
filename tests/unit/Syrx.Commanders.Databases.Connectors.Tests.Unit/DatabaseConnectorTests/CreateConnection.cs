@@ -26,7 +26,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
 
         public CreateConnection()
         {
-            _settings = CommanderOptionsBuilderExtensions.Build(
+            _settings = CommanderSettingsBuilderExtensions.Build(
                 a => a
                 .AddConnectionString(Alias, ConnectionString)
                 .AddCommand(
@@ -55,7 +55,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
             var providerMock = new Mock<DbProviderFactory>();
             var connector = new DatabaseConnector(_settings, () => providerMock.Object);
             var result = Throws<ArgumentNullException>(() => connector.CreateConnection(null));
-            result.ArgumentNull("options");
+            result.ArgumentNull("setting");
         }
 
         [Fact]

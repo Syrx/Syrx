@@ -18,7 +18,7 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Tests.Unit.SqlServerDat
         private readonly IDatabaseConnector _connector;
         public CreateConnection()
         {
-            _settings = CommanderOptionsBuilderExtensions.Build(
+            _settings = CommanderSettingsBuilderExtensions.Build(
                 a => a.AddConnectionString("test.alias", "Data Source=(LocalDb)\\mssqllocaldb;Initial Catalog=master;Integrated Security=true;")
                 .AddCommand(
                     b => b.ForType<CreateConnection>(

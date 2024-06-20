@@ -25,7 +25,7 @@ namespace Syrx.Commanders.Databases.Connectors.Tests.Unit.DatabaseConnectorTests
 
         public Constructor()
         {
-            _settings = CommanderOptionsBuilderExtensions.Build(
+            _settings = CommanderSettingsBuilderExtensions.Build(
                 a => a
                 .AddConnectionString(Alias, ConnectionString)
                 .AddCommand(b => b.ForType<Constructor>(

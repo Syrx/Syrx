@@ -17,7 +17,7 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Tests.Unit.SqlServerDat
         private readonly CommanderSettings _settings;
         public Constructor()
         {
-            _settings = CommanderOptionsBuilderExtensions.Build(
+            _settings = CommanderSettingsBuilderExtensions.Build(
                 a => a.AddCommand(
                     b => b.ForType<Constructor>(
                         c => c.ForMethod(nameof(Successfully),

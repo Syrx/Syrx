@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Syrx.Extensions;
 using System.Data.Common;
+using static Syrx.Validation.Contract;
 
 namespace Syrx.Commanders.Databases.Connectors.Extensions
 {
@@ -12,11 +13,16 @@ namespace Syrx.Commanders.Databases.Connectors.Extensions
 
         public static IServiceCollection AddProvider(
             this IServiceCollection services,
-            Func<DbProviderFactory> providerFactory)
+            Func<DbProviderFactory> providerFactory
+            )
         {
+            Throw(providerFactory != null,
+                () => new ArgumentNullException(nameof(providerFactory),
+                $"The {nameof(DbProviderFactory)} delegate cannot be null."));
+
             return services.TryAddToServiceCollection(
-                typeof(DbProviderFactory),
-                providerFactory);
+                typeof(Func<DbProviderFactory>), 
+                providerFactory!);
         }
 
         public static IServiceCollection AddDatabaseConnector<TService, TImplementation>(

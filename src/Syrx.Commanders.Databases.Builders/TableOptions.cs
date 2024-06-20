@@ -9,6 +9,8 @@
         public TableOptions()
         {
             _fields = new Dictionary<string, Field>();
+            _name = string.Empty;
+            _schema = string.Empty;
         }
 
         public TableOptions WithName(string name)
@@ -42,9 +44,9 @@
             // validate before returning. 
             Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(_name), nameof(Table.Name));
             Throw<ArgumentNullException>(_fields != null, nameof(Table.Fields));
-            Throw<ArgumentOutOfRangeException>(_fields.Any(), nameof(Table.Fields));
+            Throw<ArgumentOutOfRangeException>(_fields!.Any(), nameof(Table.Fields));
 
-            return new Table(_name, _fields.Values, _schema);
+            return new Table(_name, _fields!.Values, _schema);
         }
     }
 }

@@ -4,8 +4,6 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-using Microsoft.Extensions.Options;
-
 namespace Syrx.Commanders.Databases.Settings.Readers
 {
     public class DatabaseCommandReader : IDatabaseCommandReader
@@ -19,14 +17,17 @@ namespace Syrx.Commanders.Databases.Settings.Readers
         }
                 
         public CommandSetting GetCommand(Type type, string key)
-        {            
+        {
+            Throw<ArgumentNullException>(type != null, nameof(type));
+            Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(key), nameof(key));
+
             var result = _settings.Namespaces
                 .SelectMany(x => x.Types.Where(y => y.Name == type.FullName))
                 .SelectMany(z => z.Commands)
                 .SingleOrDefault(f => f.Key == key).Value;
 
             Throw<NullReferenceException>(result != null,
-                ErrorMessages.NoCommandSetting, key, type.Name);
+                ErrorMessages.NoCommandSetting, key, type.FullName);
 
             return result;
         }

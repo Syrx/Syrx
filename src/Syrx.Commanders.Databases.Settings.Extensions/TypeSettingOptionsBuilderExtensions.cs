@@ -1,13 +1,13 @@
 ﻿namespace Syrx.Commanders.Databases.Settings.Extensions
 {
-    public static class TypeSettingOptionsBuilderExtensions
+    public static class TypeSettingBuilderExtensions
     {
-        public static TypeSetting Build<TType>(Action<TypeSettingOptionsBuilder<TType>> builder)
+        public static TypeSetting Build<TType>(Action<TypeSettingBuilder<TType>> factory)
         {
-            Throw<ArgumentNullException>(builder != null, nameof(builder));
-            var options = new TypeSettingOptionsBuilder<TType>();
-            builder!(options);
-            return options.Build();
+            Throw<ArgumentNullException>(factory != null, nameof(factory));
+            var builder = new TypeSettingBuilder<TType>();
+            factory!(builder);
+            return builder.Build();
         }
     }
 }

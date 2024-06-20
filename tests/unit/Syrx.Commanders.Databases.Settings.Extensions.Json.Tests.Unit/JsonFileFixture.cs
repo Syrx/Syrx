@@ -29,7 +29,7 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Json.Tests.Unit
         public CommanderSettings GetTestOptions<TType>()
         {
             return
-            CommanderOptionsBuilderExtensions.Build(
+            CommanderSettingsBuilderExtensions.Build(
                 a => a.AddConnectionString(b => b.UseAlias(Alias).UseConnectionString(ConnectionString))
                        .AddCommand(c => c.ForType<TType>(d => d
                                 .ForMethod("Method1", e => e.UseCommandText(CommandText).UseConnectionAlias(Alias))

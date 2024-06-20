@@ -1,8 +1,4 @@
-﻿
-using Syrx.Commanders.Databases.Tests.Integration.Models;
-using System.Xml;
-
-namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
+﻿namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
     //[Collection(BaseFixture.QueryFixtureCollectionDefinition)]
     public partial class Query//(QueryFixture fixture) //: IClassFixture<QueryFixture>
@@ -13,8 +9,12 @@ namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
         public void OneTypeMultiple<T1, TResult>(OneType<IEnumerable<T1>, IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
-
+            var parameters = input.Parameters;
+            var method = input.Method;
+            
+            var result = _commander.Query(map, parameters, method);
+            input.One.PrintAsJson();
+            
             NotNull(result);
             Single(result);
 

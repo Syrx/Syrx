@@ -7,11 +7,13 @@ namespace Syrx.Extensions
     {
         public static IServiceCollection UseSyrx(
             this IServiceCollection services,
-            Action<SyrxOptionsBuilder> builder = null
+            Action<SyrxBuilder> factory
         )
         {
-            var optionsBuilder = new SyrxOptionsBuilder(services);
-            builder?.Invoke(optionsBuilder);
+            // validation.... 
+
+            var builder = new SyrxBuilder(services);
+            factory(builder);
             return services;
         }
 

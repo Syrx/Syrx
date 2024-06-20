@@ -1,12 +1,12 @@
 ﻿namespace Syrx.Commanders.Databases.Settings.Extensions
 {
-    public static class CommandSettingOptionsBuilderExtensions
+    public static class CommandSettingBuilderExtensions
     {
-        public static CommandSetting Build(Action<CommandSettingOptionsBuilder> builder)
+        public static CommandSetting Build(Action<CommandSettingBuilder> factory)
         {
-            var result = new CommandSettingOptionsBuilder();
-            builder(result);
-            return result.Build();
+            var builder = new CommandSettingBuilder();
+            factory(builder);
+            return builder.Build();
         }
     }
 

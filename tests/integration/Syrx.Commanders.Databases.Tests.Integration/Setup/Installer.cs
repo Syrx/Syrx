@@ -1,7 +1,5 @@
 ﻿using Syrx.Commanders.Databases.Connectors.SqlServer.Extensions;
 using Syrx.Extensions;
-using Microsoft.Extensions.Configuration;
-using Syrx.Commanders.Databases.Settings;
 
 namespace Syrx.Commanders.Databases.Tests.Integration.Setup
 {
@@ -11,16 +9,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Setup
         {
             services ??= new ServiceCollection();
 
-            services.UseSyrx(a => a
-                        .UseSqlServer(
-                            b => b
-                            .AddConnectionStrings()
-                            .AddSetupBuilderOptions()
-                            .AddQueryMultimap()
-                            .AddQueryMultiple()
-                            .AddExecute()
-                            .AddDisposeCommands()
-                            ));
+            services.UseSyrx(a => a.SetupSqlServer());
 
             var result = services.BuildServiceProvider();
                         
@@ -32,6 +21,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Setup
             var installer = new Installer();
             return installer.Install(new ServiceCollection());
         }
+
 
     }
 }
