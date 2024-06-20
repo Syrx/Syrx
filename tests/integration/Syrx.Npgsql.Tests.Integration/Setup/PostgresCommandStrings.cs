@@ -389,7 +389,6 @@ WHERE one.""Id"" = :id;
 
 ";
 
-
                 public const string FourteenTypesWithParameters = @"WITH data AS (
     SELECT id AS ""Id"",
            name AS ""Name"",
@@ -414,7 +413,6 @@ JOIN data thirteen ON thirteen.""Id"" = (twelve.""Id"" + 1)
 JOIN data fourteen ON fourteen.""Id"" = (thirteen.""Id"" + 1)
 WHERE one.""Id"" = :id;
 ";
-
 
                 public const string FifteenTypesWithParameters = @"WITH data AS (
     SELECT id AS ""Id"",

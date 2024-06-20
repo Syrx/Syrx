@@ -1,5 +1,6 @@
 ﻿using Syrx.Commanders.Databases.Connectors.SqlServer.Extensions;
 using Syrx.Extensions;
+using Testcontainers.MsSql;
 
 namespace Syrx.Commanders.Databases.Tests.Integration.Setup
 {
@@ -24,4 +25,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Setup
 
 
     }
+
+
+    
 }
