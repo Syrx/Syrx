@@ -1,20 +1,13 @@
-﻿using Syrx.Commanders.Databases.Connectors.Npgsql.Extensions;
-using Syrx.Commanders.Databases.Settings.Extensions;
-using Syrx.Extensions;
-using Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests;
-
-namespace Syrx.Npgsql.Tests.Integration.Setup
+﻿namespace Syrx.Npgsql.Tests.Integration
 {
     public static class PostgresSetupExtensions
     {
-        const string Alias = "Syrx.Postgres";
-        const string Instance = "Syrx.Postgres";
-
-        public static SyrxBuilder SetupPostgres(this SyrxBuilder builder)
+        
+        public static SyrxBuilder SetupPostgres(this SyrxBuilder builder, string connectionString)
         {
             return builder.UsePostgres(
                             b => b
-                            .AddConnectionStrings()
+                            .AddConnectionStrings(connectionString)
                             .AddSetupBuilderOptions()
                             .AddQueryMultimap()
                             .AddQueryMultiple()
@@ -23,20 +16,12 @@ namespace Syrx.Npgsql.Tests.Integration.Setup
                             );
         }
 
-        public static CommanderSettingsBuilder AddConnectionStrings(this CommanderSettingsBuilder builder)
+        public static CommanderSettingsBuilder AddConnectionStrings(this CommanderSettingsBuilder builder, string connectionString)
         {
-            // usually a terrible idea to store connection strings in source 
-            // i'm leaving this in here as this is to be run against a default
-            // docker instance of Postgres
-            /*
-             
-             docker run --name syrx-postgres -e POSTGRES_PASSWORD=syrxforpostgres -e POSTGRES_DB=syrx -p 5432:5432 -d postgres
-              
-             */
             return builder
                 .AddConnectionString(a => a
                     .UseAlias(PostgresCommandStrings.Alias)
-                    .UseConnectionString(PostgresCommandStrings.ConnectionString));
+                    .UseConnectionString(connectionString));
         }
 
         public static CommanderSettingsBuilder AddSetupBuilderOptions(this CommanderSettingsBuilder builder)

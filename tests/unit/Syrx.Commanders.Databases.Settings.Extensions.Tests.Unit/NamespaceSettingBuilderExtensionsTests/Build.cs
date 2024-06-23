@@ -24,7 +24,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Tests.Unit.NamespaceSett
                         z => z.UseCommandText(CommandText)
                               .UseConnectionAlias(Alias))));
             NotNull(result);
-            result.PrintAsJson();
         }
 
         [Fact]
@@ -37,7 +36,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Tests.Unit.NamespaceSett
             NotNull(result);
             Single(result.Types);
             Equal(2, result.Types.Single().Commands.Count);
-            result.PrintAsJson();
         }
 
         [Theory]
@@ -63,7 +61,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Tests.Unit.NamespaceSett
 
             Single(result.Types);
             Single(result.Types.Single().Commands);
-            result.PrintAsJson();
         }
 
 
@@ -80,7 +77,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Tests.Unit.NamespaceSett
                         z => z.UseCommandText(CommandText)
                               .UseConnectionAlias(Alias))));
             NotNull(result);
-            result.PrintAsJson();
             Single(result.Types);
         }
     }

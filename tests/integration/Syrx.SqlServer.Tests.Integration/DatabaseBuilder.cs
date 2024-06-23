@@ -1,17 +1,12 @@
-﻿namespace Syrx.Npgsql.Tests.Integration.Setup
+﻿namespace Syrx.SqlServer.Tests.Integration
 {
     public class DatabaseBuilder
     {
         private readonly ICommander<DatabaseBuilder> _commander;
 
-        private DatabaseBuilder(ICommander<DatabaseBuilder> commander)
+        public DatabaseBuilder(ICommander<DatabaseBuilder> commander)
         {
             _commander = commander;
-        }
-
-        public static DatabaseBuilder Initialize(ICommander<DatabaseBuilder> commander)
-        {
-            return new DatabaseBuilder(commander);
         }
 
         public DatabaseBuilder CreateDatabase(string name = "Syrx")
@@ -126,7 +121,25 @@
 
             return this;
         }
+
+        public DatabaseBuilder Build()
+        {
+            return DropTableCreatorProcedure()
+                .CreateTableCreatorProcedure()
+                .CreateTable("poco")
+                .CreateTable("identity_tester")
+                .CreateTable("bulk_insert")
+                .CreateTable("distributed_transaction")
+                .DropIdentityTesterProcedure()
+                .CreateIdentityTesterProcedure()
+                .DropBulkInsertProcedure()
+                .CreateBulkInsertProcedure()
+                .DropBulkInsertAndReturnProcedure()
+                .CreateBulkInsertAndReturnProcedure()
+                .DropTableClearingProcedure()
+                .CreateTableClearingProcedure()
+                .ClearTable()
+                .Populate();
+        }
     }
-
-
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
+﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
     public partial class QueryAsync 
     {

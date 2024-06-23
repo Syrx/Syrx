@@ -1,0 +1,13 @@
+global using Microsoft.Extensions.DependencyInjection;
+global using Syrx.Commanders.Databases.Connectors.SqlServer.Extensions;
+global using Syrx.Commanders.Databases.Settings.Extensions;
+global using Syrx.Commanders.Databases.Tests.Integration.Models;
+global using Syrx.Commanders.Databases.Tests.Integration.Models.Immutable;
+global using Syrx.Extensions;
+global using Syrx.SqlServer.Tests.Integration.DatabaseCommanderTests;
+global using Syrx.Tests.Extensions;
+global using System.Data;
+global using System.Transactions;
+global using static Syrx.Validation.Contract;
+global using static Xunit.Assert;
+global using Testcontainers.MsSql;

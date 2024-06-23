@@ -1,4 +1,4 @@
-﻿namespace Syrx.Commanders.Databases.Tests.Integration.Setup
+﻿namespace Syrx.SqlServer.Tests.Integration.Setup
 {
     public static class SqlServerCommandStrings
     {
@@ -50,7 +50,8 @@ begin
 
     select @sql = replace(@template, '%name', @name);
     exec [sys].[sp_executesql] @sql;
-end;";
+end;
+";
 
             public const string CreateTable = @"[dbo].[usp_create_table]";
 
@@ -126,7 +127,7 @@ begin
 end;";
 
             public const string ClearTable = @"[dbo].[usp_clear_table]";
-            
+
             public const string Populate = @"insert into Poco([Name], [Value], [Modified]) select @Name, @Value, @Modified;";
 
         }
@@ -160,7 +161,7 @@ as (select [id] [Id]
     from [dbo].[poco])
 select *
 from [data] [one]
-    join [data] [two] on [two].[Id] = ([one].[Id] + 1);";
+    join [data] [two] on [two].[Id] = ([one].[Id] + 10);";
 
                 public const string TwoTypesWithParameters = @";with [data]
 as (select [id] [Id]
@@ -650,7 +651,7 @@ begin
     select @loop = @loop + 1;
 
 end;";
-                
+
                 public const string TenTypeMultiple = @"declare @sets int = 10
        ,@loop int = 1
        ,@step int = 1
@@ -698,7 +699,7 @@ begin
     select @loop = @loop + 1;
 
 end;";
-                
+
                 public const string TwelveTypeMultiple = @"declare @sets int = 12
        ,@loop int = 1
        ,@step int = 1
@@ -932,5 +933,4 @@ select @Name
             public const string Successfully = @"select cast(rand() * 100 as int);";
         }
     }
-
 }

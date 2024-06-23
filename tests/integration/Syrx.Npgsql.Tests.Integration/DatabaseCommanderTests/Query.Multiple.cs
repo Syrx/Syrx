@@ -12,7 +12,6 @@
             var method = input.Method;
             
             var result = _commander.Query(map, parameters, method);
-            input.One.PrintAsJson();
             
             NotNull(result);
             Single(result);

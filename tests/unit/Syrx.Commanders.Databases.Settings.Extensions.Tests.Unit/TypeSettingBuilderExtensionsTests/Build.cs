@@ -19,7 +19,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Tests.Unit.TypeSettingBu
 
             // that we've not thrown an exception is kinda the point. 
             NotNull(result);
-            result.PrintAsJson();
         }
 
         [Fact]

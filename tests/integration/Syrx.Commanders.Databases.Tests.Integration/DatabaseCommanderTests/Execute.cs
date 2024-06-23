@@ -3,8 +3,7 @@ using System.Transactions;
 
 namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(BaseFixture.ExecuteFixtureCollectionDefinition)]
-    public class Execute(ExecuteFixture fixture) //: IClassFixture<ExecuteFixture>
+    public abstract class Execute(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 

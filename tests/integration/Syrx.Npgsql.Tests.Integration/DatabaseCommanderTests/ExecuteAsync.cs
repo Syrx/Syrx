@@ -1,7 +1,8 @@
-﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
+﻿using Syrx.Npgsql.Tests.Integration;
+
+namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(BaseFixture.ExecuteFixtureCollectionDefinition)]
-    public class ExecuteAsync(ExecuteFixture fixture) //: IClassFixture<ExecuteFixture>
+    public class ExecuteAsync(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 
@@ -9,9 +10,7 @@
         public async Task ExceptionsAreReturnedToCaller()
         {
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(new { value = 1 }));
-            //result.DivideByZero();
-            const string expected = "22012: division by zero";
-            result.HasMessage(expected);
+            result.HasMessage("22012: division by zero");
         }
 
         [Fact]
@@ -33,7 +32,6 @@
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync<bool>());
             var postCount = _commander.Query<int>(method: method);
 
-            //result.DivideByZero();
             result.HasMessage("22012: division by zero");
             Equal(preCount, postCount);
         }
@@ -68,7 +66,6 @@
             var model = new ImmutableType(1, Guid.NewGuid().ToString(), int.MaxValue, DateTime.UtcNow);
 
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(model));
-            //const string expected = "Arithmetic overflow error converting expression to data type float.\r\nThe statement has been terminated.";
             const string expected = "22003: value overflows numeric format";
             result.HasMessage(expected);
 
@@ -79,7 +76,7 @@
             False(record.Any());
         }
 
-        [Theory(Skip = "Not supported by Postgres")]
+        [Theory(Skip = "Not supported by Postgre")]
         [MemberData(nameof(TransactionScopeOptions))]
         public async Task SupportsEnlistingInAmbientTransactions(TransactionScopeOption scopeOption)
         {

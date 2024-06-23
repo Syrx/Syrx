@@ -20,10 +20,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.SqlServer.Extensions\Syrx.Commanders.Databases.Connectors.SqlServer.Extensions.csproj" />
 	  <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.SqlServer\Syrx.Commanders.Databases.Connectors.SqlServer.csproj" />
 	  <ProjectReference Include="..\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
-	  <ProjectReference Include="..\Syrx.Extensions\Syrx.Extensions.csproj" />
 	</ItemGroup>
 
 </Project>

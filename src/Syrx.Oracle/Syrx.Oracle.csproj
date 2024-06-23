@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.Oracle\Syrx.Commanders.Databases.Connectors.Oracle.csproj" />
+    <ProjectReference Include="..\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
+  </ItemGroup>
+
 </Project>

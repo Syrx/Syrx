@@ -67,7 +67,6 @@ New connection string: {DifferentConnectionString}");
                                 .UseConnectionAlias(Alias)))));
 
             Single(result.Namespaces);
-            result.PrintAsJson();
         }
 
         [Fact]
@@ -86,8 +85,6 @@ New connection string: {DifferentConnectionString}");
                     b => b.ForType<MissingFieldException>(
                         c => c.ForMethod("MethodName",
                         d => d.UseCommandText("test-command").UseConnectionAlias("test-alias")))));
-
-            result.PrintAsJson();
         }
 
         [Fact]
@@ -109,12 +106,9 @@ New connection string: {DifferentConnectionString}");
                             e => e
                                 .UseCommandText(CommandText)
                                 .UseConnectionAlias(Alias)))));
-
-            result.PrintAsJson();
             Single(result.Namespaces);
             Single(result.Namespaces.Single().Types);
             Equal(2, result.Namespaces.Single().Types.Single().Commands.Count());
-            result.PrintAsJson();
         }
 
         [Fact]
@@ -131,8 +125,7 @@ New connection string: {DifferentConnectionString}");
                             t => t.ForMethod(
                                 nameof(AcceptsLastEntryFromBuilder),
                                 o => o.UseConnectionAlias(Alias).UseCommandText("test-2")))));
-
-            result.PrintAsJson();
+            
             Single(result.Namespaces!);
             Single(result.Namespaces.Single().Types);
         }
@@ -150,7 +143,6 @@ New connection string: {DifferentConnectionString}");
                             .ForMethod("Method4", o => o.UseConnectionAlias(Alias).UseCommandText(CommandText))
                             )));
 
-            result.PrintAsJson();
             Single(result.Namespaces);
             Single(result.Namespaces.Single().Types);
             Equal(4, result.Namespaces.Single().Types.Single().Commands.Count);

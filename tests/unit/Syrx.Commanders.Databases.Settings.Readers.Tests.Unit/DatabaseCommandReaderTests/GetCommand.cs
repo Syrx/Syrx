@@ -139,7 +139,6 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
             NotNull(result);
             Equal("root namespace", result.CommandText);
             Equal("test.alias.rootnamespace", result.ConnectionAlias);
-            result.PrintAsJson();
         }
 
     }

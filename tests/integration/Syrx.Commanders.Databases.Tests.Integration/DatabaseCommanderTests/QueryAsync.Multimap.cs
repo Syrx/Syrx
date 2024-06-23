@@ -1,17 +1,10 @@
 ﻿
 namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
-
-    [Collection(BaseFixture.QueryFixtureCollectionDefinition)]
-    public partial class QueryAsync //: IClassFixture<QueryFixture>
+    public abstract partial class QueryAsync(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
-        private readonly ICommander<Query> _commander;
-
-        public QueryAsync(QueryFixture fixture)
-        {
-            _commander = fixture.GetCommander<Query>();
-        }
-
+        private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
+        
         [Fact]
         public async Task ExceptionsAreReturnedToCaller()
         {
@@ -69,8 +62,6 @@ namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
             // assert that we got _something_ back
             NotNull(result);
             Single(result);
-
-            result.PrintAsJson();
 
             // let's set up the values for assertions
             var expected = map(

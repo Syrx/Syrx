@@ -11,8 +11,6 @@
             var result = AddField(x => x.WithName(Name).WithDataType(type));
             Equal(Name, result.Name);
             Equal(type, result.Type);
-
-            result.PrintAsJson();
         }
     }
 }

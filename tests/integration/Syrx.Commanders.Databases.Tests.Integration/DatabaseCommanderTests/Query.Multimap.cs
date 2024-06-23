@@ -1,8 +1,7 @@
 ﻿
 namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(BaseFixture.QueryFixtureCollectionDefinition)]
-    public partial class Query(QueryFixture fixture) //: IClassFixture<QueryFixture>
+    public abstract partial class Query(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
 
@@ -22,8 +21,6 @@ namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 
             NotNull(result);
             Equal(150, result.Count());
-            result.PrintAsJson();
-
         }
 
         [Theory]
@@ -62,8 +59,6 @@ namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
             // assert that we got _something_ back
             NotNull(result);
             Single(result);
-
-            result.PrintAsJson();
 
             // let's set up the values for assertions
             var expected = map(

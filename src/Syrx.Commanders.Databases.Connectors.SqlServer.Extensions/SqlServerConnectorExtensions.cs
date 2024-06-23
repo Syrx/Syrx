@@ -19,7 +19,6 @@ namespace Syrx.Commanders.Databases.Connectors.SqlServer.Extensions
                 .AddTransient<ICommanderSettings, CommanderSettings>(a => options)
                 .AddReader(lifetime) // add reader
                 .AddSqlServer(lifetime) // add connector
-                //.AddDatabaseConnector<IDatabaseConnector, SqlServerDatabaseConnector>(lifetime) // example of how to us. 
                 .AddDatabaseCommander(lifetime);
             
             return builder;

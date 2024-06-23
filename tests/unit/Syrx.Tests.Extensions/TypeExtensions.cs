@@ -19,32 +19,7 @@ namespace Syrx.Tests.Extensions
 
         public static T Deserialize<T>(this T instance, string input) => JsonSerializer.Deserialize<T>(input);
 
-        //public static string SerializeToXml<T>(this T instance)
-        //{
-        //    var serializer = new XmlSerializer(typeof(T));
-        //    var settings = new XmlWriterSettings { Indent = true }; // Include line breaks
-
-        //    using (var stringWriter = new StringWriter())
-        //    {
-        //        //using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-        //        //{
-        //        //    serializer.Serialize(xmlWriter, instance);
-        //        //}
-        //        //return stringWriter.ToString();
-        //        serializer.Serialize(stringWriter, instance);
-        //        return stringWriter.ToString();
-        //    }
-        //}
-
-        //public static T DeserializeFromXml<T>(this T instance, string xmlString)
-        //{
-        //    var serializer = new XmlSerializer(typeof(T));
-
-        //    using (var stringReader = new StringReader(xmlString))
-        //    {
-        //        return (T) serializer.Deserialize(stringReader);
-        //    }
-        //}
+        
 
     }
 }

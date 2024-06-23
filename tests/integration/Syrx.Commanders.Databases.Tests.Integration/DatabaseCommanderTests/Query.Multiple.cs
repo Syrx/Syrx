@@ -1,7 +1,6 @@
 ﻿namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
-    //[Collection(BaseFixture.QueryFixtureCollectionDefinition)]
-    public partial class Query//(QueryFixture fixture) //: IClassFixture<QueryFixture>
+    public abstract partial class Query
     {
 
         [Theory]
@@ -13,7 +12,6 @@
             var method = input.Method;
             
             var result = _commander.Query(map, parameters, method);
-            input.One.PrintAsJson();
             
             NotNull(result);
             Single(result);

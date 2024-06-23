@@ -1,76 +1,125 @@
-﻿using Syrx.Commanders.Databases.Tests.Integration.Setup;
-using Testcontainers.MsSql;
-
+﻿
 namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
 
-    public class BaseFixture : IAsyncLifetime
+    public interface IFixture<TDatabaseProvider>
     {
-        public const string QueryFixtureCollectionDefinition = "FixtureCollectionDefinition";
-        public const string ExecuteFixtureCollectionDefinition = "ExecuteFixtureCollectionDefinition";
-        private readonly IServiceProvider _services;
-        private readonly MsSqlContainer _container = new MsSqlBuilder().Build();
-        public string ConnectionString => _container.GetConnectionString();
+        IServiceProvider ServiceProvider { get; }
+        IContrainerWrapper Contrainer { get; }
+    }
 
-        public BaseFixture()
+    
+
+    public interface IContrainerWrapper
+    {
+        Task StartAsync();
+        Task StopAsync();
+        string ConnectionString { get; }
+    }
+
+    public class BaseFixture: IAsyncLifetime
+    {
+
+        public IServiceProvider ServiceProvider { get; }
+        public IContrainerWrapper Contrainer { get; }
+
+
+        public BaseFixture(Func<IServiceProvider> providerFactory, Func<IContrainerWrapper> containerFactory)
         {
-            var installer = Installer.Install();
-            _services = installer;
-            //Setup();
+            ServiceProvider = providerFactory();
+            Contrainer = containerFactory();
+        }
 
-            //_container = new MsSqlBuilder().Build();
+        public ICommander<TRepository> GetCommander<TRepository>() => ServiceProvider.GetService<ICommander<TRepository>>();
+
+        public async Task InitializeAsync()
+        {
+            await Contrainer.StartAsync();
         }
 
         public async Task DisposeAsync()
         {
-            await _container.StopAsync();
+            await Contrainer.StopAsync();
         }
-
-        public async Task InitializeAsync()
-        {
-            await _container.StartAsync();
-        }
-
-        internal protected ICommander<TRepository> GetCommander<TRepository>()
-        {
-            return _services.GetService<ICommander<TRepository>>();
-        }
-
-        /*
-        internal protected void Setup(string name = "Syrx")
-        {
-            Console.WriteLine($"Running environment setup checks against databse '{name}'.");
-            var commander = GetCommander<DatabaseBuilder>();
-
-            var builder = DatabaseBuilder
-                .Initialize(commander)
-                .CreateDatabase(name)
-                .DropTableCreatorProcedure()
-                .CreateTableCreatorProcedure()
-                .CreateTable("poco")
-                .CreateTable("identity_tester")
-                .CreateTable("bulk_insert")
-                .CreateTable("distributed_transaction")
-                .DropIdentityTesterProcedure()
-                .CreateIdentityTesterProcedure()
-                .DropBulkInsertProcedure()
-                .CreateBulkInsertProcedure()
-                .DropBulkInsertAndReturnProcedure()
-                .CreateBulkInsertAndReturnProcedure()
-                .DropTableClearingProcedure()
-                .CreateTableClearingProcedure()
-                .ClearTable()
-                .Populate();
-
-            Console.WriteLine("Finished setting database up. Let the games begin!");
-        }
-        */
-
     }
 
-    [CollectionDefinition(BaseFixture.QueryFixtureCollectionDefinition)]
-    public class QueryFixtureCollectionDefinition : ICollectionFixture<QueryFixture> { }
+    //public class BaseFixture : IAsyncLifetime
+    //{
 
-    [CollectionDefinition(BaseFixture.ExecuteFixtureCollectionDefinition)]
-    public class ExecuteFixtureCollectionDefinition : ICollectionFixture<ExecuteFixture> { }
+    //    public IServiceProvider ServiceProvider { get; }
+
+    //    //public BaseFixture(IServiceProvider services)
+    //    //{
+    //    //    Services = services;
+    //    //}
+
+    //    public BaseFixture(Func<IServiceProvider> providerFactory)
+    //    {
+    //        ServiceProvider = providerFactory();
+    //    }
+
+    //    public ICommander<TRepository> GetCommander<TRepository>() => ServiceProvider.GetService<ICommander<TRepository>>();
+
+    //    //private IServiceProvider _services;
+
+
+
+    //    //private readonly MsSqlContainer _container = new MsSqlBuilder()
+    //    //    .WithName("syrx-sqlserver")             
+    //    //    .WithReuse(true)
+    //    //    .Build();
+
+    //    //public async Task DisposeAsync()
+    //    //{
+    //    //    //await _container.StopAsync();
+    //    //}
+
+    //    //public async Task InitializeAsync()
+    //    //{
+    //    //    if (_container.State != DotNet.Testcontainers.Containers.TestcontainersStates.Running)
+    //    //    {
+    //    //        await _container.StartAsync();
+    //    //        var connectionString = _container.GetConnectionString();
+    //    //        var installer = new Installer();
+
+    //    //        _services = installer.Install(new ServiceCollection(), connectionString);
+
+    //    //        Setup();
+    //    //    }
+    //    //}
+
+    //    //internal protected ICommander<TRepository> GetCommander<TRepository>() => _services.GetService<ICommander<TRepository>>();
+
+    //    /*
+    //    internal protected void Setup(string name = "Syrx")
+    //    {
+    //        Console.WriteLine($"Running environment setup checks against databse '{name}'.");
+    //        var commander = GetCommander<DatabaseBuilder>();
+
+    //        var builder = DatabaseBuilder
+    //            .Initialize(commander)
+    //            .CreateDatabase(name)
+    //            .DropTableCreatorProcedure()
+    //            .CreateTableCreatorProcedure()
+    //            .CreateTable("poco")
+    //            .CreateTable("identity_tester")
+    //            .CreateTable("bulk_insert")
+    //            .CreateTable("distributed_transaction")
+    //            .DropIdentityTesterProcedure()
+    //            .CreateIdentityTesterProcedure()
+    //            .DropBulkInsertProcedure()
+    //            .CreateBulkInsertProcedure()
+    //            .DropBulkInsertAndReturnProcedure()
+    //            .CreateBulkInsertAndReturnProcedure()
+    //            .DropTableClearingProcedure()
+    //            .CreateTableClearingProcedure()
+    //            .ClearTable()
+    //            .Populate();
+
+    //        Console.WriteLine("Finished setting database up. Let the games begin!");
+    //    }
+    //    */
+
+
+    //}
 }

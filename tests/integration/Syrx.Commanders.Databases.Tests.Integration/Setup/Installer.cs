@@ -1,31 +1,15 @@
-﻿using Syrx.Commanders.Databases.Connectors.SqlServer.Extensions;
-using Syrx.Extensions;
-using Testcontainers.MsSql;
-
+﻿
 namespace Syrx.Commanders.Databases.Tests.Integration.Setup
 {
     public class Installer
     {
-        public IServiceProvider Install(IServiceCollection services = null)
+        public IServiceProvider Install(IServiceCollection services)
         {
-            services ??= new ServiceCollection();
+            //services ??= new ServiceCollection();
 
-            services.UseSyrx(a => a.SetupSqlServer());
-
-            var result = services.BuildServiceProvider();
+            return services.BuildServiceProvider();
                         
-            return result;
         }
-
-        public static IServiceProvider Install()
-        {
-            var installer = new Installer();
-            return installer.Install(new ServiceCollection());
-        }
-
 
     }
-
-
-    
 }

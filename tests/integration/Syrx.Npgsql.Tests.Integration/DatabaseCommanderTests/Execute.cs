@@ -1,7 +1,8 @@
-﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
+﻿using Syrx.Npgsql.Tests.Integration;
+
+namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(BaseFixture.ExecuteFixtureCollectionDefinition)]
-    public class Execute(ExecuteFixture fixture) //: IClassFixture<ExecuteFixture>
+    public class Execute(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 
@@ -11,6 +12,7 @@
             var result = ThrowsAny<Exception>(() => _commander.Execute(new { value = 1 }));
             //result.DivideByZero();
             result.HasMessage("22012: division by zero");
+
         }
 
         [Fact]
@@ -67,17 +69,17 @@
             var model = new ImmutableType(1, Guid.NewGuid().ToString(), int.MaxValue, DateTime.UtcNow);
 
             var result = ThrowsAny<Exception>(() => _commander.Execute(model));
-            //const string expected = "Arithmetic overflow error converting expression to data type float.\r\nThe statement has been terminated.";
             const string expected = "22003: value overflows numeric format";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.
+            // ReSharper disable once ExplicitCallerInfoArgument
             var record = _commander.Query<ImmutableType>(new { model.Name }, method: method);
             NotNull(record);
             False(record.Any());
         }
 
-        [Theory(Skip = "Not supported by Postgres.")]
+        [Theory(Skip = "Not supported by Postgre")]
         [MemberData(nameof(TransactionScopeOptions))]
         public void SupportsEnlistingInAmbientTransactions(TransactionScopeOption scopeOption)
         {

@@ -1,7 +1,6 @@
 ﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(BaseFixture.QueryFixtureCollectionDefinition)]
-    public partial class Query(QueryFixture fixture) 
+    public partial class Query(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
 
@@ -9,9 +8,7 @@
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Query<int>());
-            //const string expected = "Divide by zero error encountered."; // tsql
-            const string expected = "22012: division by zero";//postgres
-            Equal(expected, result.Message);
+            result.HasMessage("22012: division by zero");
         }
 
         [Theory]
@@ -21,9 +18,7 @@
             var result = _commander.Query<T1>();
 
             NotNull(result);
-            Equal(150, result.Count());
-            result.PrintAsJson();
-
+            Equal(150, result.Count());            
         }
 
         [Theory]
@@ -62,8 +57,6 @@
             // assert that we got _something_ back
             NotNull(result);
             Single(result);
-
-            result.PrintAsJson();
 
             // let's set up the values for assertions
             var expected = map(

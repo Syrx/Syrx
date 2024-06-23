@@ -1,8 +1,7 @@
 ﻿
 namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
-    //[Collection(BaseFixture.QueryFixtureCollectionDefinition)]
-    public partial class QueryAsync 
+    public abstract partial class QueryAsync 
     {
 
         [Theory]

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Syrx.Tests.Extensions;
 using static Xunit.Assert;
 
 namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCollectionExtensionsTests
@@ -20,7 +19,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
             // write file
             var settings = fixture.GetTestOptions<AddSyrxXmlFile>();
             var filename = fixture.WriteToFile(settings);
-            filename.PrintAsJson();
 
             // act
             services.AddSyrxXmlFile(builder, filename);

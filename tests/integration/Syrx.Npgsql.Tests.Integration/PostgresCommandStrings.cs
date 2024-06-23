@@ -1,10 +1,10 @@
-﻿namespace Syrx.Npgsql.Tests.Integration.Setup
+﻿namespace Syrx.Npgsql.Tests.Integration
 {
     public static class PostgresCommandStrings
     {
         public const string Alias = "Syrx.Postgres";
         //const string Instance = "Syrx.Postgres";
-        public const string ConnectionString = "Host=localhost;Port=5432;Database=syrx;Username=postgres;Password=syrxforpostgres;Include Error Detail=true;";
+        //public const string ConnectionString = "Host=localhost;Port=5432;Database=syrx;Username=postgres;Password=syrxforpostgres;Include Error Detail=true;";
 
         public static class Setup
         {

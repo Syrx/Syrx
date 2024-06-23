@@ -17,8 +17,6 @@
         {
             var result = AddField(x => x.WithName(Name));
             Equal(Name, result.Name);
-
-            result.PrintAsJson();
         }
     }
 }

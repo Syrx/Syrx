@@ -1,6 +1,6 @@
 ﻿namespace Syrx.Commanders.Databases.Tests.Integration.DatabaseCommanderTests
 {
-    public class Dispose(BaseFixture fixture) : IClassFixture<BaseFixture>
+    public abstract class Dispose(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         
         [Fact]

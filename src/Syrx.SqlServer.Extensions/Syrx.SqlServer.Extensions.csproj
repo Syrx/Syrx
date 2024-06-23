@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.SqlServer.Extensions\Syrx.Commanders.Databases.Connectors.SqlServer.Extensions.csproj" />
+    <ProjectReference Include="..\Syrx.Extensions\Syrx.Extensions.csproj" />
+    <ProjectReference Include="..\Syrx.SqlServer\Syrx.SqlServer.csproj" />
+  </ItemGroup>
+
 </Project>
