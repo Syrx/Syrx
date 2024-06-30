@@ -1,19 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Version>2.0.0</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Syrx</Authors>
+        <Company>Syrx</Company>
+        <Copyright>https://github.com/Syrx/Syrx.Settings/</Copyright>        
+        <PackageProjectUrl>https://github.com/Syrx/Syrx.Settings/</PackageProjectUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <RepositoryUrl>https://github.com/Syrx/Syrx.Settings/</RepositoryUrl>
+        <Description>This package hosts the base ICommandSetting which is what will be executed by the Syrx.ICommander.</Description>
+        <PackageReleaseNotes>Updated to .NET8.0.</PackageReleaseNotes>
+        <PackageTags>syrx;data access;orm;micro-orm</PackageTags>
+</PropertyGroup>
 
-  <PropertyGroup>
-	  <TargetFramework>net8.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
-    <Authors>@sextondjc</Authors>
-    <Company />
-    <Description>A collection of interfaces for building configuration sources and types for use in the Syrx framework.</Description>
-    <PackageLicenseUrl>https://github.com/Syrx</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Syrx</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
-    <PackageReleaseNotes>• Removed redundant Types setting on ISettings.
-• Improved documentation.</PackageReleaseNotes>
-    <Copyright>https://github.com/Syrx</Copyright>
-    <PackageTags>syrx</PackageTags>
-  </PropertyGroup>
+<PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+</PropertyGroup>
 
+<ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+</ItemGroup>
+
+<PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+</PropertyGroup>
 </Project>

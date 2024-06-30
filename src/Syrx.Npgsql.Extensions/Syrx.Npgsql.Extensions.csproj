@@ -1,10 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Version>2.0.0</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Syrx</Authors>
+        <Company>Syrx</Company>
+        <Copyright>https://github.com/Syrx/Syrx.Npgsql.Extensions/</Copyright>        
+        <PackageProjectUrl>https://github.com/Syrx/Syrx.Npgsql.Extensions/</PackageProjectUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <RepositoryUrl>https://github.com/Syrx/Syrx.Npgsql.Extensions/</RepositoryUrl>
+        <Description>This package hosts extension methods to make wiring up support for PostgreSQL databases simpler and easier. </Description>
+        <PackageReleaseNotes></PackageReleaseNotes>
+        <PackageTags>syrx;data access;dapper;orm;micro-orm;postgresql;npgsql</PackageTags>
+</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+<PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+</PropertyGroup>
+
+<ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+</ItemGroup>
+
+<PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+</PropertyGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.Npgsql.Extensions\Syrx.Commanders.Databases.Connectors.Npgsql.Extensions.csproj" />

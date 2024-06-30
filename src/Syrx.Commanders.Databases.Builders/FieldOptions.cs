@@ -15,7 +15,6 @@
 
         public FieldOptions WithDataType(SqlDbType type)
         {
-            Throw<ArgumentNullException>(type != null, nameof(type));
             _type = type;
             return this;
         }
@@ -36,7 +35,6 @@
         internal protected Field Build()
         {
             Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(_name), nameof(_name));
-            Throw<ArgumentNullException>(_type != null, nameof(_type));
             return new Field(_name, _type, _width, _nullable);
         }
     }

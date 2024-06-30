@@ -1,18 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Version>2.0.0</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Syrx</Authors>
+        <Company>Syrx</Company>
+        <Copyright>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors.Oracle/</Copyright>        
+        <PackageProjectUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors.Oracle/</PackageProjectUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <RepositoryUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors.Oracle/</RepositoryUrl>
+        <Description>This package provides support for Oracle connections by implementing a OracleDatabaseConnector for the Syrx IDatabaseConnector. </Description>
+        <PackageReleaseNotes></PackageReleaseNotes>
+        <PackageTags>syrx;data access;orm;micro-orm;oracle</PackageTags>
+</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+<PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.4.0" />
-  </ItemGroup>
+<ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors\Syrx.Commanders.Databases.Connectors.csproj" />
-    <ProjectReference Include="..\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
-  </ItemGroup>
+<PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Syrx.Commanders.Databases.Connectors\Syrx.Commanders.Databases.Connectors.csproj" />
+		<ProjectReference Include="..\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
+	</ItemGroup>
 
 </Project>

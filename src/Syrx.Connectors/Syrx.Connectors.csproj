@@ -1,22 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Version>2.0.0</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Syrx</Authors>
+        <Company>Syrx</Company>
+        <Copyright>https://github.com/Syrx/Syrx.Connectors/</Copyright>        
+        <PackageProjectUrl>https://github.com/Syrx/Syrx.Connectors/</PackageProjectUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <RepositoryUrl>https://github.com/Syrx/Syrx.Connectors/</RepositoryUrl>
+        <Description>This package hosts the core IConnector interface which is used to build connections to arbitrary data sources. </Description>
+        <PackageReleaseNotes>Updated to .NET8.0.</PackageReleaseNotes>
+        <PackageTags>syrx;data access;orm;micro-orm</PackageTags>
+</PropertyGroup>
 
-  <PropertyGroup>
-	  <TargetFramework>net8.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
-    <Authors>@sextondjc</Authors>
-    <Company />
-    <Description>Core interface for building connections into arbitrary data sources.</Description>
-    <PackageLicenseUrl>https://github.com/Syrx</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/Syrx</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Syrx/Syrx</RepositoryUrl>
-    <PackageReleaseNotes>• Updated package information.</PackageReleaseNotes>
-    <Copyright>https://github.com/Syrx</Copyright>
-    <PackageTags>syrx</PackageTags>
-  </PropertyGroup>
+<PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Syrx.Settings\Syrx.Settings.csproj" />
-  </ItemGroup>
+<ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+</ItemGroup>
+
+<PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+</PropertyGroup>	
+
+	<ItemGroup>
+		<ProjectReference Include="..\Syrx.Settings\Syrx.Settings.csproj" />
+	</ItemGroup>
 
 </Project>

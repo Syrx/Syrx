@@ -114,9 +114,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.SqlServer.Extensions",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Oracle.Tests.Integration", "tests\integration\Syrx.Oracle.Tests.Integration\Syrx.Oracle.Tests.Integration.csproj", "{23DAF25F-7301-40EC-88AD-C46D36CC00E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Npgsql.Extensions", "src\Syrx.Npgsql.Extensions\Syrx.Npgsql.Extensions.csproj", "{6B8A4500-09D3-4992-B7CF-65FE5FB39E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Npgsql.Extensions", "src\Syrx.Npgsql.Extensions\Syrx.Npgsql.Extensions.csproj", "{6B8A4500-09D3-4992-B7CF-65FE5FB39E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Oracle.Extensions", "src\Syrx.Oracle.Extensions\Syrx.Oracle.Extensions.csproj", "{F1469D06-6C59-4E12-9939-3E245986644A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Oracle.Extensions", "src\Syrx.Oracle.Extensions\Syrx.Oracle.Extensions.csproj", "{F1469D06-6C59-4E12-9939-3E245986644A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.MySql", "src\Syrx.Commanders.Databases.Connectors.MySql\Syrx.Commanders.Databases.Connectors.MySql.csproj", "{4624A2F7-CF5A-4C0D-8F65-F709A88645D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.MySql.Extensions", "src\Syrx.Commanders.Databases.Connectors.MySql.Extensions\Syrx.Commanders.Databases.Connectors.MySql.Extensions.csproj", "{14DF574C-1E02-48B0-BC5B-EB1EBF11767D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.MySql", "src\Syrx.MySql\Syrx.MySql.csproj", "{8BAC0094-FAE4-44C4-A038-2FB9FD3DB2CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.MySql.Extensions", "src\Syrx.MySql.Extensions\Syrx.MySql.Extensions.csproj", "{A31BF284-1189-49C8-9D57-AF9D96DD7629}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.MySql.Tests.Integration", "tests\integration\Syrx.MySql.Tests.Integration\Syrx.MySql.Tests.Integration.csproj", "{2DD8ADE3-B9A4-4D1D-A8AF-5A7F4FF4889E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.MySql.Extensions.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Connectors.MySql.Extensions.Tests.Unit\Syrx.Commanders.Databases.Connectors.MySql.Extensions.Tests.Unit.csproj", "{F1A243DD-06D6-4D87-A6DF-855C2835450F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.MySql.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Connectors.MySql.Tests.Unit\Syrx.Commanders.Databases.Connectors.MySql.Tests.Unit.csproj", "{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Oracle", "src\Syrx.Commanders.Databases.Oracle\Syrx.Commanders.Databases.Oracle.csproj", "{48659079-E89D-4A8C-B4B1-1EED17B84913}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -324,6 +340,38 @@ Global
 		{F1469D06-6C59-4E12-9939-3E245986644A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1469D06-6C59-4E12-9939-3E245986644A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1469D06-6C59-4E12-9939-3E245986644A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4624A2F7-CF5A-4C0D-8F65-F709A88645D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4624A2F7-CF5A-4C0D-8F65-F709A88645D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4624A2F7-CF5A-4C0D-8F65-F709A88645D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4624A2F7-CF5A-4C0D-8F65-F709A88645D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14DF574C-1E02-48B0-BC5B-EB1EBF11767D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14DF574C-1E02-48B0-BC5B-EB1EBF11767D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14DF574C-1E02-48B0-BC5B-EB1EBF11767D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14DF574C-1E02-48B0-BC5B-EB1EBF11767D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BAC0094-FAE4-44C4-A038-2FB9FD3DB2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BAC0094-FAE4-44C4-A038-2FB9FD3DB2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BAC0094-FAE4-44C4-A038-2FB9FD3DB2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BAC0094-FAE4-44C4-A038-2FB9FD3DB2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A31BF284-1189-49C8-9D57-AF9D96DD7629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A31BF284-1189-49C8-9D57-AF9D96DD7629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A31BF284-1189-49C8-9D57-AF9D96DD7629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A31BF284-1189-49C8-9D57-AF9D96DD7629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD8ADE3-B9A4-4D1D-A8AF-5A7F4FF4889E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD8ADE3-B9A4-4D1D-A8AF-5A7F4FF4889E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD8ADE3-B9A4-4D1D-A8AF-5A7F4FF4889E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD8ADE3-B9A4-4D1D-A8AF-5A7F4FF4889E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1A243DD-06D6-4D87-A6DF-855C2835450F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A243DD-06D6-4D87-A6DF-855C2835450F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A243DD-06D6-4D87-A6DF-855C2835450F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A243DD-06D6-4D87-A6DF-855C2835450F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48659079-E89D-4A8C-B4B1-1EED17B84913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48659079-E89D-4A8C-B4B1-1EED17B84913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48659079-E89D-4A8C-B4B1-1EED17B84913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48659079-E89D-4A8C-B4B1-1EED17B84913}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -381,6 +429,14 @@ Global
 		{23DAF25F-7301-40EC-88AD-C46D36CC00E3} = {09A14C65-D13E-44ED-9D4D-26A1DC373929}
 		{6B8A4500-09D3-4992-B7CF-65FE5FB39E4C} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
 		{F1469D06-6C59-4E12-9939-3E245986644A} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{4624A2F7-CF5A-4C0D-8F65-F709A88645D9} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{14DF574C-1E02-48B0-BC5B-EB1EBF11767D} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{8BAC0094-FAE4-44C4-A038-2FB9FD3DB2CA} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{A31BF284-1189-49C8-9D57-AF9D96DD7629} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{2DD8ADE3-B9A4-4D1D-A8AF-5A7F4FF4889E} = {09A14C65-D13E-44ED-9D4D-26A1DC373929}
+		{F1A243DD-06D6-4D87-A6DF-855C2835450F} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
+		{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
+		{48659079-E89D-4A8C-B4B1-1EED17B84913} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E10C114-A98F-4FCC-BCB7-528DEA8B47B5}

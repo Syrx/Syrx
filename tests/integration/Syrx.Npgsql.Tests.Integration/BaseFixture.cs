@@ -5,8 +5,6 @@
     {
         private IServiceProvider _services;
         private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-            .WithName("syrx-postgres")
-            .WithReuse(true)
             .Build();
 
         public async Task DisposeAsync()
@@ -16,10 +14,7 @@
 
         public async Task InitializeAsync()
         {
-            if (_container.State != DotNet.Testcontainers.Containers.TestcontainersStates.Running)
-            {
-                await _container.StartAsync();
-            }
+            await _container.StartAsync();
 
             // line up
             var connectionString = _container.GetConnectionString();
@@ -30,7 +25,7 @@
 
         internal protected ICommander<TRepository> GetCommander<TRepository>()
         {
-            return _services.GetService<ICommander<TRepository>>();
+            return _services.GetService<ICommander<TRepository>>()!;
         }
 
     }

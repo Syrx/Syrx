@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using static Syrx.Validation.Contract;
 
 namespace Syrx.Commanders.Databases.Settings.Extensions.Json

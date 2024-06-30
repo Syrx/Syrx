@@ -1,14 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Version>2.0.0</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Syrx</Authors>
+        <Company>Syrx</Company>
+        <Copyright>https://github.com/Syrx/Syrx.Oracle/</Copyright>        
+        <PackageProjectUrl>https://github.com/Syrx/Syrx.Oracle/</PackageProjectUrl>
+        <PackageIconUrl></PackageIconUrl>
+        <RepositoryUrl>https://github.com/Syrx/Syrx.Oracle/</RepositoryUrl>
+        <Description>This package provides Syrx support for Oracle databases.</Description>
+        <PackageReleaseNotes>Try using the Syrx.Oracle.Extensions to simplify wiring up and configuration!</PackageReleaseNotes>
+        <PackageTags>syrx;data access;orm;micro-orm;oracle</PackageTags>
+</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+<PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.Oracle\Syrx.Commanders.Databases.Connectors.Oracle.csproj" />
-    <ProjectReference Include="..\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
-  </ItemGroup>
+<ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+</ItemGroup>
+
+<PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.Oracle\Syrx.Commanders.Databases.Connectors.Oracle.csproj" />
+		<ProjectReference Include="..\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
+	</ItemGroup>
 
 </Project>
