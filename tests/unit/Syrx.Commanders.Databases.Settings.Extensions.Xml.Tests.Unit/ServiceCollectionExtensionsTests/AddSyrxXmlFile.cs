@@ -23,7 +23,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
             // act
             services.AddSyrxXmlFile(builder, filename);
 
-
             // finalze build
             var configuration = builder.Build();
             var provider = services.BuildServiceProvider();
@@ -39,7 +38,29 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
             Single(resolved.Namespaces.Single().Types);
             Equal(settings.Namespaces.Single().Types.Single().Name, resolved.Namespaces.Single().Types.Single().Name);
             Equal(2, resolved.Namespaces.Single().Types.Single().Commands.Count);
+        }
 
+        [Fact(Skip = "Reading of the file is dropping one of the elements.")]
+        public void SuccessfullyWithPrebuiltFile()
+        {
+            var services = fixture.Services;
+            var builder = fixture.ConfigurationBuilder;
+            const string path = "syrx.settings.xml";
+            services.AddSyrxXmlFile(builder, path);
+
+
+            // finalze build
+            var configuration = builder.Build();
+            var provider = services.BuildServiceProvider();
+            var resolved = configuration.Get<CommanderSettings>();
+
+            // assertions
+            NotNull(resolved);
+
+            Single(resolved.Connections);
+            Single(resolved.Namespaces);
+            Single(resolved.Namespaces.Single().Types);
+            Equal(2, resolved.Namespaces.Single().Types.Single().Commands.Count);
         }
     }
 }

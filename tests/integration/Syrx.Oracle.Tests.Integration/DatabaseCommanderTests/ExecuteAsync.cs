@@ -136,7 +136,7 @@
 
         [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
-        public async Task SingleType<T1>(int id, SingleType<T1> input)
+        public async Task SingleType<T1>(SingleType<T1> input)
         {
             var result = await _commander.ExecuteAsync(input.One);
             True(result);

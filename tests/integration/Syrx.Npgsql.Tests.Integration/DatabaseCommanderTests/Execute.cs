@@ -136,7 +136,7 @@ namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 
         [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
-        public void SingleType<T1>(int id, SingleType<T1> input)
+        public void SingleType<T1>(SingleType<T1> input)
         {
             var result = _commander.Execute(input.One);
             True(result);

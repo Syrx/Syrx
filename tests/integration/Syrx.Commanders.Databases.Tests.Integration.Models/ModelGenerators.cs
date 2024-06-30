@@ -5,7 +5,7 @@ using static Syrx.Commanders.Databases.Tests.Integration.Models.ModelGenerators.
 
 namespace Syrx.Commanders.Databases.Tests.Integration.Models
 {
-    public class ModelGenerators
+    public partial class ModelGenerators
     {
         public class Multimap
         {
@@ -19,61 +19,61 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
 
 
             public static IEnumerable<object[]> SingleTypeData => [
-                [1, new SingleType<ImmutableType>(new ImmutableType(1, "entry 1", 10, DateTime.Today))],
-                [1, new SingleType<MutableType>(new MutableType { Id = 1, Name = "entry 1", Value = 10, Modified = DateTime.Today })],
-                [2, new SingleType<RecordType>(new RecordType(2, "entry 2", 20, DateTime.Today))],
-                [3, new SingleType<PrimaryConstructorImmutableType>(new PrimaryConstructorImmutableType(3, "entry 3", 30, DateTime.Today))]
+                [new SingleType<ImmutableType>(new ImmutableType(1, "entry 1", 10, DateTime.Today), new { id  = 1 })],
+                [new SingleType<MutableType>(new MutableType { Id = 1, Name = "entry 1", Value = 10, Modified = DateTime.Today }, new { id = 1 })],
+                [new SingleType<RecordType>(new RecordType(2, "entry 2", 20, DateTime.Today), new { id = 2 })],
+                [new SingleType<PrimaryConstructorImmutableType>(new PrimaryConstructorImmutableType(3, "entry 3", 30, DateTime.Today), new { id = 3 })]
                ];            
             public static IEnumerable<object[]> TwoTypeData => [
-                [1, 140, new TwoType<ImmutableType, ImmutableType, ImmutableTwoType<ImmutableType, ImmutableType, ImmutableType>>(
+                [new TwoType<ImmutableType, ImmutableType, ImmutableTwoType<ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
-                (a, b) => new ImmutableTwoType<ImmutableType, ImmutableType, ImmutableType>(a, b))],
+                (a, b) => new ImmutableTwoType<ImmutableType, ImmutableType, ImmutableType>(a, b), new { id = 1 })],
 
                 // this is a more interesting case in that it reflects a more realistic/common domain model. 
-                [1, 140, new TwoType<ImmutableType, ImmutableType, ImmutableFiveType<int, string, decimal, DateTime, ImmutableType, ImmutableType>>(
+                [new TwoType<ImmutableType, ImmutableType, ImmutableFiveType<int, string, decimal, DateTime, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
-                (a, b) => new ImmutableFiveType<int, string, decimal, DateTime, ImmutableType, ImmutableType>(a.Id, a.Name, a.Value, a.Modified, b))]
+                (a, b) => new ImmutableFiveType<int, string, decimal, DateTime, ImmutableType, ImmutableType>(a.Id, a.Name, a.Value, a.Modified, b), new { id = 1 })]
              ];
             public static IEnumerable<object[]> ThreeTypeData => [
-                [1, 130, new ThreeType<ImmutableType, ImmutableType, ImmutableType,
+                [new ThreeType<ImmutableType, ImmutableType, ImmutableType,
                 ImmutableThreeType<ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
                     Build(x=>x.WithId(3)),
-                (a, b, c) => new ImmutableThreeType<ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c))
+                (a, b, c) => new ImmutableThreeType<ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c), new { id = 1 })
              ],
-             [1, 130, new ThreeType<ImmutableType, ImmutableType, ImmutableType,
+             [new ThreeType<ImmutableType, ImmutableType, ImmutableType,
                  ImmutableThreeType<ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
                     Build(x=>x.WithId(3)),
-                 (a, b, c) => new ImmutableThreeType<ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c))
+                 (a, b, c) => new ImmutableThreeType<ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c), new { id = 1 })
                  ]
                 ];
             public static IEnumerable<object[]> FourTypeData => [
-                [1, 120, new FourType<ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new FourType<ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableFourType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
                     Build(x=>x.WithId(3)),
                     Build(x=>x.WithId(4)),
-                (a, b, c, d) => new ImmutableFourType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d))
+                (a, b, c, d) => new ImmutableFourType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d), new { id = 1 })
              ]
                 ];
             public static IEnumerable<object[]> FiveTypeData => [
-                [1, 110, new FiveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableFiveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
+                [new FiveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableFiveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
                     Build(x=>x.WithId(3)),
                     Build(x=>x.WithId(4)),
                     Build(x=>x.WithId(5)),
-                (a, b, c, d, e) => new ImmutableFiveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e))
+                (a, b, c, d, e) => new ImmutableFiveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e), new { id = 1 })
              ]
             ];
             public static IEnumerable<object[]> SixTypeData => [
-                [1, 110, new SixType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new SixType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableSixType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -81,11 +81,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(4)),
                     Build(x=>x.WithId(5)),
                     Build(x=>x.WithId(6)),
-                (a, b, c, d, e, f) => new ImmutableSixType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f))
+                (a, b, c, d, e, f) => new ImmutableSixType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f), new { id = 1 })
              ]
             ];
             public static IEnumerable<object[]> SevenTypeData => [
-                [1, 110, new SevenType<ImmutableType,
+                [new SevenType<ImmutableType,
                                        ImmutableType,
                                        ImmutableType,
                                        ImmutableType,
@@ -116,9 +116,9 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     ImmutableType,
                     ImmutableType,
                     ImmutableType,
-                    ImmutableType>(a, b, c, d, e, f, g))]];
+                    ImmutableType>(a, b, c, d, e, f, g), new { id = 1 })]];
             public static IEnumerable<object[]> EightTypeData => [
-                [1, 110, new EightType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new EightType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableEightType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -128,11 +128,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(6)),
                     Build(x=>x.WithId(7)),
                     Build(x=>x.WithId(8)),
-                (a, b, c, d, e, f, g, h) => new ImmutableEightType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h))
+                (a, b, c, d, e, f, g, h) => new ImmutableEightType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> NineTypeData => [
-                [1, 110, new NineType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new NineType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableNineType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -143,11 +143,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(7)),
                     Build(x=>x.WithId(8)),
                     Build(x=>x.WithId(9)),
-                (a, b, c, d, e, f, g, h, i) => new ImmutableNineType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i))
+                (a, b, c, d, e, f, g, h, i) => new ImmutableNineType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> TenTypeData => [
-                [1, 110, new TenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new TenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableTenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -159,11 +159,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(8)),
                     Build(x=>x.WithId(9)),
                     Build(x=>x.WithId(10)),
-                (a, b, c, d, e, f, g, h, i, j) => new ImmutableTenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j))
+                (a, b, c, d, e, f, g, h, i, j) => new ImmutableTenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> ElevenTypeData => [
-                [1, 110, new ElevenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new ElevenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableElevenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -176,11 +176,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(9)),
                     Build(x=>x.WithId(10)),
                     Build(x=>x.WithId(11)),
-                (a, b, c, d, e, f, g, h, i, j, k) => new ImmutableElevenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k))
+                (a, b, c, d, e, f, g, h, i, j, k) => new ImmutableElevenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> TwelveTypeData => [
-                [1, 110, new TwelveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new TwelveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableTwelveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -194,11 +194,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(10)),
                     Build(x=>x.WithId(11)),
                     Build(x=>x.WithId(12)),
-                (a, b, c, d, e, f, g, h, i, j, k, l) => new ImmutableTwelveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l))
+                (a, b, c, d, e, f, g, h, i, j, k, l) => new ImmutableTwelveType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> ThirteenTypeData => [
-                [1, 110, new ThirteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new ThirteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableThirteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -213,11 +213,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(11)),
                     Build(x=>x.WithId(12)),
                     Build(x=>x.WithId(13)),
-                (a, b, c, d, e, f, g, h, i, j, k, l, m) => new ImmutableThirteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m))
+                (a, b, c, d, e, f, g, h, i, j, k, l, m) => new ImmutableThirteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> FourteenTypeData => [
-                [1, 110, new FourteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new FourteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableFourteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -233,11 +233,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(12)),
                     Build(x=>x.WithId(13)),
                     Build(x=>x.WithId(14)),
-                (a, b, c, d, e, f, g, h, i, j, k, l, m, n) => new ImmutableFourteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m, n))
+                (a, b, c, d, e, f, g, h, i, j, k, l, m, n) => new ImmutableFourteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m, n), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> FifteenTypeData => [
-                [1, 110, new FifteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new FifteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableFifteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -254,11 +254,11 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(13)),
                     Build(x=>x.WithId(14)),
                     Build(x=>x.WithId(15)),
-                (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) => new ImmutableFifteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o))
+                (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) => new ImmutableFifteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o), new { id = 1 })
              ],
             ];
             public static IEnumerable<object[]> SixteenTypeData => [
-                [1, 110, new SixteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
+                [new SixteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType,
                 ImmutableSixteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>>(
                     Build(x=>x.WithId()),
                     Build(x=>x.WithId(2)),
@@ -276,7 +276,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                     Build(x=>x.WithId(14)),
                     Build(x=>x.WithId(15)),
                     Build(x=>x.WithId(16)),
-                (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) => new ImmutableSixteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p))
+                (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) => new ImmutableSixteenType<ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType, ImmutableType>(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p), new { id = 1 })
              ],
             ];
 
@@ -285,10 +285,10 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
         public class Multiple
         {
             public static IEnumerable<object[]> SingleTypeData => [
-                [1, new SingleType<ImmutableType>(new ImmutableType(1, "entry 1", 10, DateTime.Today))],
-                [1, new SingleType<MutableType>(new MutableType { Id = 1, Name = "entry 1", Value = 10, Modified = DateTime.Today })],
-                [2, new SingleType<RecordType>(new RecordType(2, "entry 2", 20, DateTime.Today))],
-                [3, new SingleType<PrimaryConstructorImmutableType>(new PrimaryConstructorImmutableType(3, "entry 3", 30, DateTime.Today))]
+                [new SingleType<ImmutableType>(new ImmutableType(1, "entry 1", 10, DateTime.Today), new { id = 1 })],
+                [new SingleType<MutableType>(new MutableType { Id = 1, Name = "entry 1", Value = 10, Modified = DateTime.Today }, new { id = 1 })],
+                [new SingleType<RecordType>(new RecordType(2, "entry 2", 20, DateTime.Today), new { id = 2 })],
+                [new SingleType<PrimaryConstructorImmutableType>(new PrimaryConstructorImmutableType(3, "entry 3", 30, DateTime.Today), new { id = 3})]
                ];
             public static IEnumerable<object[]> OneType => [
                 [new OneType<IEnumerable<ImmutableType>,
@@ -1036,71 +1036,10 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
                                     IEnumerable<ImmutableType>, // 15
                                     IEnumerable<ImmutableType>, // 16
                                     IEnumerable<ImmutableType>>(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p)
-
                         ]
                         )
                     ]
                 ];
-        }
-
-        public class ImmutableTypeOptionsBuilder
-        {
-            public static ImmutableType Build(Action<ImmutableTypeOptions> builder)
-            {
-                var options = new ImmutableTypeOptions();
-                builder(options);
-                return options.Build();
-            }
-
-            public static IEnumerable<ImmutableType> Build(int instances = 1) => Enumerable.Range(1, instances).Select(x => Build(y => y.WithId(x)));
-
-
-        }
-
-        public class ImmutableTypeOptions
-        {
-            private int _id;
-            private string _name;
-            private decimal _value = 1;
-            private DateTime _modified = DateTime.Today;
-
-            public ImmutableTypeOptions()
-            {
-            }
-
-            public ImmutableTypeOptions WithId(int id = 1)
-            {
-                _id = id;
-                return this;
-            }
-
-            public ImmutableTypeOptions WithName(string name = "entry")
-            {
-                _name = name;
-                return this;
-            }
-
-            public ImmutableTypeOptions WithValue(decimal value = 10)
-            {
-                _value = value;
-                return this;
-            }
-
-            public ImmutableTypeOptions WithDate(DateTime? modified = null)
-            {
-                _modified = modified ?? DateTime.Today;
-                return this;
-            }
-
-            protected internal ImmutableType Build()
-            {
-                return new ImmutableType(
-                    _id,
-                    _name ?? $"entry {_id}",
-                    _value == 0 ? _value : (_id * 10),
-                    _modified
-                    );
-            }
         }
     }
 }

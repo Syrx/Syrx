@@ -2,7 +2,7 @@
 {
     public sealed record NamespaceSetting
     {
-        public string Namespace { get; init; }
-        public List<TypeSetting> Types { get; init; }
+        public required string Namespace { get; init; }
+        public required List<TypeSetting> Types { get; init; }
     }
 }

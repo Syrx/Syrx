@@ -1,4 +1,6 @@
-﻿namespace Syrx.MySql.Tests.Integration
+﻿using DotNet.Testcontainers.Builders;
+
+namespace Syrx.MySql.Tests.Integration
 {
 
     public class BaseFixture : IAsyncLifetime
