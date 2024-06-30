@@ -26,7 +26,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Connectors.Oracle.Extensions\Syrx.Commanders.Databases.Connectors.Oracle.Extensions.csproj" />
     <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Connectors.Oracle\Syrx.Commanders.Databases.Connectors.Oracle.csproj" />
-    <ProjectReference Include="..\..\..\src\Syrx.Extensions\Syrx.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\src\Syrx.Commanders.Databases.Oracle\Syrx.Commanders.Databases.Oracle.csproj" />
+    <ProjectReference Include="..\..\..\src\Syrx.Oracle.Extensions\Syrx.Oracle.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\src\Syrx.Oracle\Syrx.Oracle.csproj" />
     <ProjectReference Include="..\..\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj" />
     <ProjectReference Include="..\Syrx.Commanders.Databases.Tests.Integration.Models\Syrx.Commanders.Databases.Tests.Integration.Models.csproj" />
   </ItemGroup>

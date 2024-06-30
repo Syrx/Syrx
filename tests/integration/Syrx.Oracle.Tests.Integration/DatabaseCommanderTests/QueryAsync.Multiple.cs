@@ -2,13 +2,14 @@
 {
     public partial class QueryAsync 
     {
+        private OracleDynamicParameters _cursors = Cursors();
 
         [Theory]
         [MemberData(nameof(ModelGenerators.Multiple.OneType), MemberType = typeof(ModelGenerators.Multiple))]
         public async Task OneTypeMultiple<T1, TResult>(OneType<IEnumerable<T1>, IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -22,7 +23,7 @@
         public async Task TwoTypeMultiple<T1, T2, TResult>(TwoType<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -42,7 +43,7 @@
               IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -65,7 +66,7 @@
               IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -90,7 +91,7 @@
               IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -117,7 +118,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -146,7 +147,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -177,7 +178,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -210,7 +211,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -245,7 +246,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -282,7 +283,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -321,7 +322,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -362,7 +363,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -405,7 +406,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -450,7 +451,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);
@@ -498,7 +499,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = await _commander.QueryAsync(map);
+            var result = await _commander.QueryAsync(map, _cursors);
 
             NotNull(result);
             Single(result);                      

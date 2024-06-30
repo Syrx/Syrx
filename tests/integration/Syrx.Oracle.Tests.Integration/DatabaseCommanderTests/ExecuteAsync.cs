@@ -8,7 +8,8 @@
         public async Task ExceptionsAreReturnedToCaller()
         {
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(new { value = 1 }));
-            result.DivideByZero();
+            const string expected = "ORA-00900: invalid SQL statement\r\nhttps://docs.oracle.com/error-help/db/ora-00900/";
+            result.HasMessage(expected);
         }
 
         [Fact]
@@ -30,7 +31,10 @@
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync<bool>());
             var postCount = _commander.Query<int>(method: method);
 
-            result.DivideByZero();
+            result.Message.PrintAsJson();
+
+            StartsWith("ORA-06550", result.Message);
+
             Equal(preCount, postCount);
         }
 
@@ -65,7 +69,7 @@
 
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(model));
             const string expected =
-                "Arithmetic overflow error converting expression to data type float.\r\nThe statement has been terminated.";
+                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\r\nhttps://docs.oracle.com/error-help/db/ora-01438/";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.
@@ -75,7 +79,7 @@
             False(record.Any());
         }
 
-        [Theory]
+        [Theory(Skip = "Not supported by Oracle.")]
         [MemberData(nameof(TransactionScopeOptions))]
         public async Task SupportsEnlistingInAmbientTransactions(TransactionScopeOption scopeOption)
         {
@@ -116,7 +120,7 @@
             );
 
             NotEqual(one, result);
-            NotEqual(one.Id, result.Id);
+            Equal(one.Id, result.Id);
             Equal(one.Name, result.Name);
             Equal(one.Value, result.Value);
         }

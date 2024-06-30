@@ -107,7 +107,7 @@ namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
         {
             var random = new Random();
             var overload = $"{nameof(SuccessfullyWithResponse)}.Response";
-            var one = new ImmutableType(500, $"{nameof(ImmutableType)}.{random.Next(int.MaxValue)}", random.Next(int.MaxValue), DateTime.UtcNow);
+            var one = new ImmutableType(500, $"{nameof(ImmutableType)}-{Guid.NewGuid()}", random.Next(int.MaxValue), DateTime.UtcNow);
             var result = await _commander.ExecuteAsync(() =>
             {
                 return _commander.Execute(one) ?

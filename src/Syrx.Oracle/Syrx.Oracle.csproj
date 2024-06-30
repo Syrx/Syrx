@@ -33,6 +33,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Syrx.Commanders.Databases.Connectors.Oracle\Syrx.Commanders.Databases.Connectors.Oracle.csproj" />
+		<ProjectReference Include="..\Syrx.Commanders.Databases.Oracle\Syrx.Commanders.Databases.Oracle.csproj" />
 		<ProjectReference Include="..\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj" />
 	</ItemGroup>
 

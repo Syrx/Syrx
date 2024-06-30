@@ -8,7 +8,8 @@
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Execute(new { value = 1 }));
-            result.DivideByZero();
+            const string expected = "ORA-00900: invalid SQL statement\r\nhttps://docs.oracle.com/error-help/db/ora-00900/";
+            result.HasMessage(expected);
         }
 
         [Fact]
@@ -30,7 +31,7 @@
             var result = ThrowsAny<Exception>(() => _commander.Execute<bool>());
             var postCount = _commander.Query<int>(method: method);
 
-            result.DivideByZero();
+            StartsWith("ORA-06550", result.Message);
             Equal(preCount, postCount);
         }
 
@@ -65,7 +66,7 @@
 
             var result = ThrowsAny<Exception>(() => _commander.Execute(model));
             const string expected =
-                "Arithmetic overflow error converting expression to data type float.\r\nThe statement has been terminated.";
+                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\r\nhttps://docs.oracle.com/error-help/db/ora-01438/";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.
@@ -75,7 +76,7 @@
             False(record.Any());
         }
 
-        [Theory]
+        [Theory(Skip = "Not supported by Oracle.")]
         [MemberData(nameof(TransactionScopeOptions))]
         public void SupportsEnlistingInAmbientTransactions(TransactionScopeOption scopeOption)
         {
@@ -106,17 +107,17 @@
         {
             var random = new Random();
             var overload = $"{nameof(SuccessfullyWithResponse)}.Response";
-            var one = new ImmutableType(500, nameof(ImmutableType), random.Next(int.MaxValue), DateTime.UtcNow);
+            var one = new ImmutableType(500, $"{nameof(ImmutableType) }-{Guid.NewGuid()}", random.Next(int.MaxValue), DateTime.UtcNow);
             var result = _commander.Execute(() =>
             {
                 return _commander.Execute(one) ?
-                        _commander.Query<ImmutableType>(new { name = one.Name }, overload).SingleOrDefault()
+                        _commander.Query<ImmutableType>(new { name = one.Name }, overload).FirstOrDefault()
                         : null;
             }
             );
 
             NotEqual(one, result);
-            NotEqual(one.Id, result.Id);
+            Equal(one.Id, result.Id);
             Equal(one.Name, result.Name);
             Equal(one.Value, result.Value);
         }

@@ -19,7 +19,7 @@ namespace Syrx.Commanders.Databases.Connectors.Oracle.Tests.Unit.OracleDatabaseC
         public CreateConnection()
         {
             _settings = CommanderSettingsBuilderExtensions.Build(
-                a => a.AddConnectionString("test.alias", "Host=localhost;Port=5432;Database=syrx;Username=postgres;Password=syrxforpostgres;")
+                a => a.AddConnectionString("test.alias", "User Id=testuser;password=testpassword;data source=oracle")
                 .AddCommand(
                     b => b.ForType<CreateConnection>(
                     c => c.ForMethod(nameof(Successfully),

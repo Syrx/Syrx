@@ -11,12 +11,7 @@ namespace Syrx
     /// <summary>
     ///     Basically breaks down into two distinct operations for writes (Execute) and reads (Query).
     /// </summary>
-    public interface ICommander<TRepository> :
-        IExecuteCommander<TRepository>,
-        IExecuteAsyncCommander<TRepository>,
-        IQueryCommander<TRepository>,
-        IQueryAsyncCommander<TRepository>,
-        IDisposable
+    public partial interface ICommander<TRepository> : IDisposable
     {
     }
 }

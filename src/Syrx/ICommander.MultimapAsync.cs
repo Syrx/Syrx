@@ -11,7 +11,7 @@ namespace Syrx
     /// <summary>
     ///     Basically breaks down into two distinct operations for mutating data/retrieving data
     /// </summary>
-    public partial interface IQueryAsyncCommander<TRepository>
+    public partial interface ICommander<TRepository>
     {
         /// <summary>
         ///     Queries the data source asynchronously.

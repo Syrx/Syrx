@@ -1,6 +1,6 @@
 ﻿namespace Syrx.Oracle.Tests.Integration
 {
-    
+
     public static class OracleSetupExtensions
     {
         public static SyrxBuilder SetupOracle(this SyrxBuilder builder, string connectionString = null)
@@ -28,27 +28,28 @@
         {
             return builder.AddCommand(
                 a => a.ForType<DatabaseBuilder>(
-                    b => b
+                    b => b                
                     .ForMethod(
-                        nameof(DatabaseBuilder.CreateDatabase), c => c
+                        nameof(DatabaseBuilder.CreatePocoTable), c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
-                        .UseCommandText(OracleCommandStrings.Setup.CreateDatabase))
+                        .UseCommandText(OracleCommandStrings.Setup.CreatePocoTable))
                     .ForMethod(
-                        nameof(DatabaseBuilder.DropTableCreatorProcedure), c => c
+                        "DropPocoTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
-                        .UseCommandText(OracleCommandStrings.Setup.DropTableCreatorProcedure))
+                        .UseCommandText(OracleCommandStrings.Setup.DropPocoTable))
                     .ForMethod(
-                        nameof(DatabaseBuilder.CreateTableCreatorProcedure), c => c
+                        "DropIdentityInsertTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
-                        .UseCommandText(OracleCommandStrings.Setup.CreateTableCreatorProcedure))
+                        .UseCommandText(OracleCommandStrings.Setup.DropIdentityInsertTable))
                     .ForMethod(
-                        nameof(DatabaseBuilder.ExecutePocoTableProcedure), c => c
+                        "DropBulkInsertTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
-                        .UseCommandText(OracleCommandStrings.Setup.ExecutePocoTableProcedure))
+                        .UseCommandText(OracleCommandStrings.Setup.DropBulkInsertTable))
                     .ForMethod(
-                        nameof(DatabaseBuilder.CreatePocoTableProcedure), c => c
+                        "DropDistributeedTransactionTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
-                        .UseCommandText(OracleCommandStrings.Setup.CreatePocoTableProcedure))
+                        .UseCommandText(OracleCommandStrings.Setup.DropDistributeedTransactionTable))
+
                     .ForMethod(
                         nameof(DatabaseBuilder.CreateIdentityTesterTable), c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
@@ -61,6 +62,10 @@
                         nameof(DatabaseBuilder.CreateDistributedTransactionTable), c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
                         .UseCommandText(OracleCommandStrings.Setup.CreateDistributedTransactionTable))
+                    .ForMethod(
+                        nameof(DatabaseBuilder.TableChecker), c => c
+                        .UseConnectionAlias(OracleCommandStrings.Alias)
+                        .UseCommandText(OracleCommandStrings.Setup.TableChecker))
                     .ForMethod(
                         nameof(DatabaseBuilder.DropIdentityTesterProcedure), c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
@@ -96,7 +101,6 @@
                     .ForMethod(
                         nameof(DatabaseBuilder.ClearTable), c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
-                        //.SetCommandType(CommandType.StoredProcedure)
                         .UseCommandText(OracleCommandStrings.Setup.ClearTable))
                     .ForMethod(
                         nameof(DatabaseBuilder.Populate), c => c

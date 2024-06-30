@@ -28,15 +28,36 @@
             return this;
         }
 
-        public DatabaseBuilder CreateTable(string name = "poco")
+
+        public DatabaseBuilder CreatePocoTable()
         {
-            Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(name), nameof(name));
-            _commander.Execute(() =>
-            {
-                return _commander.Query<bool>(new { name });
-            });
+            TableChecker("poco", nameof(OracleCommandStrings.Setup.DropPocoTable));
+
+            _commander.Execute<bool>();
             return this;
         }
+
+        public DatabaseBuilder CreateIdentityTesterTable()
+        {
+            TableChecker("identity_tester", nameof(OracleCommandStrings.Setup.DropIdentityInsertTable));
+            _commander.Execute<bool>();
+            return this;
+        }
+
+        public DatabaseBuilder CreateBulkInsertTable()
+        {
+            TableChecker("bulk_insert", nameof(OracleCommandStrings.Setup.DropBulkInsertTable));
+            _commander.Execute<bool>();
+            return this;
+        }
+
+        public DatabaseBuilder CreateDistributedTransactionTable()
+        {
+            TableChecker("distributed_transaction", nameof(OracleCommandStrings.Setup.DropDistributeedTransactionTable));
+            _commander.Execute<bool>();
+            return this;
+        }
+
 
         public DatabaseBuilder DropIdentityTesterProcedure()
         {
@@ -111,6 +132,7 @@
             for (var i = 1; i < 151; i++)
             {
                 var entry = new {
+                    Id = i,
                     Name = $"entry {i}",
                     Value = i * 10,
                     Modified = DateTime.Today
@@ -122,71 +144,45 @@
             return this;
         }
 
-        public DatabaseBuilder CreatePocoTableProcedure()
+        public DatabaseBuilder TableChecker(string table, string command)
         {
-            _commander.Execute<bool>();
+            var result = _commander.Query<string>();
+
+            if (result.Any(x => x == table.ToUpperInvariant()))
+            {
+                _commander.Execute<bool>(method: command);
+            }
+
             return this;
         }
-
-        public DatabaseBuilder ExecutePocoTableProcedure()
-        {
-            _commander.Execute<bool>();
-            return this;
-        }
-
-        public DatabaseBuilder CreateIdentityTesterTable()
-        {
-            _commander.Execute<bool>();
-            return this;
-        }
-
-
-        public DatabaseBuilder CreateBulkInsertTable()
-        {
-            _commander.Execute<bool>();
-            return this;
-        }
-
-
-        public DatabaseBuilder CreateDistributedTransactionTable()
-        {
-            _commander.Execute<bool>();
-            return this;
-        }
-
-
 
         public DatabaseBuilder Build()
         {
-            //return DropTableCreatorProcedure()
-            //    .CreateTableCreatorProcedure()
-            //    .CreateTable("poco")
-            //    .CreateTable("identity_tester")
-            //    .CreateTable("bulk_insert")
-            //    .CreateTable("distributed_transaction")
-            //    .DropIdentityTesterProcedure()
-            //    .CreateIdentityTesterProcedure()
-            //    .DropBulkInsertProcedure()
-            //    .CreateBulkInsertProcedure()
-            //    .DropBulkInsertAndReturnProcedure()
-            //    .CreateBulkInsertAndReturnProcedure()
-            //    .DropTableClearingProcedure()
-            //    .CreateTableClearingProcedure()
-            //    .ClearTable()
+            //return TableChecker()
+            //    .CreatePocoTable()
+            //    .CreateIdentityTesterTable()
+            //    .CreateBulkInsertTable()
+            //    .CreateDistributedTransactionTable()
+            //    .TableChecker()
+            //    //.CreateTable("identity_tester")
+            //    //.CreateTable("bulk_insert")
+            //    //.CreateTable("distributed_transaction")
+            //    //.DropIdentityTesterProcedure()
+            //    //.CreateIdentityTesterProcedure()
+            //    //.DropBulkInsertProcedure()
+            //    //.CreateBulkInsertProcedure()
+            //    //.DropBulkInsertAndReturnProcedure()
+            //    //.CreateBulkInsertAndReturnProcedure()
+            //    //.DropTableClearingProcedure()
+            //    //.CreateTableClearingProcedure()
+            //    //.ClearTable()
             //    .Populate();
 
 
-            DropTableCreatorProcedure();
-            CreateTableCreatorProcedure();
-            //CreateTable("poco");
-            CreatePocoTableProcedure();
-            ExecutePocoTableProcedure();
+            CreatePocoTable();
             CreateIdentityTesterTable();
             CreateBulkInsertTable();
             CreateDistributedTransactionTable();
-            //CreateTable("identity_tester");
-            //CreateTable("bulk_insert");
-            //CreateTable("distributed_transaction");
             DropIdentityTesterProcedure();
             CreateIdentityTesterProcedure();
             DropBulkInsertProcedure();
@@ -195,9 +191,8 @@
             CreateBulkInsertAndReturnProcedure();
             DropTableClearingProcedure();
             CreateTableClearingProcedure();
-            //ClearTable();
+            //ClearTable()
             Populate();
-
 
             return this;
         }

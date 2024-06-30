@@ -11,7 +11,7 @@ namespace Syrx
     /// Provides asychronous write operations. 
     /// </summary>
     /// <typeparam name="TRepository"></typeparam>
-    public interface IExecuteAsyncCommander<TRepository> : IDisposable
+    public partial interface ICommander<TRepository> : IDisposable
     {
         /// <summary>
         ///     Executes an arbitrary command against the underlying datastore asynchronously.

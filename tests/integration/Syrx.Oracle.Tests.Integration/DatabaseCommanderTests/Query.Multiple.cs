@@ -2,16 +2,14 @@
 {
     public partial class Query
     {
-
         [Theory]
         [MemberData(nameof(ModelGenerators.Multiple.OneType), MemberType = typeof(ModelGenerators.Multiple))]
         public void OneTypeMultiple<T1, TResult>(OneType<IEnumerable<T1>, IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var parameters = input.Parameters;
             var method = input.Method;
-            
-            var result = _commander.Query(map, parameters, method);
+                        
+            var result = _commander.Query(map, Cursors(), method);
             
             NotNull(result);
             Single(result);
@@ -25,7 +23,7 @@
         public void TwoTypeMultiple<T1, T2, TResult>(TwoType<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -45,7 +43,7 @@
               IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -68,7 +66,7 @@
               IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -93,7 +91,7 @@
               IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -120,7 +118,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -149,7 +147,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -180,7 +178,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -213,7 +211,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -248,7 +246,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -285,7 +283,7 @@
                IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -324,7 +322,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -365,7 +363,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -408,7 +406,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -453,7 +451,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);
@@ -501,7 +499,7 @@
                 IEnumerable<TResult>> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, parameters: Cursors());
 
             NotNull(result);
             Single(result);                      

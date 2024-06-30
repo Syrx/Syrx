@@ -11,7 +11,7 @@ namespace Syrx
     /// <summary>
     ///     Basically breaks down into two distinct operations for mutating data/retrieving data
     /// </summary>
-    public interface IExecuteCommander<TRepository>
+    public partial interface ICommander<TRepository>
     {
         /// <summary>
         ///     Executes an arbitrary command against the underlying data store.

@@ -8,7 +8,8 @@
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Query<int>());
-            const string expected = "Divide by zero error encountered.";
+            //const string expected = "Divide by zero error encountered.";
+            const string expected = "ORA-00900: invalid SQL statement\r\nhttps://docs.oracle.com/error-help/db/ora-00900/";
             Equal(expected, result.Message);
         }
 
@@ -16,6 +17,9 @@
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SingleType<T1>(int id, SingleType<T1> input)
         {
+            //var entry = _commander.Query<object>();
+            //entry.PrintAsJson();
+
             var result = _commander.Query<T1>();
 
             NotNull(result);
@@ -26,6 +30,9 @@
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SingleTypeWithParameters<T1>(int id, SingleType<T1> input)
         {
+            string[] cursor = { "1" };
+            var p = new { id };
+            var parameters = new OracleDynamicParameters(p, cursor);
             Console.WriteLine($"Executing {nameof(SingleTypeWithParameters)} against type {typeof(T1).FullName}");
             var result = _commander.Query<T1>(new { id }).Single();
 
@@ -39,7 +46,7 @@
         public void TwoTypes<T1, T2, TResult>(int id, int expect, TwoType<T1, T2, TResult> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map);
+            var result = _commander.Query(map, Cursors());
 
             // assert we got something back and
             // that the count should match what we've 
