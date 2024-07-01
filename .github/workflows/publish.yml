@@ -14,7 +14,7 @@ on:
       - published    # Run the workflow when a new GitHub release is published
 
 env:
-  NuGetDirectory: ${{ github.workspace }}/src/Syrx.Validation/bin/Release/
+  NuGetDirectory: ${{ github.workspace }}/src/*/bin/Release/
   #NuGetDirectory: ${{ github.workspace}}/nuget
 
 defaults:
