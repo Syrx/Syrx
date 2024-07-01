@@ -1,8 +1,7 @@
-﻿using Syrx.Npgsql.Tests.Integration;
-
-namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
+﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
-    public class Execute(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public class Execute(BaseFixture fixture)
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 

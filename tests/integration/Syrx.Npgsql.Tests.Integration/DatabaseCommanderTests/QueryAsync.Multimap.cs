@@ -1,6 +1,7 @@
 ﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
-    public partial class QueryAsync(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public partial class QueryAsync(BaseFixture fixture)
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
         

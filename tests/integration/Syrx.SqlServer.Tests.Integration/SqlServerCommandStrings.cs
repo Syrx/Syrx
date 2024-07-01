@@ -1,4 +1,4 @@
-﻿namespace Syrx.SqlServer.Tests.Integration.Setup
+﻿namespace Syrx.SqlServer.Tests.Integration
 {
     public static class SqlServerCommandStrings
     {

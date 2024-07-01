@@ -12,18 +12,36 @@ namespace Syrx.Oracle.Tests.Integration
             var strategy = Wait.ForWindowsContainer()
                 .UntilMessageIsLogged("Completed: ALTER DATABASE OPEN", x =>
                 {
-                    var interval = TimeSpan.FromSeconds(10);
-                    ushort retries = 3;
-                    var timeout = TimeSpan.FromSeconds(90);
-                    Console.WriteLine($"Starting wait with interval: { interval}, retries :{ retries }, timeout : {timeout}..."); 
+                    var interval = TimeSpan.FromMinutes(1);
+                    var timeout = TimeSpan.FromMinutes(5);
+                    Console.WriteLine($"Starting wait with interval: { interval}, timeout : {timeout}..."); 
                     x.WithInterval(interval)
-                    .WithRetries(retries)
                     .WithTimeout(timeout);
 
                 });
             
             _container = new OracleBuilder()
-                .WithWaitStrategy(strategy)
+                .WithWaitStrategy(strategy)                
+                .WithStartupCallback((a, b) =>
+                {
+                    var message = $@"
+=========================================================================================================
+{nameof(a.Id)} ..................... : {a.Id}
+{nameof(a.Name)} ................... : {a.Name}
+{nameof(a.State)} .................. : {a.State}
+{nameof(a.Hostname)} ............... : {a.Hostname}
+{nameof(a.Health)} ................. : {a.Health}
+{nameof(a.HealthCheckFailingStreak)} : {a.HealthCheckFailingStreak}
+{nameof(a.CreatedTime)} ............ : {a.CreatedTime}
+{nameof(a.StartedTime)} ............ : {a.StartedTime}
+{nameof(a.StoppedTime)}............. : {a.StoppedTime}
+{nameof(a.Image.FullName)} ......... : {a.Image.FullName}
+{nameof(a.IpAddress)} .............. : {a.IpAddress}
+{nameof(a.MacAddress)} ............. : {a.MacAddress}
+=========================================================================================================
+";
+                    return Task.Run(() => Console.WriteLine(message));
+                })
                 .Build();
 
         }
@@ -50,4 +68,5 @@ namespace Syrx.Oracle.Tests.Integration
         }
 
     }
+
 }

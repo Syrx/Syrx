@@ -1,6 +1,7 @@
 ﻿namespace Syrx.SqlServer.Tests.Integration.DatabaseCommanderTests
 {
-    public partial class Query(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public partial class Query(BaseFixture fixture)
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
 

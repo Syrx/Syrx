@@ -1,7 +1,7 @@
 ﻿using Syrx.Commanders.Databases.Connectors.Npgsql;
 using Syrx.Commanders.Databases.Connectors.Npgsql.Extensions;
 
-namespace Syrx.Commanders.Databases.Connectors.SqlServer.Extensions.Tests.Unit.SqlServerConnectorExtensionsTests
+namespace Syrx.Commanders.Databases.Connectors.Npgsql.Extensions.Tests.Unit.NpgsqlDatabaseConnectorExtensionsTests
 {
     public class UseSqlServer
     {

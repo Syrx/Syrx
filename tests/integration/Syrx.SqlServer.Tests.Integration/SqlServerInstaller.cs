@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Syrx.Extensions;
-using Syrx.SqlServer.Tests.Integration.Setup;
 
 namespace Syrx.SqlServer.Tests.Integration
 {

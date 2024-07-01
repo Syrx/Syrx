@@ -1,6 +1,7 @@
 ﻿namespace Syrx.SqlServer.Tests.Integration.DatabaseCommanderTests
 {
-    public partial class QueryAsync(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public partial class QueryAsync(BaseFixture fixture)
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
         
@@ -18,7 +19,7 @@
         {
             var parameters = input.Parameters;
             var result = await _commander.QueryAsync<T1>();
-
+            
             NotNull(result);
             Equal(150, result.Count());
 

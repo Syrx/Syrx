@@ -1,5 +1,6 @@
 ﻿namespace Syrx.MySql.Tests.Integration.DatabaseCommanderTests
 {
+    [Collection(nameof(FixtureCollection))]
     public class Dispose(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
 

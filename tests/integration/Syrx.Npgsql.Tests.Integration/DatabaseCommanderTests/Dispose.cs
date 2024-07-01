@@ -1,8 +1,7 @@
-﻿using Syrx.Npgsql.Tests.Integration;
-
-namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
+﻿namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
 {
-    public class Dispose(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public class Dispose(BaseFixture fixture)
     {
 
         [Fact]

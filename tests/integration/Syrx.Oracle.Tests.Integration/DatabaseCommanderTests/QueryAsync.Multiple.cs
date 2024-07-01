@@ -1,8 +1,9 @@
 ﻿namespace Syrx.Oracle.Tests.Integration.DatabaseCommanderTests
 {
-    public partial class QueryAsync 
+    public partial class QueryAsync
     {
         private OracleDynamicParameters _cursors = Cursors();
+        
 
         [Theory]
         [MemberData(nameof(ModelGenerators.Multiple.OneType), MemberType = typeof(ModelGenerators.Multiple))]

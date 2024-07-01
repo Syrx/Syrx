@@ -1,4 +1,4 @@
-﻿namespace Syrx.SqlServer.Tests.Integration.Setup
+﻿namespace Syrx.SqlServer.Tests.Integration
 {
     public static class SqlServerSetupExtensions
     {
@@ -16,7 +16,7 @@
         }
 
         public static CommanderSettingsBuilder AddConnectionStrings(this CommanderSettingsBuilder builder, string connectionString = null)
-        {            
+        {
             return builder
                 .AddConnectionString(a => a
                     .UseAlias(SqlServerCommandStrings.Instance)
