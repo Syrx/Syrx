@@ -25,6 +25,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
             // to enforce the correct set up where as these tests are meant to
             // exercise what happens when we load a non-standard config. 
 
+#pragma warning disable CS8601 // Possible null reference assignment.
             var options = new CommanderSettings
             {
                 Namespaces = [
@@ -82,6 +83,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers.Tests.Unit.DatabaseCommandR
                     new ConnectionStringSetting { Alias = Alias, ConnectionString = ConnectionString }
                     ]
             };
+#pragma warning restore CS8601 // Possible null reference assignment.
 
             var settings = Options.Create(options);
             

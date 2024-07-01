@@ -1,6 +1,6 @@
 ﻿namespace Syrx.Commanders.Databases.Connectors.Oracle.Extensions
 {
-    public static class NpgsqlConnectorExtensions
+    public static class OracleConnectorExtensions
     {
         public static SyrxBuilder UseOracle(
             this SyrxBuilder builder,

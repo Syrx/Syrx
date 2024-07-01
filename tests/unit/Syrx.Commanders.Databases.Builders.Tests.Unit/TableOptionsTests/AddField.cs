@@ -19,7 +19,9 @@
         {
             var field = AddField(x => x.WithName("test_null_field").WithDataType(SqlDbType.Bit));
             field = null;
+#pragma warning disable CS8604 // Possible null reference argument.
             var result = Throws<ArgumentNullException>(() => TableOptionsBuilderExtensions.Build(a => a.WithName(_name).AddField(field)));
+#pragma warning restore CS8604 // Possible null reference argument.
             result.ArgumentNull(nameof(field));
         }
 

@@ -35,7 +35,7 @@
         public TableOptions AddField(Field field)
         {
             Throw<ArgumentNullException>(field != null, nameof(field));
-            _fields.Add(field.Name, field);
+            _fields.Add(field!.Name, field);
             return this;
         }
 

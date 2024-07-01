@@ -2,7 +2,7 @@
 {
     public class FieldOptions
     {
-        private string _name;
+        private string? _name;
         private SqlDbType _type;
         private int? _width;
         private bool _nullable;
@@ -35,7 +35,7 @@
         internal protected Field Build()
         {
             Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(_name), nameof(_name));
-            return new Field(_name, _type, _width, _nullable);
+            return new Field(_name!, _type, _width, _nullable);
         }
     }
 }

@@ -46,7 +46,9 @@
                 var a = _commander.Execute(one) ? one : null;//, (a) => a);
                 var b = _commander.Execute(two) ? two : null; // (b) => b);
 
+#pragma warning disable CS8604 // Possible null reference argument.
                 return new ImmutableTwoType<ImmutableType, ImmutableType, ImmutableType>(a, b);
+#pragma warning restore CS8604 // Possible null reference argument.
             });
 
             NotNull(result);

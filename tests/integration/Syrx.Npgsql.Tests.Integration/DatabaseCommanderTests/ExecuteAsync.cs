@@ -116,8 +116,9 @@ namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
             }
             );
 
+            NotNull(result);
             NotEqual(one, result);
-            NotEqual(one.Id, result.Id);
+            NotEqual(one.Id, result!.Id);
             Equal(one.Name, result.Name);
             Equal(one.Value, result.Value);
         }

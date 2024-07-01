@@ -2,7 +2,7 @@
 {
     public sealed record TypeSetting
     {
-        public string Name { get; init; }
-        public Dictionary<string, CommandSetting> Commands { get; init; }
+        public required string Name { get; init; }
+        public required Dictionary<string, CommandSetting> Commands { get; init; }
     }
 }

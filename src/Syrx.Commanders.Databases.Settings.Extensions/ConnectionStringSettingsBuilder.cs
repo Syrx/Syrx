@@ -27,7 +27,7 @@
         public ConnectionStringSettingsBuilder UseConnectionString<TType>(string connectionString)
         {
             var alias = typeof(TType).FullName;
-            return UseConnectionString(alias, connectionString);
+            return UseConnectionString(alias!, connectionString);
         }
 
         public ConnectionStringSettingsBuilder UseConnectionString(string alias, string connectionString)

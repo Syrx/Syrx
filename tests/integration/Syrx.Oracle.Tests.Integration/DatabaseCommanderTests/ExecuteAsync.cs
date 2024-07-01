@@ -120,7 +120,7 @@
             );
 
             NotEqual(one, result);
-            Equal(one.Id, result.Id);
+            Equal(one.Id, result!.Id);
             Equal(one.Name, result.Name);
             Equal(one.Value, result.Value);
         }

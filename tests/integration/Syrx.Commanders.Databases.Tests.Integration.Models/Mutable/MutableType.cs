@@ -9,8 +9,8 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models.Mutable
 {
     public record MutableType
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public required int Id { get; set; }
+        public required string Name { get; set; }
         public decimal Value { get; set; }
         public DateTime Modified { get; set; }
     }

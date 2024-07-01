@@ -1,13 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>2.0.0</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Syrx</Authors>
+		<Company>Syrx</Company>
+		<Copyright>https://github.com/Syrx/Syrx.Tests.Extensions/</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/Syrx.Tests.Extensions/</PackageProjectUrl>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryUrl>https://github.com/Syrx/Syrx.Tests.Extensions/</RepositoryUrl>
+		<Description>This package hosts extension and convenience methods used in testing across Syrx. </Description>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageTags>syrx;syrx-testing</PackageTags>
 
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
+		<IsPackable>true</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<EnablePackageValidation>true</EnablePackageValidation>
+	</PropertyGroup>
+	
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2">

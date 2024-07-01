@@ -23,10 +23,6 @@ namespace Syrx.Tests.Extensions
 
         public static TheoryData<bool> BoolValues => new() { true, false };
 
-        //public static TheoryData<SqlDbType> SqlDbTypes => 
-        //    EnumExtensions.
-        //    GetFlags<SqlDbType>().Select();
-
         public static IEnumerable<object[]> SqlDbTypes =>
             EnumExtensions.GetFlags<SqlDbType>().Select(type => new object[] { type });
 

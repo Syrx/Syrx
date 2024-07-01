@@ -10,7 +10,6 @@ namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Execute(new { value = 1 }));
-            //result.DivideByZero();
             result.HasMessage("22012: division by zero");
 
         }
@@ -34,7 +33,6 @@ namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
             var result = ThrowsAny<Exception>(() => _commander.Execute<bool>());
             var postCount = _commander.Query<int>(method: method);
 
-            //result.DivideByZero();
             result.HasMessage("22012: division by zero");
             Equal(preCount, postCount);
         }
@@ -120,7 +118,7 @@ namespace Syrx.Npgsql.Tests.Integration.DatabaseCommanderTests
             );
 
             NotEqual(one, result);
-            NotEqual(one.Id, result.Id);
+            NotEqual(one.Id, result!.Id);
             Equal(one.Name, result.Name);
             Equal(one.Value, result.Value);
         }

@@ -22,12 +22,12 @@ namespace Syrx.Commanders.Databases.Settings.Readers
             Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(key), nameof(key));
 
             var result = _settings.Namespaces
-                .SelectMany(x => x.Types.Where(y => y.Name == type.FullName))
+                .SelectMany(x => x.Types.Where(y => y.Name == type!.FullName))
                 .SelectMany(z => z.Commands)
                 .SingleOrDefault(f => f.Key == key).Value;
 
             Throw<NullReferenceException>(result != null,
-                ErrorMessages.NoCommandSetting, key, type.FullName);
+                ErrorMessages.NoCommandSetting, key, type!.FullName);
 
             return result;
         }

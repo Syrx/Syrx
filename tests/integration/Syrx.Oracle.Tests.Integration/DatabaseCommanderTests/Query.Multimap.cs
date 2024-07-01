@@ -8,7 +8,6 @@
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Query<int>());
-            //const string expected = "Divide by zero error encountered.";
             const string expected = "ORA-00900: invalid SQL statement\r\nhttps://docs.oracle.com/error-help/db/ora-00900/";
             Equal(expected, result.Message);
         }

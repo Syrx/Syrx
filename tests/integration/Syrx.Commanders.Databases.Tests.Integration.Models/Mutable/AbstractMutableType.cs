@@ -8,7 +8,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models.Mutable
 {
     public abstract class AbstractMutableType
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public decimal Value { get; set; }
         public DateTime Modified { get; set; }
     }

@@ -10,7 +10,7 @@
         {
             Throw<ArgumentNullException>(!string.IsNullOrWhiteSpace(name), nameof(name));
             Throw<ArgumentNullException>(fields != null, nameof(fields));
-            Throw<ArgumentOutOfRangeException>(fields.Any(), nameof(fields));
+            Throw<ArgumentOutOfRangeException>(fields!.Any(), nameof(fields));
 
             Name = name;
             Fields = fields;

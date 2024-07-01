@@ -7,7 +7,7 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models
         public class ImmutableTypeOptions
         {
             private int _id;
-            private string _name;
+            private string? _name;
             private decimal _value = 1;
             private DateTime _modified = DateTime.Today;
 
