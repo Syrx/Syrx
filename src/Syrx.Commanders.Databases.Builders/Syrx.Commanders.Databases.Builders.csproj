@@ -7,10 +7,10 @@
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Authors>Syrx</Authors>
 		<Company>Syrx</Company>
-		<Copyright>https://github.com/Syrx/Syrx.Commanders.Databases.Builders/</Copyright>
-		<PackageProjectUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Builders/</PackageProjectUrl>
+		<Copyright>https://github.com/Syrx/</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/</PackageProjectUrl>
 		<PackageIconUrl></PackageIconUrl>
-		<RepositoryUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Builders/</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Syrx/</RepositoryUrl>
 		<Description></Description>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<PackageTags>syrx;data access;orm;micro-orm</PackageTags>
@@ -21,7 +21,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
@@ -30,7 +30,7 @@
 	<PropertyGroup>
 		<EnablePackageValidation>true</EnablePackageValidation>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="Syrx.Validation" Version="2.0.0" />
 	</ItemGroup>

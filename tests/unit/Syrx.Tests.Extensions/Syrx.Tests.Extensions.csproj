@@ -8,10 +8,10 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>Syrx</Authors>
 		<Company>Syrx</Company>
-		<Copyright>https://github.com/Syrx/Syrx.Tests.Extensions/</Copyright>
-		<PackageProjectUrl>https://github.com/Syrx/Syrx.Tests.Extensions/</PackageProjectUrl>
+		<Copyright>https://github.com/Syrx/</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/</PackageProjectUrl>
 		<PackageIconUrl></PackageIconUrl>
-		<RepositoryUrl>https://github.com/Syrx/Syrx.Tests.Extensions/</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Syrx/</RepositoryUrl>
 		<Description>This package hosts extension and convenience methods used in testing across Syrx. </Description>
 		<PackageReleaseNotes></PackageReleaseNotes>
 		<PackageTags>syrx;syrx-testing</PackageTags>

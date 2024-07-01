@@ -1,37 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-<PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Version>2.0.0</Version>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Authors>Syrx</Authors>
-        <Company>Syrx</Company>
-        <Copyright>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors/</Copyright>        
-        <PackageProjectUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors/</PackageProjectUrl>
-        <PackageIconUrl></PackageIconUrl>
-        <RepositoryUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors/</RepositoryUrl>
-        <Description>Hosts the Syrx IDatabaseConnector which is used to establish an IDbConnection to a supported RDBMS. 
-This package also includes a base DatabaseConnector which can be used with any RDBMS that supports creating an IDbConnection through a DbProviderFactory instance. </Description>
-        <PackageReleaseNotes>BREAKING CHANGE: Changed namespace. 
-Updated to .NET8.0.</PackageReleaseNotes>
-        <PackageTags>syrx;data access;dapper;orm;micro-orm</PackageTags>
-</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>2.0.0</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Syrx</Authors>
+		<Company>Syrx</Company>
+		<Copyright>https://github.com/Syrx/</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/</PackageProjectUrl>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryUrl>https://github.com/Syrx/</RepositoryUrl>
+		<Description>
+			Hosts the Syrx IDatabaseConnector which is used to establish an IDbConnection to a supported RDBMS.
+			This package also includes a base DatabaseConnector which can be used with any RDBMS that supports creating an IDbConnection through a DbProviderFactory instance.
+		</Description>
+		<PackageReleaseNotes>
+			BREAKING CHANGE: Changed namespace.
+			Updated to .NET8.0.
+		</PackageReleaseNotes>
+		<PackageTags>syrx;data access;dapper;orm;micro-orm</PackageTags>
+	</PropertyGroup>
 
-<PropertyGroup>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-</PropertyGroup>
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
-<ItemGroup>
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-<PropertyGroup>
-    <EnablePackageValidation>true</EnablePackageValidation>
-</PropertyGroup>	
+	<PropertyGroup>
+		<EnablePackageValidation>true</EnablePackageValidation>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Syrx.Validation" Version="2.0.0" />

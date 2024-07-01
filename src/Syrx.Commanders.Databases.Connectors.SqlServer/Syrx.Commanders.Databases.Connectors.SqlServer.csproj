@@ -1,44 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-<PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Version>2.0.0</Version>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Authors>Syrx</Authors>
-        <Company>Syrx</Company>
-        <Copyright>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors.SqlServer/</Copyright>        
-        <PackageProjectUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors.SqlServer/</PackageProjectUrl>
-        <PackageIconUrl></PackageIconUrl>
-        <RepositoryUrl>https://github.com/Syrx/Syrx.Commanders.Databases.Connectors.SqlServer/</RepositoryUrl>
-        <Description>This package provides support for SQL Server connections by implementing a SqlServerDatabaseConnector for the Syrx IDatabaseConnector. </Description>
-        <PackageReleaseNotes>BREAKING CHANGE: Changed namespace. 
-Updated to .NET8.0.</PackageReleaseNotes>
-        <PackageTags>syrx;data access;orm;micro-orm;sql;sql-server</PackageTags>
-</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>2.0.0</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Syrx</Authors>
+		<Company>Syrx</Company>
+		<Copyright>https://github.com/Syrx/</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/</PackageProjectUrl>
+		<PackageIconUrl></PackageIconUrl>
+		<RepositoryUrl>https://github.com/Syrx/</RepositoryUrl>
+		<Description>This package provides support for SQL Server connections by implementing a SqlServerDatabaseConnector for the Syrx IDatabaseConnector. </Description>
+		<PackageReleaseNotes>
+			BREAKING CHANGE: Changed namespace.
+			Updated to .NET8.0.
+		</PackageReleaseNotes>
+		<PackageTags>syrx;data access;orm;micro-orm;sql;sql-server</PackageTags>
+	</PropertyGroup>
 
-<PropertyGroup>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-</PropertyGroup>
-
-<ItemGroup>
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-</ItemGroup>
-
-<PropertyGroup>
-    <EnablePackageValidation>true</EnablePackageValidation>
-</PropertyGroup>
+	<PropertyGroup>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
 
 	<ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
-  </ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Syrx.Commanders.Databases.Connectors\Syrx.Commanders.Databases.Connectors.csproj" />
-    <ProjectReference Include="..\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<EnablePackageValidation>true</EnablePackageValidation>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Syrx.Commanders.Databases.Connectors\Syrx.Commanders.Databases.Connectors.csproj" />
+		<ProjectReference Include="..\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
+	</ItemGroup>
 
 </Project>
