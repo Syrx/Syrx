@@ -29,7 +29,7 @@ namespace Syrx.Commanders.Databases.Settings.Readers
             Throw<NullReferenceException>(result != null,
                 ErrorMessages.NoCommandSetting, key, type!.FullName);
 
-            return result;
+            return result!;
         }
 
         private static class ErrorMessages

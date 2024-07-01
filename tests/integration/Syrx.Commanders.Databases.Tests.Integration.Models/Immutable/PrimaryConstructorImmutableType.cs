@@ -24,9 +24,9 @@ namespace Syrx.Commanders.Databases.Tests.Integration.Models.Immutable
         public decimal Value { get; } = value;
         public DateTime Modified { get; } = modified;
 
-        public override bool Equals(object? obj) => Equals(obj as PrimaryConstructorImmutableType);
+        public override bool Equals(object obj) => Equals(obj as PrimaryConstructorImmutableType);
 
-        public bool Equals(PrimaryConstructorImmutableType? other)
+        public bool Equals(PrimaryConstructorImmutableType other)
         {
             if (other is null)
             {

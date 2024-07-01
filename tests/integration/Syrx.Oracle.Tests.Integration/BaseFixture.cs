@@ -6,13 +6,20 @@ namespace Syrx.Oracle.Tests.Integration
     {
         private IServiceProvider _services;
         private readonly OracleContainer _container;
-        
+
         public BaseFixture()
         {
             var strategy = Wait.ForWindowsContainer()
                 .UntilMessageIsLogged("Completed: ALTER DATABASE OPEN", x =>
                 {
-                    Wait.ForWindowsContainer().UntilContainerIsHealthy().UntilPortIsAvailable(1521);
+                    var interval = TimeSpan.FromSeconds(10);
+                    ushort retries = 3;
+                    var timeout = TimeSpan.FromSeconds(90);
+                    Console.WriteLine($"Starting wait with interval: { interval}, retries :{ retries }, timeout : {timeout}..."); 
+                    x.WithInterval(interval)
+                    .WithRetries(retries)
+                    .WithTimeout(timeout);
+
                 });
             
             _container = new OracleBuilder()

@@ -16,6 +16,7 @@
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public async Task SingleType<T1>(SingleType<T1> input)
         {
+            var parameters = input.Parameters;
             var result = await _commander.QueryAsync<T1>();
 
             NotNull(result);

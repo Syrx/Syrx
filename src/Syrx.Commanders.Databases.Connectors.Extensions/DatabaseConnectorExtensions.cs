@@ -33,7 +33,7 @@ namespace Syrx.Commanders.Databases.Connectors.Extensions
                 () => new ArgumentNullException(nameof(settingsFactory),
                 $"The {nameof(CommanderSettings)} delegate cannot be null."));
 
-            var settings = CommanderSettingsBuilderExtensions.Build(settingsFactory);
+            var settings = CommanderSettingsBuilderExtensions.Build(settingsFactory!);
             builder.ServiceCollection
                 .AddProvider(providerFactory)
                 .AddSingleton<ICommanderSettings, CommanderSettings>(a => settings)

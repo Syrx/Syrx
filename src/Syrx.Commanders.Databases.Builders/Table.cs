@@ -13,7 +13,7 @@
             Throw<ArgumentOutOfRangeException>(fields!.Any(), nameof(fields));
 
             Name = name;
-            Fields = fields;
+            Fields = fields!;
             Schema = string.IsNullOrWhiteSpace(schema) ? "dbo" : schema;
         }
     }
