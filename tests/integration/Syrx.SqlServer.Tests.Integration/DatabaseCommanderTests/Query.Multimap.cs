@@ -18,7 +18,7 @@
         public void SingleType<T1>(SingleType<T1> input)
         {
             var result = _commander.Query<T1>(input.Parameters);
-
+            result.PrintAsJson();
             NotNull(result);
             Equal(150, result.Count());            
         }
