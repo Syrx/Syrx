@@ -7,16 +7,21 @@ namespace Syrx.SqlServer.Tests.Integration
     {
         private IServiceProvider _services;
         private readonly MsSqlContainer _container = new MsSqlBuilder()
+            .WithName("syrx-sqlserver")
+            .WithReuse(true)
             .Build();
         
         public async Task DisposeAsync()
         {
-            await _container.StopAsync();
+            await Task.Run(() => Console.WriteLine("Done"));
         }
 
         public async Task InitializeAsync()
         {
-            await _container.StartAsync();
+            if (_container.State != DotNet.Testcontainers.Containers.TestcontainersStates.Running)
+            {
+                await _container.StartAsync();
+            }
 
             // line up
             var connectionString = _container.GetConnectionString();

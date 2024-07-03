@@ -10,11 +10,7 @@ using Syrx.Commanders.Databases.Settings;
 
 namespace Syrx.Commanders.Databases.Connectors.SqlServer
 {
-    public class SqlServerDatabaseConnector : DatabaseConnector
+    public class SqlServerDatabaseConnector(ICommanderSettings settings) : DatabaseConnector(settings, () => SqlClientFactory.Instance)
     {
-        public SqlServerDatabaseConnector(ICommanderSettings settings)
-            : base(settings, () => SqlClientFactory.Instance)
-        {
-        }
     }
 }

@@ -3,11 +3,7 @@ using Syrx.Commanders.Databases.Settings;
 
 namespace Syrx.Commanders.Databases.Connectors.MySql
 {
-    public class MySqlDatabaseConnector : DatabaseConnector
+    public class MySqlDatabaseConnector(ICommanderSettings settings) : DatabaseConnector(settings, () => MySqlConnectorFactory.Instance)
     {
-        public MySqlDatabaseConnector(ICommanderSettings settings) 
-            : base(settings, () => MySqlConnectorFactory.Instance)
-        {
-        }    
     }
 }

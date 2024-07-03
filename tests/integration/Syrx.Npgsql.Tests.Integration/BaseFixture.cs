@@ -8,16 +8,21 @@ namespace Syrx.Npgsql.Tests.Integration
         private IServiceProvider _services;
         private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
             .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
+            .WithName("syrx-postgresql")
+            .WithReuse(true)
             .Build();
 
         public async Task DisposeAsync()
         {
-            await _container.StopAsync();
+            await Task.Run(() => Console.WriteLine("Done"));
         }
 
         public async Task InitializeAsync()
         {
-            await _container.StartAsync();
+            if (_container.State != DotNet.Testcontainers.Containers.TestcontainersStates.Running)
+            {
+                await _container.StartAsync();
+            }
 
             // line up
             var connectionString = _container.GetConnectionString();

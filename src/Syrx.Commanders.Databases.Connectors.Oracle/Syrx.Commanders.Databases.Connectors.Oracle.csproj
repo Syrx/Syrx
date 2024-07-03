@@ -40,4 +40,10 @@
 		<ProjectReference Include="..\Syrx.Commanders.Databases.Settings\Syrx.Commanders.Databases.Settings.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Oracle.ManagedDataAccess.dll.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

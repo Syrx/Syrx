@@ -18,9 +18,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{E3FF93A3-B71F-47DF-AD69-0194D53B11AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{25E76D5C-21AF-496B-A634-B3A61191A197}"
-	ProjectSection(SolutionItems) = preProject
-		.docs\config-notes.txt = .docs\config-notes.txt
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases", "src\Syrx.Commanders.Databases\Syrx.Commanders.Databases.csproj", "{CCA7D29E-F596-4B9F-B226-FD3ED104AC28}"
 EndProject
@@ -133,6 +130,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Connectors.MySql.Tests.Unit", "tests\unit\Syrx.Commanders.Databases.Connectors.MySql.Tests.Unit\Syrx.Commanders.Databases.Connectors.MySql.Tests.Unit.csproj", "{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Commanders.Databases.Oracle", "src\Syrx.Commanders.Databases.Oracle\Syrx.Commanders.Databases.Oracle.csproj", "{48659079-E89D-4A8C-B4B1-1EED17B84913}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Syrx", "Syrx", "{88B2EC95-86D4-46C2-860E-AD327D0F27CF}"
+	ProjectSection(SolutionItems) = preProject
+		.docs\Syrx\readme.md = .docs\Syrx\readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -437,6 +439,7 @@ Global
 		{F1A243DD-06D6-4D87-A6DF-855C2835450F} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
 		{6EF2AF7B-E1CE-4DED-9FEB-E5177BB76065} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
 		{48659079-E89D-4A8C-B4B1-1EED17B84913} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
+		{88B2EC95-86D4-46C2-860E-AD327D0F27CF} = {25E76D5C-21AF-496B-A634-B3A61191A197}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E10C114-A98F-4FCC-BCB7-528DEA8B47B5}

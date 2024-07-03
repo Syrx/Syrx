@@ -3,11 +3,7 @@ using Syrx.Commanders.Databases.Settings;
 
 namespace Syrx.Commanders.Databases.Connectors.Oracle
 {
-    public class OracleDatabaseConnector : DatabaseConnector
+    public class OracleDatabaseConnector(ICommanderSettings settings) : DatabaseConnector(settings, () => OracleClientFactory.Instance)
     {
-        public OracleDatabaseConnector(ICommanderSettings settings)
-            : base(settings, () => OracleClientFactory.Instance)
-        {
-        }
     }
 }

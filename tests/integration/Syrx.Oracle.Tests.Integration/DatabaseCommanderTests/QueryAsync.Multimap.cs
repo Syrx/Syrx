@@ -1,7 +1,7 @@
 ﻿namespace Syrx.Oracle.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(nameof(FixtureCollection))]
-    public partial class QueryAsync(BaseFixture fixture) 
+    //[Collection(nameof(FixtureCollection))]
+    public partial class QueryAsync(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
         

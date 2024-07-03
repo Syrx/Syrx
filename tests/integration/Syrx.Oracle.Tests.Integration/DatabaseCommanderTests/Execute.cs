@@ -1,7 +1,7 @@
 ﻿namespace Syrx.Oracle.Tests.Integration.DatabaseCommanderTests
 {
-    [Collection(nameof(FixtureCollection))]
-    public class Execute(BaseFixture fixture) 
+    //[Collection(nameof(FixtureCollection))]
+    public class Execute(BaseFixture fixture) : IClassFixture<BaseFixture>
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 
