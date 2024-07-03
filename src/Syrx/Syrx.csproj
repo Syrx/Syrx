@@ -35,7 +35,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>	
-		<None Include=".docs\Syrx\readme.md" Pack="true" PackagePath="\"/>		
+		<None Include="..\..\.docs\Syrx\readme.md" Pack="true" PackagePath="\"/>		
 	</ItemGroup>
 
 </Project>
