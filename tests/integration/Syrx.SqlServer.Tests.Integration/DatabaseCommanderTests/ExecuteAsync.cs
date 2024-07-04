@@ -66,7 +66,7 @@
 
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(model));
             const string expected =
-                "Arithmetic overflow error converting expression to data type float.\r\nThe statement has been terminated.";
+                "Arithmetic overflow error converting expression to data type float.\nThe statement has been terminated.";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.

@@ -70,7 +70,7 @@
 
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(model));
             const string expected =
-                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\r\nhttps://docs.oracle.com/error-help/db/ora-01438/";
+                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\nhttps://docs.oracle.com/error-help/db/ora-01438/";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.
