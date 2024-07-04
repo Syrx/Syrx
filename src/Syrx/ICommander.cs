@@ -5,18 +5,11 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-#region
-
-using System;
-// ReSharper disable UnusedTypeParameter
-
-#endregion
-
 namespace Syrx
 {
     /// <inheritdoc />
     /// <summary>
-    ///     Basically breaks down into two distinct operations for mutating data/retrieving data.
+    ///     Basically breaks down into two distinct operations for writes (Execute) and reads (Query).
     /// </summary>
     public partial interface ICommander<TRepository> : IDisposable
     {

@@ -5,15 +5,6 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-#region
-
-using System;
-using System.Runtime.CompilerServices;
-using System.Transactions;
-// ReSharper disable UnusedTypeParameter
-
-#endregion
-
 namespace Syrx
 {
     /// <inheritdoc />
@@ -25,19 +16,19 @@ namespace Syrx
         /// <summary>
         ///     Executes an arbitrary command against the underlying data store.
         /// </summary>
-        /// <typeparam name="T"></typeparam>        
+        /// <typeparam name="TResult"></typeparam>        
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        bool Execute<T>([CallerMemberName] string method = null);
+        bool Execute<TResult>([CallerMemberName] string method = null);
 
         /// <summary>
         ///     Executes a potentially state changing operation against the underlying data store (create/update/delete)
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
         /// <param name="model">The model.</param>        
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        bool Execute<T>(T model, [CallerMemberName] string method = null);
+        bool Execute<TResult>(TResult model, [CallerMemberName] string method = null);
 
         /// <summary>
         ///     Executes any number of potentially state changing operations against an underlying data store.
@@ -49,8 +40,10 @@ namespace Syrx
         /// <param name="scopeOption">The <see cref="TransactionScopeOption"/> applied to the function.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        TResult Execute<TResult>(Func<TResult> map,
+        TResult Execute<TResult>(
+            Func<TResult> map,
             TransactionScopeOption scopeOption = TransactionScopeOption.Suppress,
             [CallerMemberName] string method = null);
+
     }
 }

@@ -5,24 +5,13 @@
 //  licence      : This file is subject to the terms and conditions defined in file 'LICENSE.txt', which is part of this source code package.
 //  =============================================================================================================================
 
-#region
-
-using System;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Transactions;
-// ReSharper disable UnusedTypeParameter
-
-#endregion
-
 namespace Syrx
 {
-    /// <inheritdoc />
     /// <summary>
-    ///     Basically breaks down into two distinct operations for mutating data/retrieving data
+    /// Provides asychronous write operations. 
     /// </summary>
-    public partial interface ICommander<TRepository>
+    /// <typeparam name="TRepository"></typeparam>
+    public partial interface ICommander<TRepository> : IDisposable
     {
         /// <summary>
         ///     Executes an arbitrary command against the underlying datastore asynchronously.
@@ -30,18 +19,18 @@ namespace Syrx
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        Task<bool> ExecuteAsync<T>(CancellationToken cancellationToken = default(CancellationToken),
+        Task<bool> ExecuteAsync<TResult>(CancellationToken cancellationToken = default,
             [CallerMemberName] string method = null);
 
         /// <summary>
         ///     Executes a potentially state changing operation asynchronously.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
         /// <param name="model">The model.</param>        
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        Task<bool> ExecuteAsync<T>(T model, CancellationToken cancellationToken = default(CancellationToken),
+        Task<bool> ExecuteAsync<TResult>(TResult model, CancellationToken cancellationToken = default,
             [CallerMemberName] string method = null);
 
         /// <summary>
@@ -58,6 +47,6 @@ namespace Syrx
         Task<TResult> ExecuteAsync<TResult>(Func<TResult> map,
             TransactionScopeOption scopeOption = TransactionScopeOption.Suppress,
             TransactionScopeAsyncFlowOption asyncFlowOption = TransactionScopeAsyncFlowOption.Enabled,
-            CancellationToken cancellationToken = default(CancellationToken), [CallerMemberName] string method = null);
+            CancellationToken cancellationToken = default, [CallerMemberName] string method = null);
     }
 }
