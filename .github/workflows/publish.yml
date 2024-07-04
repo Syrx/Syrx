@@ -99,7 +99,7 @@ jobs:
           Get-ChildItem -Path . -Recurse -Include *.nupkg | ForEach-Object {
             $nupkgPath = $_.FullName
             Write-Host "Pushing $nupkgPath"
-            dotnet nuget push "$nupkgPath" --source github
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
           }
 
 
