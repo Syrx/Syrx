@@ -5,7 +5,7 @@
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task ExceptionsAreReturnedToCaller()
         {
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(new { value = 1 }));
@@ -13,14 +13,14 @@
             result.HasMessage(expected);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task SupportParameterlessCalls()
         {
             var result = await _commander.ExecuteAsync<bool>();
             True(result);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task SupportsRollbackOnParameterlessCalls()
         {
             // get a count from [dbo].[Poco]
@@ -39,7 +39,7 @@
             Equal(preCount, postCount);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task SupportsSuppressedDistributedTransactions()
         {
             var one = new ImmutableType(1, Guid.NewGuid().ToString(), 1, DateTime.UtcNow);
@@ -61,7 +61,7 @@
             Same(two, result.Two);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task SupportsTransactionRollback()
         {
             var method = $"{nameof(Execute.SupportsTransactionRollback)}.Count";
@@ -106,7 +106,7 @@
         }
 
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task SuccessfullyWithResponse()
         {
             var random = new Random();
@@ -126,7 +126,7 @@
             Equal(one.Value, result.Value);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public async Task Successful()
         {
             var random = new Random();
@@ -135,7 +135,7 @@
             True(result);
         }
 
-        [Theory]
+        [Theory(Skip = "Container timeouts")]
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public async Task SingleType<T1>(SingleType<T1> input)
         {

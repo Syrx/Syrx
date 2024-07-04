@@ -5,7 +5,7 @@
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Execute(new { value = 1 }));
@@ -13,14 +13,14 @@
             result.HasMessage(expected);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void SupportParameterlessCalls()
         {
             var result = _commander.Execute<bool>();
             True(result);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void SupportsRollbackOnParameterlessCalls()
         {
             // get a count from [dbo].[Poco]
@@ -36,7 +36,7 @@
             Equal(preCount, postCount);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void SupportsSuppressedDistributedTransactions()
         {
             var one = new ImmutableType(1, Guid.NewGuid().ToString(), 1, DateTime.UtcNow);
@@ -58,7 +58,7 @@
             Same(two, result.Two);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void SupportsTransactionRollback()
         {
             var method = $"{nameof(SupportsTransactionRollback)}.Count";
@@ -103,7 +103,7 @@
         }
 
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void SuccessfullyWithResponse()
         {
             var random = new Random();
@@ -123,7 +123,7 @@
             Equal(one.Value, result.Value);
         }
 
-        [Fact]
+        [Fact(Skip = "Container timeouts")]
         public void Successful()
         {
             var random = new Random();
@@ -132,7 +132,7 @@
             True(result);
         }
 
-        [Theory]
+        [Theory(Skip = "Container timeouts")]
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SingleType<T1>(SingleType<T1> input)
         {

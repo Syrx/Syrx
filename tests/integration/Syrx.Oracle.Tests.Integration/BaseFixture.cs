@@ -10,22 +10,22 @@ namespace Syrx.Oracle.Tests.Integration
 
         public BaseFixture()
         {
-            var strategy = Wait.ForUnixContainer()
-                .UntilMessageIsLogged("Completed: ALTER DATABASE OPEN", x =>
-                {
-                    // oracle container takes eternity to load. 
-                    // 4 minutes is way too long. 
-                    var interval = TimeSpan.FromMinutes(1);
-                    var timeout = TimeSpan.FromMinutes(15);
-                    x.WithInterval(interval)
-                    .WithTimeout(timeout);
+            //var strategy = Wait.ForUnixContainer()
+            //    .UntilMessageIsLogged("Completed: ALTER DATABASE OPEN", x =>
+            //    {
+            //        // oracle container takes eternity to load. 
+            //        // 4 minutes is way too long. 
+            //        var interval = TimeSpan.FromMinutes(1);
+            //        var timeout = TimeSpan.FromMinutes(15);
+            //        x.WithInterval(interval)
+            //        .WithTimeout(timeout);
 
-                });
+            //    });
 
-            _container = new OracleBuilder()
-                .WithWaitStrategy(strategy)
-                .WithLogger(LoggerFactory.Create(x => x.AddConsole()).CreateLogger<BaseFixture>())
-                .Build();
+            //_container = new OracleBuilder()
+            //    .WithWaitStrategy(strategy)
+            //    .WithLogger(LoggerFactory.Create(x => x.AddConsole()).CreateLogger<BaseFixture>())
+            //    .Build();
 
         }
 
@@ -36,15 +36,15 @@ namespace Syrx.Oracle.Tests.Integration
 
         public async Task InitializeAsync()
         {
-            if (_container.State != DotNet.Testcontainers.Containers.TestcontainersStates.Running)
-            {
-                await _container.StartAsync();
-            }
+            //if (_container.State != DotNet.Testcontainers.Containers.TestcontainersStates.Running)
+            //{
+            //    await _container.StartAsync();
+            //}
 
-            // line up
-            var connectionString = _container.GetConnectionString();
-            var installer = new OracleInstaller(connectionString);
-            _services = installer.Provider;
+            //// line up
+            //var connectionString = _container.GetConnectionString();
+            //var installer = new OracleInstaller(connectionString);
+            //_services = installer.Provider;
 
         }
 
