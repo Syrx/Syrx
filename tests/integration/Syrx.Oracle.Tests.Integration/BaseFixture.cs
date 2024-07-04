@@ -10,13 +10,13 @@ namespace Syrx.Oracle.Tests.Integration
 
         public BaseFixture()
         {
-            var strategy = Wait.ForWindowsContainer()
+            var strategy = Wait.ForUnixContainer()
                 .UntilMessageIsLogged("Completed: ALTER DATABASE OPEN", x =>
                 {
                     // oracle container takes eternity to load. 
                     // 4 minutes is way too long. 
                     var interval = TimeSpan.FromMinutes(1);
-                    var timeout = TimeSpan.FromMinutes(5);
+                    var timeout = TimeSpan.FromMinutes(15);
                     x.WithInterval(interval)
                     .WithTimeout(timeout);
 

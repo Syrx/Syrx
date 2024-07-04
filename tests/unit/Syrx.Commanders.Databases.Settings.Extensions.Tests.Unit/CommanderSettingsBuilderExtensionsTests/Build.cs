@@ -47,9 +47,7 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Tests.Unit.CommanderSett
                 .AddConnectionString(Alias, ConnectionString)
                 .AddConnectionString(Alias, DifferentConnectionString)));
 
-            result.HasMessage(@$"The alias '{Alias}' is already assigned to a different connection string. 
-Current connection string: {ConnectionString}
-New connection string: {DifferentConnectionString}");
+            result.HasMessage($"The alias '{Alias}' is already assigned to a different connection string. \r\nCurrent connection string: {ConnectionString}\r\nNew connection string: {DifferentConnectionString}");
         }
 
         [Fact]
