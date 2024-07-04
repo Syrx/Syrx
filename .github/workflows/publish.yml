@@ -14,8 +14,8 @@ on:
       - published    # Run the workflow when a new GitHub release is published
 
 env:
-  #NuGetDirectory: ${{ github.workspace }}/src/*/bin/Release/
-  NuGetDirectory: ${{ github.workspace}}/*/bin/Release/
+  NuGetDirectory: ${{ github.workspace }}/src/*/bin/Release/
+  #NuGetDirectory: ${{ github.workspace}}/*/bin/Release/
 
 defaults:
   run:
@@ -97,5 +97,6 @@ jobs:
       - name: Publish NuGet package
         run: |
           foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
+              Write-Output $file
               dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
           }
