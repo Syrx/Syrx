@@ -9,7 +9,7 @@
         public async Task ExceptionsAreReturnedToCaller()
         {
             var result = await ThrowsAnyAsync<Exception>(() => _commander.QueryAsync<int>());
-            const string expected = "ORA-00900: invalid SQL statement\r\nhttps://docs.oracle.com/error-help/db/ora-00900/";
+            const string expected = "ORA-00900: invalid SQL statement\nhttps://docs.oracle.com/error-help/db/ora-00900/";
             result.HasMessage(expected);
         }
 

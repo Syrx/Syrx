@@ -9,7 +9,7 @@
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Execute(new { value = 1 }));
-            const string expected = "ORA-00900: invalid SQL statement\r\nhttps://docs.oracle.com/error-help/db/ora-00900/";
+            const string expected = "ORA-00900: invalid SQL statement\nhttps://docs.oracle.com/error-help/db/ora-00900/";
             result.HasMessage(expected);
         }
 
@@ -67,7 +67,7 @@
 
             var result = ThrowsAny<Exception>(() => _commander.Execute(model));
             const string expected =
-                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\r\nhttps://docs.oracle.com/error-help/db/ora-01438/";
+                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\nhttps://docs.oracle.com/error-help/db/ora-01438/";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.
