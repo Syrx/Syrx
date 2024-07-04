@@ -14,8 +14,8 @@ on:
       - published    # Run the workflow when a new GitHub release is published
 
 env:
-  NuGetDirectory: ${{ github.workspace }}/src/*/bin/Release/
-  #NuGetDirectory: ${{ github.workspace}}/nuget
+  #NuGetDirectory: ${{ github.workspace }}/src/*/bin/Release/
+  NuGetDirectory: ${{ github.workspace}}/*/bin/Release/
 
 defaults:
   run:
