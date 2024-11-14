@@ -5,7 +5,7 @@ namespace Syrx.Oracle.Tests.Integration
 {
     public class BaseFixture : IAsyncLifetime
     {
-         private IServiceProvider _services;
+        private IServiceProvider _services;
         // private readonly OracleContainer _container;
 
         public BaseFixture()

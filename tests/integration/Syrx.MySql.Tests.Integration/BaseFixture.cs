@@ -1,9 +1,5 @@
-﻿using DotNet.Testcontainers.Builders;
-using Microsoft.Extensions.Logging;
-
-namespace Syrx.MySql.Tests.Integration
+﻿namespace Syrx.MySql.Tests.Integration
 {
-
     public class BaseFixture : IAsyncLifetime
     {
         private IServiceProvider _services;
@@ -11,7 +7,7 @@ namespace Syrx.MySql.Tests.Integration
             .WithImage("mysql:8.0")
             .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(3306))
             //.WithName("syrx-mysql")
-            .WithReuse(true)
+            //.WithReuse(true)
             .Build();
 
         public async Task DisposeAsync()
@@ -27,7 +23,7 @@ namespace Syrx.MySql.Tests.Integration
             }
 
             // line up
-            var connectionString = _container.GetConnectionString() + ";Allow User Variables=true";
+            var connectionString = $"{ _container.GetConnectionString() };Allow User Variables=true";
             var installer = new MySqlInstaller(connectionString);
             _services = installer.Provider;
 
