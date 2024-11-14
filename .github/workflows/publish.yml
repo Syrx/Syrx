@@ -15,7 +15,6 @@ on:
 
 env:
   NuGetDirectory: ${{ github.workspace }}/src/*/bin/Release/
-  #NuGetDirectory: ${{ github.workspace}}/*/bin/Release/
 
 defaults:
   run:
