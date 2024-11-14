@@ -8,7 +8,7 @@ namespace Syrx.Npgsql.Tests.Integration
         private IServiceProvider _services;
         private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
             .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
-            .WithName("syrx-postgresql")
+            //.WithName("syrx-postgresql")
             .WithReuse(true)
             .Build();
 

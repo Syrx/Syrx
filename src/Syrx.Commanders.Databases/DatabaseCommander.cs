@@ -25,14 +25,16 @@ namespace Syrx.Commanders.Databases
             CommandSetting setting,
             object parameters = null,
             IDbTransaction transaction = null,
-            CancellationToken cancellationToken = default) => new CommandDefinition(
-            commandText: setting.CommandText,
-            parameters: parameters,
-            transaction: transaction,
-            commandTimeout: setting.CommandTimeout,
-            commandType: setting.CommandType,
-            flags: (CommandFlags) setting.Flags,
-            cancellationToken: cancellationToken);
-
+            CancellationToken cancellationToken = default)
+        {
+            return new CommandDefinition(
+                commandText: setting.CommandText,
+                parameters: parameters,
+                transaction: transaction,
+                commandTimeout: setting.CommandTimeout,
+                commandType: setting.CommandType,
+                flags: (CommandFlags) setting.Flags,
+                cancellationToken: cancellationToken);
+        }
     }
 }

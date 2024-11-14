@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Syrx.Tests.Extensions;
 using static Xunit.Assert;
 
 namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCollectionExtensionsTests
@@ -10,7 +11,7 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
         // file can be used as a reference as that works but dynamically writing 
         // writing the file out before testing is proving a little more cumbersome.
 
-        [Fact(Skip = "Dynamic writing of the file is dropping one of the elements.")]
+        [Fact]
         public void Successfully()
         {
             var services = fixture.Services;
@@ -21,6 +22,8 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
             var filename = fixture.WriteToFile(settings);
 
             // act
+            Path.GetFullPath(filename).PrintAsJson();
+            filename.PrintAsJson();
             services.AddSyrxXmlFile(builder, filename);
 
             // finalze build
@@ -40,13 +43,13 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
             Equal(2, resolved.Namespaces.Single().Types.Single().Commands.Count);
         }
 
-        [Fact(Skip = "Reading of the file is dropping one of the elements.")]
+        [Fact]
         public void SuccessfullyWithPrebuiltFile()
         {
             var services = fixture.Services;
             var builder = fixture.ConfigurationBuilder;
             const string path = "syrx.settings.xml";
-            services.AddSyrxXmlFile(builder, path);
+            services.AddSyrxXmlFile(builder, path); 
 
 
             // finalze build
@@ -61,6 +64,8 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit.ServiceCo
             Single(resolved.Namespaces);
             Single(resolved.Namespaces.Single().Types);
             Equal(2, resolved.Namespaces.Single().Types.Single().Commands.Count);
+
+            resolved.PrintAsJson();
         }
     }
 }

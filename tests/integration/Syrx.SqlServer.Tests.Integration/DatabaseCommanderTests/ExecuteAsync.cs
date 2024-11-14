@@ -65,8 +65,8 @@
             var model = new ImmutableType(1, Guid.NewGuid().ToString(), int.MaxValue, DateTime.UtcNow);
 
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(model));
-            const string expected =
-                "Arithmetic overflow error converting expression to data type float.\nThe statement has been terminated.";
+            var expected =
+                $"Arithmetic overflow error converting expression to data type float.{Environment.NewLine}The statement has been terminated.";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.

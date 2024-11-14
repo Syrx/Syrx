@@ -1,31 +1,30 @@
-﻿<CommanderSettings>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommanderSettings>
 	<Namespaces>
 		<Namespace>
-			<Namespace>Syrx.SqlServer.Tests.Integration</Namespace>
+			<Namespace>Syrx.Commanders.Databases.Settings.Extensions.Json.Tests.Unit.ServiceCollectionExtensionsTests</Namespace>
 			<Types>
 				<Type>
-					<Name>Syrx.SqlServer.Tests.Integration.UnitTest1</Name>
+					<Name>Syrx.Commanders.Databases.Settings.Extensions.Json.Tests.Unit.ServiceCollectionExtensionsTests.AddSyrxJsonFile</Name>
 					<Commands>
-						<Command>
-							<Key>Configuation</Key>
-							<Value>
-								<Split/>
-								<CommandText>test-command</CommandText>
-								<CommandTimeout>30</CommandTimeout>
-								<Flags>5</Flags>
-								<ConnectionAlias>no</ConnectionAlias>
-							</Value>
-						</Command>
-						<Command>
-							<Key>Retrieve</Key>
-							<Value>
-								<Split/>
-								<CommandText>second-test-command</CommandText>
-								<CommandTimeout>30</CommandTimeout>
-								<Flags>5</Flags>
-								<ConnectionAlias>test</ConnectionAlias>
-							</Value>
-						</Command>
+						<Method1>
+							<Split>id</Split>
+							<CommandText>test-command-text</CommandText>
+							<CommandTimeout>30</CommandTimeout>
+							<CommandType>1</CommandType>
+							<Flags>5</Flags>
+							<IsolationLevel>1048576</IsolationLevel>
+							<ConnectionAlias>test-alias</ConnectionAlias>
+						</Method1>
+						<Method2>
+							<Split>id</Split>
+							<CommandText>test-command-text</CommandText>
+							<CommandTimeout>30</CommandTimeout>
+							<CommandType>1</CommandType>
+							<Flags>5</Flags>
+							<IsolationLevel>1048576</IsolationLevel>
+							<ConnectionAlias>test-alias</ConnectionAlias>
+						</Method2>
 					</Commands>
 				</Type>
 			</Types>
@@ -33,8 +32,8 @@
 	</Namespaces>
 	<Connections>
 		<Connection>
-			<Alias>test-name</Alias>
-			<ConnectionString>test-string</ConnectionString>
+			<ConnectionString>test-connection-string</ConnectionString>
+			<Alias>test-alias</Alias>
 		</Connection>
 	</Connections>
 </CommanderSettings>

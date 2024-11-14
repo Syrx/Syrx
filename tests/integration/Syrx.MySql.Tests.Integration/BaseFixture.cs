@@ -10,7 +10,7 @@ namespace Syrx.MySql.Tests.Integration
         private readonly MySqlContainer _container = new MySqlBuilder()
             .WithImage("mysql:8.0")
             .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(3306))
-            .WithName("syrx-mysql")
+            //.WithName("syrx-mysql")
             .WithReuse(true)
             .Build();
 

@@ -7,7 +7,7 @@ namespace Syrx.SqlServer.Tests.Integration
     {
         private IServiceProvider _services;
         private readonly MsSqlContainer _container = new MsSqlBuilder()
-            .WithName("syrx-sqlserver")
+            //.WithName("syrx-sqlserver")
             .WithReuse(true)
             .Build();
         
