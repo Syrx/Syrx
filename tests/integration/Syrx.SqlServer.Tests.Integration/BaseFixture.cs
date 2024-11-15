@@ -13,7 +13,6 @@ namespace Syrx.SqlServer.Tests.Integration
             var _logger = LoggerFactory.Create(b => b.AddConsole().AddSystemdConsole().AddSimpleConsole()).CreateLogger<BaseFixture>();
 
             _container = new MsSqlBuilder()
-                .WithReuse(true)
                 .WithLogger(_logger)
                 .WithStartupCallback((container, token) =>
                 {
