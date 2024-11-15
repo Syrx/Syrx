@@ -1,7 +1,7 @@
 ﻿namespace Syrx.MySql.Tests.Integration.DatabaseCommanderTests
 {
     [Collection(nameof(FixtureCollection))]
-    public class Execute(BaseFixture fixture) : IClassFixture<BaseFixture>
+    public class Execute(BaseFixture fixture) 
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 

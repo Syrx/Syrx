@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Syrx.Extensions;
-using System.Diagnostics.Metrics;
-using System.Runtime.CompilerServices;
-
-namespace Syrx.SqlServer.Tests.Integration
+﻿namespace Syrx.SqlServer.Tests.Integration
 {
     public class SqlServerInstaller 
     {

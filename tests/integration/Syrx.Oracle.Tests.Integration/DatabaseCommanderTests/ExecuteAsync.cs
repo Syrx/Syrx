@@ -1,26 +1,27 @@
 ﻿namespace Syrx.Oracle.Tests.Integration.DatabaseCommanderTests
 {
-    //[Collection(nameof(FixtureCollection))]
-    public class ExecuteAsync(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public class ExecuteAsync(BaseFixture fixture) 
     {
         private readonly ICommander<Execute> _commander = fixture.GetCommander<Execute>();
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public async Task ExceptionsAreReturnedToCaller()
         {
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(new { value = 1 }));
-            const string expected = "ORA-00900: invalid SQL statement\nhttps://docs.oracle.com/error-help/db/ora-00900/";
+            var expected = $"ORA-00900: invalid SQL statement{ Environment.NewLine }https://docs.oracle.com/error-help/db/ora-00900/";
             result.HasMessage(expected);
         }
 
-        [Fact(Skip = "Container timeouts")]
+        //[Fact]
+        [Fact]
         public async Task SupportParameterlessCalls()
         {
             var result = await _commander.ExecuteAsync<bool>();
             True(result);
         }
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public async Task SupportsRollbackOnParameterlessCalls()
         {
             // get a count from [dbo].[Poco]
@@ -39,7 +40,7 @@
             Equal(preCount, postCount);
         }
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public async Task SupportsSuppressedDistributedTransactions()
         {
             var one = new ImmutableType(1, Guid.NewGuid().ToString(), 1, DateTime.UtcNow);
@@ -61,7 +62,7 @@
             Same(two, result.Two);
         }
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public async Task SupportsTransactionRollback()
         {
             var method = $"{nameof(Execute.SupportsTransactionRollback)}.Count";
@@ -69,8 +70,8 @@
             var model = new ImmutableType(1, Guid.NewGuid().ToString(), int.MaxValue, DateTime.UtcNow);
 
             var result = await ThrowsAnyAsync<Exception>(() => _commander.ExecuteAsync(model));
-            const string expected =
-                "ORA-01438: value larger than specified precision allowed for this column\nORA-06512: at line 6\nhttps://docs.oracle.com/error-help/db/ora-01438/";
+            var expected =
+                $"ORA-01438: value larger than specified precision allowed for this column{Environment.NewLine}ORA-06512: at line 6{Environment.NewLine}https://docs.oracle.com/error-help/db/ora-01438/";
             result.HasMessage(expected);
 
             // check if the result has been rolled back.
@@ -105,8 +106,7 @@
             Same(two, result.Two);
         }
 
-
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public async Task SuccessfullyWithResponse()
         {
             var random = new Random();
@@ -126,7 +126,7 @@
             Equal(one.Value, result.Value);
         }
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public async Task Successful()
         {
             var random = new Random();
@@ -135,7 +135,7 @@
             True(result);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public async Task SingleType<T1>(SingleType<T1> input)
         {

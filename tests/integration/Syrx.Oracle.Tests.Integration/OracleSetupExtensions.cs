@@ -34,9 +34,17 @@
                         .UseConnectionAlias(OracleCommandStrings.Alias)
                         .UseCommandText(OracleCommandStrings.Setup.CreatePocoTable))
                     .ForMethod(
+                        nameof(DatabaseBuilder.CreateWritesTable), c => c
+                        .UseConnectionAlias(OracleCommandStrings.Alias)
+                        .UseCommandText(OracleCommandStrings.Setup.CreateWritesTable))
+                    .ForMethod(
                         "DropPocoTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
                         .UseCommandText(OracleCommandStrings.Setup.DropPocoTable))
+                    .ForMethod(
+                        "DropWritesTable", c => c
+                        .UseConnectionAlias(OracleCommandStrings.Alias)
+                        .UseCommandText(OracleCommandStrings.Setup.DropWritesTable))
                     .ForMethod(
                         "DropIdentityInsertTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
@@ -49,7 +57,6 @@
                         "DropDistributeedTransactionTable", c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)
                         .UseCommandText(OracleCommandStrings.Setup.DropDistributeedTransactionTable))
-
                     .ForMethod(
                         nameof(DatabaseBuilder.CreateIdentityTesterTable), c => c
                         .UseConnectionAlias(OracleCommandStrings.Alias)

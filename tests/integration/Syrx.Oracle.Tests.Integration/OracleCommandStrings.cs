@@ -7,12 +7,21 @@
         public static class Setup
         {
             public const string DropPocoTable = "drop table poco";
+            public const string DropWritesTable = "drop table writes";
             public const string DropIdentityInsertTable = "drop table identity_tester";
             public const string DropBulkInsertTable = "drop table bulk_insert";
             public const string DropDistributeedTransactionTable = "drop table distributed_transaction";
 
             public const string CreatePocoTable = @"
             CREATE TABLE poco (
+                id NUMBER(3),
+                name VARCHAR2(50),
+                value NUMBER(18, 2),
+                modified TIMESTAMP(3)
+            )";
+
+            public const string CreateWritesTable = @"
+            CREATE TABLE writes (
                 id NUMBER(3),
                 name VARCHAR2(50),
                 value NUMBER(18, 2),
@@ -174,7 +183,7 @@ END;
 ";
 
             public const string ClearTable = @"
-truncate table poco
+DELETE FROM poco
 ";
 
             public const string Populate = "INSERT INTO poco(id, name, value, modified) VALUES (:Id, :Name, :Value, :modified)";
@@ -746,29 +755,29 @@ END;
             public const string ExceptionsAreReturnedToCaller = @"invalid command";
 
             public const string SupportParameterlessCalls = @"
-INSERT INTO poco (id, name, value) VALUES (200, 'SupportParameterlessCalls', 1337.123)
+INSERT INTO writes (id, name, value) VALUES (200, 'SupportParameterlessCalls', 1337.123)
 ";
 
-            public const string SupportsRollbackOnParameterlessCallsCount = @"SELECT count(1) AS result FROM poco";
+            public const string SupportsRollbackOnParameterlessCallsCount = @"SELECT count(1) AS result FROM writes";
 
             public const string SupportsRollbackOnParameterlessCalls = @"
 BEGIN
-    DELETE FROM poco
+    DELETE FROM writes
 :ddd
 ROLLBACK";
 
             public const string SupportsSuppressedDistributedTransactions = @"
-INSERT INTO poco (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
+INSERT INTO writes (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
 ";
 
-            public const string SupportsTransactionRollbackCount = @"select cast(id as number(5)) as ""Id"", name as ""Name"", value as ""Value"", modified as ""Modified"" from poco where name = :Name";
+            public const string SupportsTransactionRollbackCount = @"select cast(id as number(5)) as ""Id"", name as ""Name"", value as ""Value"", modified as ""Modified"" from writes where name = :Name";
 
             public const string SupportsTransactionRollback = @"
 DECLARE
     name VARCHAR2(50) := 'YourName'; -- Replace with the actual name value
     value NUMBER := 42; -- Replace with the actual value
 BEGIN
-    INSERT INTO poco (name, value)
+    INSERT INTO writes (name, value)
     VALUES (name, value * POWER(value, value));
     COMMIT; -- Commit the transaction
 END;
@@ -779,17 +788,17 @@ INSERT INTO distributed_transaction (id, name, value, modified) VALUES (:Id, :Na
 ";
             
             public const string SuccessfullyWithResponse = @"
-INSERT INTO poco (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
+INSERT INTO writes (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
 ";
             
-            public const string SuccessfullyWithResponseResponse = @"select cast(id as number(5)) as ""Id"", name as ""Name"", value as ""Value"", modified as ""Modified"" from poco where name = :Name";
+            public const string SuccessfullyWithResponseResponse = @"select cast(id as number(5)) as ""Id"", name as ""Name"", value as ""Value"", modified as ""Modified"" from writes where name = :Name";
 
             public const string Successful = @"
-INSERT INTO poco (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
+INSERT INTO writes (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
 ";
 
             public const string SingleType = @"
-INSERT INTO poco (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
+INSERT INTO writes (id, name, value, modified) VALUES (:Id, :Name, :Value, :Modified)
 ";
         }
 

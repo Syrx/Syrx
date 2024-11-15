@@ -1,10 +1,10 @@
 ﻿namespace Syrx.Oracle.Tests.Integration.DatabaseCommanderTests
 {
-    //[Collection(nameof(FixtureCollection))]
-    public class Dispose(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public class Dispose(BaseFixture fixture) 
     {
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public void Successfully()
         {
             // there's nothing to actually dispose of so... 
