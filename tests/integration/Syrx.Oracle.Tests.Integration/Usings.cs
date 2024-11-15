@@ -12,3 +12,8 @@ global using Testcontainers.Oracle;
 global using static Syrx.Commanders.Databases.Oracle.OracleDynamicParameters;
 global using static Syrx.Validation.Contract;
 global using static Xunit.Assert;
+
+global using DotNet.Testcontainers.Builders;
+global using DotNet.Testcontainers.Containers;
+global using Microsoft.Extensions.Logging;
+global using System.Diagnostics;

@@ -21,7 +21,7 @@ namespace Syrx.Tests.Extensions
 
         public static void HasMessage(this Exception exception, string message)
         {
-            Equal(message, exception.Message);
+            Equal(message.ReplaceLineEndings(), exception.Message.ReplaceLineEndings());
         }
 
         public static void DivideByZero(this Exception exception)

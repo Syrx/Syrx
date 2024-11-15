@@ -37,6 +37,14 @@
             return this;
         }
 
+        public DatabaseBuilder CreateWritesTable()
+        {
+            TableChecker("writes", nameof(OracleCommandStrings.Setup.DropWritesTable));
+
+            _commander.Execute<bool>();
+            return this;
+        }
+
         public DatabaseBuilder CreateIdentityTesterTable()
         {
             TableChecker("identity_tester", nameof(OracleCommandStrings.Setup.DropIdentityInsertTable));
@@ -129,6 +137,8 @@
 
         public DatabaseBuilder Populate()
         {
+            ClearTable();
+
             for (var i = 1; i < 151; i++)
             {
                 var entry = new {
@@ -158,28 +168,8 @@
 
         public DatabaseBuilder Build()
         {
-            //return TableChecker()
-            //    .CreatePocoTable()
-            //    .CreateIdentityTesterTable()
-            //    .CreateBulkInsertTable()
-            //    .CreateDistributedTransactionTable()
-            //    .TableChecker()
-            //    //.CreateTable("identity_tester")
-            //    //.CreateTable("bulk_insert")
-            //    //.CreateTable("distributed_transaction")
-            //    //.DropIdentityTesterProcedure()
-            //    //.CreateIdentityTesterProcedure()
-            //    //.DropBulkInsertProcedure()
-            //    //.CreateBulkInsertProcedure()
-            //    //.DropBulkInsertAndReturnProcedure()
-            //    //.CreateBulkInsertAndReturnProcedure()
-            //    //.DropTableClearingProcedure()
-            //    //.CreateTableClearingProcedure()
-            //    //.ClearTable()
-            //    .Populate();
-
-
             CreatePocoTable();
+            CreateWritesTable();
             CreateIdentityTesterTable();
             CreateBulkInsertTable();
             CreateDistributedTransactionTable();
@@ -191,7 +181,7 @@
             CreateBulkInsertAndReturnProcedure();
             DropTableClearingProcedure();
             CreateTableClearingProcedure();
-            //ClearTable()
+            ClearTable();
             Populate();
 
             return this;

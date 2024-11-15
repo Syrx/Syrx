@@ -1,16 +1,17 @@
 ﻿namespace Syrx.Oracle.Tests.Integration.DatabaseCommanderTests
 {
-    //[Collection(nameof(FixtureCollection))]
-    public partial class Query(BaseFixture fixture) : IClassFixture<BaseFixture>
+    [Collection(nameof(FixtureCollection))]
+    public partial class Query(BaseFixture fixture) 
     {
         private readonly ICommander<Query> _commander = fixture.GetCommander<Query>();
+        private OracleDynamicParameters _cursors = Cursors();
 
-        [Fact(Skip = "Container timeouts")]
+        [Fact]
         public void ExceptionsAreReturnedToCaller()
         {
             var result = ThrowsAny<Exception>(() => _commander.Query<int>());
             const string expected = "ORA-00900: invalid SQL statement\nhttps://docs.oracle.com/error-help/db/ora-00900/";
-            Equal(expected, result.Message);
+            result.HasMessage(expected);
         }
 
         [Theory(Skip = "Change to the integration test breaks non-parameterized assertion.")]
@@ -24,14 +25,13 @@
             Equal(150, result.Count());            
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SingleTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SingleTypeWithParameters<T1>(SingleType<T1> input)
         {
             string[] cursor = { "1" };
             var p = input.Parameters;
             var parameters = new OracleDynamicParameters(p, cursor);
-            Console.WriteLine($"Executing {nameof(SingleTypeWithParameters)} against type {typeof(T1).FullName}");
             var result = _commander.Query<T1>(input.Parameters);
             var record = result.SingleOrDefault();
 
@@ -45,7 +45,7 @@
         public void TwoTypes<T1, T2, TResult>(TwoType<T1, T2, TResult> input)
         {
             var map = input.Map;
-            var result = _commander.Query(map, Cursors());
+            var result = _commander.Query(map, _cursors);
 
             // assert we got something back and
             // that the count should match what we've 
@@ -54,7 +54,7 @@
             Equal(140, result.Count());
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.TwoTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void TwoTypesWithParameters<T1, T2, TResult>(TwoType<T1, T2, TResult> input)
         {
@@ -76,7 +76,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.ThreeTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void ThreeTypesWithParameters<T1, T2, T3, TResult>(ThreeType<T1, T2, T3, TResult> input)
         {
@@ -99,8 +99,7 @@
             Equal(expected, actual);
         }
 
-
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.FourTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void FourTypesWithParameters<T1, T2, T3, T4, TResult>(FourType<T1, T2, T3, T4, TResult> input)
         {
@@ -124,7 +123,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.FiveTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void FiveTypesWithParameters<T1, T2, T3, T4, T5, TResult>(FiveType<T1, T2, T3, T4, T5, TResult> input)
         {
@@ -149,7 +148,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SixTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SixTypesWithParameters<T1, T2, T3, T4, T5, T6, TResult>(SixType<T1, T2, T3, T4, T5, T6, TResult> input)
         {
@@ -175,7 +174,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SevenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SevenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, TResult>(SevenType<T1, T2, T3, T4, T5, T6, T7, TResult> input)
         {
@@ -202,7 +201,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.EightTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void EightTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(EightType<T1, T2, T3, T4, T5, T6, T7, T8, TResult> input)
         {
@@ -230,7 +229,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.NineTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void NineTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(NineType<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> input)
         {
@@ -259,7 +258,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.TenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void TenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(TenType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> input)
         {
@@ -289,7 +288,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.ElevenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void ElevenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(ElevenType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> input)
         {
@@ -320,7 +319,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.TwelveTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void TwelveTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(TwelveType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> input)
         {
@@ -352,7 +351,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.ThirteenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void ThirteenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(ThirteenType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> input)
         {
@@ -385,7 +384,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.FourteenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void FourteenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(FourteenType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> input)
         {
@@ -419,7 +418,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.FifteenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void FifteenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(FifteenType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> input)
         {
@@ -454,7 +453,7 @@
             Equal(expected, actual);
         }
 
-        [Theory(Skip = "Container timeouts")]
+        [Theory]
         [MemberData(nameof(ModelGenerators.Multimap.SixteenTypeData), MemberType = typeof(ModelGenerators.Multimap))]
         public void SixteenTypesWithParameters<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(SixteenType<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> input)
         {
@@ -489,7 +488,6 @@
             Equivalent(expected, actual);
             Equal(expected, actual);
         }
-
 
     }
 }

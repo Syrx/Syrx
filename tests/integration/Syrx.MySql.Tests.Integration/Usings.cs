@@ -1,3 +1,4 @@
+global using DotNet.Testcontainers.Builders;
 global using Microsoft.Extensions.DependencyInjection;
 global using Syrx.Commanders.Databases.Connectors.MySql.Extensions;
 global using Syrx.Commanders.Databases.Settings.Extensions;

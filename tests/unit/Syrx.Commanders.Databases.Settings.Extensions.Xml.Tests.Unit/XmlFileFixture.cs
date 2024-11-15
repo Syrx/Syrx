@@ -23,7 +23,6 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit
         public string WriteToFile(CommanderSettings options)
         {
             var path = FileName;
-            //File.WriteAllText(path, SerializeToXml(options));
             WriteXml(path, options);
 
             return path;
@@ -43,10 +42,10 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit
 
         public void WriteXml(string filename, CommanderSettings root)
         {
-            XmlWriterSettings settings = new XmlWriterSettings();
+            var settings = new XmlWriterSettings();
             settings.Indent = true; // Makes the XML easier to read
 
-            using (XmlWriter writer = XmlWriter.Create(filename, settings))
+            using (var writer = XmlWriter.Create(filename, settings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("CommanderSettings");
@@ -66,15 +65,12 @@ namespace Syrx.Commanders.Databases.Settings.Extensions.Xml.Tests.Unit
                         writer.WriteStartElement("Commands");
                         foreach (var command in type.Commands)
                         {
-                            writer.WriteStartElement("Command");
-                            writer.WriteElementString("Name", command.Key);
-                            writer.WriteStartElement("Value");
+                            writer.WriteStartElement(command.Key);
                             writer.WriteElementString("Split", command.Value.Split);
                             writer.WriteElementString("CommandText", command.Value.CommandText);
                             writer.WriteElementString("CommandTimeout", command.Value.CommandTimeout.ToString());
                             writer.WriteElementString("Flags", command.Value.Flags.ToString());
                             writer.WriteElementString("ConnectionAlias", command.Value.ConnectionAlias);
-                            writer.WriteEndElement(); // End Value
                             writer.WriteEndElement(); // End Command
                         }
                         writer.WriteEndElement(); // End Commands
