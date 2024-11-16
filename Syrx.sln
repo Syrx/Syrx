@@ -20,9 +20,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{25E76D5C-21AF-496B-A634-B3A61191A197}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{A5762548-04D1-4FFB-99CA-22F728AFF7DC}"
-	ProjectSection(SolutionItems) = preProject
-		tests\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj = tests\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{09A14C65-D13E-44ED-9D4D-26A1DC373929}"
 EndProject
@@ -32,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Syrx", "Syrx", "{88B2EC95-8
 	ProjectSection(SolutionItems) = preProject
 		.docs\Syrx\readme.md = .docs\Syrx\readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Tests.Extensions", "..\Syrx.SqlServer\tests\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj", "{E36BEC83-7290-46F4-B180-BC220157B6AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +58,10 @@ Global
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E36BEC83-7290-46F4-B180-BC220157B6AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E36BEC83-7290-46F4-B180-BC220157B6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E36BEC83-7290-46F4-B180-BC220157B6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E36BEC83-7290-46F4-B180-BC220157B6AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +75,7 @@ Global
 		{09A14C65-D13E-44ED-9D4D-26A1DC373929} = {6AE85D2D-5AD3-4196-AA71-EB6CA42DF388}
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
 		{88B2EC95-86D4-46C2-860E-AD327D0F27CF} = {25E76D5C-21AF-496B-A634-B3A61191A197}
+		{E36BEC83-7290-46F4-B180-BC220157B6AF} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E10C114-A98F-4FCC-BCB7-528DEA8B47B5}
