@@ -27,7 +27,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syrx.Extensions", "src\Syrx
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Syrx", "Syrx", "{88B2EC95-86D4-46C2-860E-AD327D0F27CF}"
 	ProjectSection(SolutionItems) = preProject
+		architecture.md = architecture.md
+		icommander.md = icommander.md
+		quick-start.country-one.md = quick-start.country-one.md
+		quick-start.md = quick-start.md
 		.docs\Syrx\readme.md = .docs\Syrx\readme.md
+		sample-database.md = sample-database.md
+		solution-layouts.md = solution-layouts.md
+		why.md = why.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Tests.Extensions", "tests\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj", "{37A32F1B-9EE2-462F-A2A5-46973C37CE0B}"
