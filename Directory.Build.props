@@ -50,6 +50,10 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+		<None Include="..\..\.docs\Syrx\readme.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
 	<!--<ItemGroup>
     -->
 	<!-- Add common package references -->
