@@ -1,0 +1,59 @@
+<Project>
+	<PropertyGroup>
+
+		<!-- ============================================================================ -->
+		<!-- build info-->
+		<!-- ============================================================================ -->
+		<!-- Set the target framework for all projects -->
+		<TargetFramework>net8.0</TargetFramework>
+
+		<!-- Set the configuration to Debug by default -->
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+
+		<!-- Enable nullable reference types -->
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Treat all warnings as errors -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+
+
+
+		<!-- ============================================================================ -->
+		<!-- packaging info -->
+		<!-- ============================================================================ -->
+		<Version>2.2.0</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<EnablePackageValidation>true</EnablePackageValidation>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>syrx;data access;orm;micro-orm</PackageTags>
+		<PackageReleaseNotes>Updated to .NET8.0.</PackageReleaseNotes>
+		
+		<!-- ============================================================================ -->
+		<!-- organization info -->
+		<!-- ============================================================================ -->
+		<Company>Syrx</Company>
+		<Product>Syrx</Product>
+		<Copyright>https://github.com/Syrx/</Copyright>
+		<PackageProjectUrl>https://github.com/Syrx/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Syrx/</RepositoryUrl>
+
+		<!-- ============================================================================ -->
+
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<!--<ItemGroup>
+    -->
+	<!-- Add common package references -->
+	<!--
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>-->
+</Project>
