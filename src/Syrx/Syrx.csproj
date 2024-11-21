@@ -1,41 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<Version>2.1.0</Version>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Authors>Syrx</Authors>
-		<Company>Syrx</Company>
-		<Copyright>https://github.com/Syrx/</Copyright>
-		<PackageProjectUrl>https://github.com/Syrx/</PackageProjectUrl>
-		<PackageIconUrl></PackageIconUrl>
-		<RepositoryUrl>https://github.com/Syrx/</RepositoryUrl>
+		<Title>Syrx</Title>
 		<Description>Home of the Syrx ICommander. A micro-orm built over Dapper to offering exception flexibility in connecting to arbitrary data sources. </Description>
-		<PackageReleaseNotes>
-			Updated to .NET8.0.
-			Widened API surface for multimap queries to support Func delegates of up to 16 inputs.
-		</PackageReleaseNotes>
-		<PackageTags>syrx;data access;orm;micro-orm</PackageTags>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>		
 	</PropertyGroup>
-
-	<PropertyGroup>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
-	<PropertyGroup>
-		<EnablePackageValidation>true</EnablePackageValidation>
-	</PropertyGroup>
-
-	<ItemGroup>	
-		<None Include="..\..\.docs\Syrx\readme.md" Pack="true" PackagePath="\" />		
-	</ItemGroup>
-
 </Project>

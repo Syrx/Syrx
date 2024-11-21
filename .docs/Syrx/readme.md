@@ -129,7 +129,7 @@ Syrx.Samples                                // <-- the namespace
             select * from [dbo].[country]   // <-- the SQL
 ```
 
-And it's in considering that hierarchy that we see how Syrx configuration mimics 
+And it's in considering that hierarchy that we see how Syrx configuration mimics your code structure. 
 
 To wire this up to a SQL Server database:
 * First install the [Syrx.SqlServer.Extensions](https://www.nuget.org/packages/Syrx.SqlServer.Extensions) package `install-package Syrx.SqlServer.Extensions`.
@@ -149,7 +149,7 @@ namespace Syrx.Samples
                                 methods => methods.ForMethod(nameof(CountryRepository.RetrieveAllAsync),  // reference the method that will execute the command. 
                                 command => command // start building up the command
                                         .UseConnectionAlias("Example")                          // reference a connection string by an alias provided separately. 
-                                        .UseCommandText("select * from [dbo].[country];")       // supply the SQL that you want to be executed. 
+                                        .UseCommandText("select * from [dbo].[country];")       // supply the SQL that you want to be executed.  
                                         )))));
         }
     }

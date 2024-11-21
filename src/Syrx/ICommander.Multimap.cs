@@ -25,7 +25,6 @@ namespace Syrx
             object parameters = null,
             [CallerMemberName] string method = null);
 
-
         /* not supported (yet). 
         IEnumerable<TResult> Query<T1, TResult>(
             Func<T1, TResult> map,
