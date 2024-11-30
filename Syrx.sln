@@ -41,8 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Syrx", "Syrx", "{88B2EC95-8
 		why.md = why.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syrx.Tests.Extensions", "tests\unit\Syrx.Tests.Extensions\Syrx.Tests.Extensions.csproj", "{37A32F1B-9EE2-462F-A2A5-46973C37CE0B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +67,6 @@ Global
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37A32F1B-9EE2-462F-A2A5-46973C37CE0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37A32F1B-9EE2-462F-A2A5-46973C37CE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37A32F1B-9EE2-462F-A2A5-46973C37CE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37A32F1B-9EE2-462F-A2A5-46973C37CE0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,7 +80,6 @@ Global
 		{09A14C65-D13E-44ED-9D4D-26A1DC373929} = {6AE85D2D-5AD3-4196-AA71-EB6CA42DF388}
 		{B58457BD-BA36-4C6F-86B9-5F9E465E4DEF} = {D3144577-E4FF-4B60-A299-E86B8F01017F}
 		{88B2EC95-86D4-46C2-860E-AD327D0F27CF} = {25E76D5C-21AF-496B-A634-B3A61191A197}
-		{37A32F1B-9EE2-462F-A2A5-46973C37CE0B} = {A5762548-04D1-4FFB-99CA-22F728AFF7DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E10C114-A98F-4FCC-BCB7-528DEA8B47B5}
