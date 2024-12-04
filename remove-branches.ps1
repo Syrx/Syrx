@@ -67,6 +67,8 @@ foreach ($repo in $repositories) {
 		$response = Prompt-User "This script will remove branch '$branch' for $repo. Do you want to continue?"
 		Handle-UserResponse -response $response 
 	}
+	
+	$currentBranch = (git rev-parse --abbrev-ref HEAD).Trim()
 
     # Check the current status
     Write-Host "Checking current status..."
@@ -104,21 +106,20 @@ foreach ($repo in $repositories) {
 	Write-Host $git_result
  	Evaluate-Result -errorcode $LASTEXITCODE -message "Removal of branch '$new_branch' failed."
 	
-	# Capture the branch list 
-	Write-Host "Capturing branch list..." 
-	$branchList = git branch -l 2>&1 | Out-String 
-	
-	# Capture the git status 
-	Write-Host "Capturing git status..." 
-	$status = git status --porcelain 2>&1 | Out-String
-	$alteredFilesCount = ($status -split "`n").Count
-		
-	$branchInfo += [PSCustomObject]@{ 
-		Repository = $repo 
-		Branches = $branchList -replace '\r?\n', ', '
-		Status = $status -replace '\r?\n', ', '
-		AlteredFiles = $alteredFilesCount
-	}
+	$branches = (git branch -l 2>&1 | Out-String) -split "`n" 
+	$branchDetails = @() 
+	 
+	foreach ($branch in $branches) { 
+		$branchName = $branch.Trim().Replace("* ", "") 
+		if ($branchName) { 
+			git switch $branchName 2>&1 | Out-String 
+			$status = git status --porcelain 2>&1 | Out-String 
+			$alteredFilesCount = ($status -split "`n").Count 
+			$branchDetails += "$branchName ($alteredFilesCount)" 
+			} 
+		}
+	# set the current branch back
+	git switch $currentBranch
 
     # Return to the original directory
     Set-Location -Path $PSScriptRoot
