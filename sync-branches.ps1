@@ -145,7 +145,7 @@ foreach ($repo in $repositories) {
 	
 	# Capture the git status 
 	Write-Host "Capturing git status..." 
-	$status = git status 2>&1 | Out-String
+	$status = git status --porcelain 2>&1 | Out-String
 	$alteredFilesCount = ($status -split "`n").Count
 		
 	$branchInfo += [PSCustomObject]@{ 

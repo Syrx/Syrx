@@ -22,7 +22,7 @@ $repositories = @(
 )
 
 # Array to store branch information 
-$branchInfo = @()
+$repoInfo = @()
 
 function Prompt-User {
     param (
@@ -61,31 +61,37 @@ foreach ($repo in $repositories) {
     # Change to the repository directory
     Set-Location -Path $repository_root$repo
 
-	# Capture the branch list 
-	$branchList = git branch -l 2>&1 | Out-String 
+	# Capture the branch list and altered files count for each branch 
+	Write-Host "Capturing branch list and altered files count..." 
+	$branches = (git branch -l 2>&1 | Out-String) -split "`n" 
+	$branchDetails = @() 
+	$currentBranch = (git rev-parse --abbrev-ref HEAD).Trim() 
+	foreach ($branch in $branches) { 
+		$branchName = $branch.Trim().Replace("* ", "") 
+		if ($branchName) { 
+			git switch $branchName 2>&1 | Out-String 
+			$status = git status --porcelain 2>&1 | Out-String 
+			$alteredFilesCount = ($status -split "`n").Count 
+			$branchDetails += "$branchName ($alteredFilesCount)" 
+			} 
+		} 
 	
-	# Capture the git status 
-	$status = git status 2>&1 | Out-String
-	$alteredFilesCount = ($status -split "`n").Count
-		
-	$branchInfo += [PSCustomObject]@{ 
+	# Reapply the asterisk to the current branch 
+	$branchDetails = $branchDetails -replace "^\s*$currentBranch\s*\(\d+\)", "* $currentBranch ($alteredFilesCount)" 
+	
+	# Store the information 
+	$repoInfo += [PSCustomObject]@{ 
 		Repository = $repo 
-		Branches = $branchList -replace '\r?\n', ', '
-		Status = $status -replace '\r?\n', ', '
-		AlteredFiles = $alteredFilesCount
+		Branches = $branchDetails -join ", " 
 	}
 
     # Return to the original directory
     Set-Location -Path $PSScriptRoot
 	
-    Write-Host "-----------------------------------------------------------------------------"
-    Write-Host "Finished processing repository: $repo"
-	Write-Host "-----------------------------------------------------------------------------"
-	
 }
 
 # Print branch information as a table 
-$branchInfo | Format-Table -Property Repository, Branches, AlteredFiles -AutoSize
+$repoInfo | Format-Table -Property Repository, Branches -AutoSize
 
 Write-Host ""
 Write-Host "Done!"
