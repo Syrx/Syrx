@@ -61,8 +61,6 @@ foreach ($repo in $repositories) {
     # Change to the repository directory
     Set-Location -Path $repository_root$repo
 
-	# Capture the branch list and altered files count for each branch 
-	Write-Host "Capturing branch list and altered files count..." 
 	$branches = (git branch -l 2>&1 | Out-String) -split "`n" 
 	$branchDetails = @() 
 	$currentBranch = (git rev-parse --abbrev-ref HEAD).Trim() 
