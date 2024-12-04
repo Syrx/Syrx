@@ -120,12 +120,10 @@ foreach ($repo in $repositories) {
 		$result = git remote set-head -a origin
 		Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to push to origin."
 		
-	}
-	
-		
+	}	
 		
     # Return to the original directory
-    Set-Location -Path $PSScriptRoot
+    Set-Location -Path $repository_root
 	
     Write-Host "-----------------------------------------------------------------------------"
     Write-Host "Finished processing repository: $repo"
