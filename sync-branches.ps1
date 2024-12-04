@@ -14,6 +14,12 @@ param (
 
 	[Parameter(Mandatory=$false)] 
 	[string]$promptOnLoop = "N"
+	
+	#[Parameter(Mandatory=$false, Help-Message="Use 'fetch' or 'pull' for updates")] 
+	#[string]$mode = "fetch", # fetch or pull
+	
+	#[Parameter(Mandatory=$false, Help-Message="Switch to main ahead of creating branch.")] 
+	#[string]$switchToMain = "Y" # fetch or pull
 
 	)
 
@@ -67,6 +73,12 @@ function Evaluate-Result {
 	
 }
 
+Write-Host "Checking status of branches first... " -ForegroundColor "Green"
+& ".\list-branches.ps1"
+
+$response = Prompt-User "Status check complete. Continue?"
+Handle-UserResponse -response $response
+
 foreach ($repo in $repositories) {
     Write-Host "Processing repository: $repo"
 	Write-Host "-----------------------------------------------------------------------------"
@@ -79,82 +91,39 @@ foreach ($repo in $repositories) {
 		$response = Prompt-User "This script will create and switch to new branch '$new_branch' for $repo. Do you want to continue?"
 		Handle-UserResponse -response $response 
 	}
-
-    # Check the current status
-    Write-Host "Checking current status..."
-    $git_result = git status 2>&1 | Out-String 
-	Write-Host $git_result
-	Evaluate-Result -errorcode $LASTEXITCODE -message "Status check failed."
 		
-	# Check the current local branches
-    Write-Host "Checking local branches..."
-    $git_result = git branch -l 2>&1 | Out-String  
-	Write-Host $git_result	
-	Evaluate-Result -errorcode $LASTEXITCODE -message "Local branch check failed."
-	
-    # Fetch the latest changes
-    Write-Host "Fetching latest changes..."
-    $git_result = git fetch origin 2>&1 | Out-String
-	Write-Host $git_result
-    Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to fetch latest changes."
-	
 	# Switch to main
     Write-Host "Switching to main..."
-    $git_result = git switch main 2>&1 | Out-String
-	Write-Host $git_result
+    $result = git switch main 2>&1 | Out-String
+	Write-Host $result
     Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to switch to main."
 	
 	# Fetch the latest changes
     Write-Host "Fetching latest changes..."
-    $git_result = git fetch origin 2>&1 | Out-String
-	Write-Host $git_result
+    $result = git fetch origin 2>&1 | Out-String
+	Write-Host $result
     Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to fetch the latest changes."
 
     # Create a new branch
     Write-Host "Creating new branch: $new_branch"
-    $git_result = git checkout -b $new_branch 2>&1 | Out-String
-	Write-Host $git_result
+    $result = git checkout $new_branch 2>&1 | Out-String
+	Write-Host $result
  	Evaluate-Result -errorcode $LASTEXITCODE -message "Creation and checkout of branch '$new_branch' failed."
-	
-	# Create a new branch
-    Write-Host "Updating submodules for: $new_branch"
-    $git_result = git submodule update --init --recursive --remote 2>&1 | Out-String
-	Write-Host $git_result
-    Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to update submodules."
-	
-	# print status and branches again	
-    Write-Host "Checking local branches..."
-	$git_result = git status 2>&1 | Out-String 
-	Write-Host $git_result
-	Evaluate-Result -errorcode $LASTEXITCODE -message "Status check failed."
-	
-    $git_result = git branch -l 2>&1 | Out-String
-	Write-Host $git_result
-    Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to check local branch list."
-
+		
 	if($pushToOrigin -eq "Y") {
 		# Push the new branch to the remote repository
 		Write-Host "Pushing new branch to remote..."
-		$git_result = git push -u origin $new_branch 2>&1 | Out-String
+		$result = git push -u origin $new_branch --set-upstream --progress 2>&1 | Out-String
 		Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to push to origin."
-	}
-	
-	# Capture the branch list 
-	Write-Host "Capturing branch list..." 
-	$branchList = git branch -l 2>&1 | Out-String 
-	
-	# Capture the git status 
-	Write-Host "Capturing git status..." 
-	$status = git status --porcelain 2>&1 | Out-String
-	$alteredFilesCount = ($status -split "`n").Count
 		
-	$branchInfo += [PSCustomObject]@{ 
-		Repository = $repo 
-		Branches = $branchList -replace '\r?\n', ', '
-		Status = $status -replace '\r?\n', ', '
-		AlteredFiles = $alteredFilesCount
+		Write-Host "Set head on origin..."	
+		$result = git remote set-head -a origin
+		Evaluate-Result -errorcode $LASTEXITCODE -message "Failed to push to origin."
+		
 	}
 	
+		
+		
     # Return to the original directory
     Set-Location -Path $PSScriptRoot
 	
@@ -164,7 +133,13 @@ foreach ($repo in $repositories) {
 }
 
 # Print branch information as a table 
-$branchInfo | Format-Table -Property Repository, Branches, AlteredFiles -AutoSize
+#$branchInfo | Format-Table -Property Repository, Branches, AlteredFiles -AutoSize
+Write-Host "-----------------------------------------------------------------------------"
+Write-Host "Re-checking lists... "
+    
+& ".\list-branches.ps1"
+
+Write-Host "-----------------------------------------------------------------------------"
 
 Write-Host ""
 Write-Host "Done!"

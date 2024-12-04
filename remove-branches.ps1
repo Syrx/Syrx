@@ -102,7 +102,7 @@ foreach ($repo in $repositories) {
 
     # Create a new branch
     Write-Host "Removing branch: $branch"
-    $git_result = git branch -d $branch 2>&1 | Out-String
+    $git_result = git branch -D $branch 2>&1 | Out-String
 	Write-Host $git_result
  	Evaluate-Result -errorcode $LASTEXITCODE -message "Removal of branch '$new_branch' failed."
 	
