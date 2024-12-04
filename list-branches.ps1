@@ -72,7 +72,9 @@ foreach ($repo in $repositories) {
 			$alteredFilesCount = ($status -split "`n").Count 
 			$branchDetails += "$branchName ($alteredFilesCount)" 
 			} 
-		} 
+		}
+	# set the current branch back
+	git switch $currentBranch
 	
 	# Reapply the asterisk to the current branch 
 	$branchDetails = $branchDetails -replace "^\s*$currentBranch\s*\(\d+\)", "* $currentBranch ($alteredFilesCount)" 
