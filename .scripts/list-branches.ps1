@@ -1,9 +1,10 @@
 # -------------------------------------------------------------------------------------------------
-# script .. : syrx project version sync. 
 # author .. : @sextondjc
 # date .... : 2024.12.03
-# purpose . : creates new local branches across the different Syrx projects. 
-# usage ... : remove-branches.ps1 -branch 2.4.0 
+# purpose . : gathers branch info for each of the different repos. 
+# usage ... : list-branches.ps1 
+# aliases . : syrx-bl 
+#			: sbl
 # -------------------------------------------------------------------------------------------------
 param ( )
 

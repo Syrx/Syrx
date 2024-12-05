@@ -2,8 +2,9 @@
 # script .. : gets the branch info for a single repo. 
 # author .. : @sextondjc
 # date .... : 2024.12.04
-# purpose . : provides a quick look at the status of a local branch
+# purpose . : provides a quick look at the status of a local branch. returns a PSCustomObject
 # usage ... : branch-info.ps1 -repo "Syrx"
+# aliases . : sbi -path "C:\Projects\Syrx" -output "T"
 # -------------------------------------------------------------------------------------------------
 param(
    [Parameter(Mandatory=$true, HelpMessage="The file path to the Git repository.")]

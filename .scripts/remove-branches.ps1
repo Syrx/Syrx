@@ -1,9 +1,10 @@
 # -------------------------------------------------------------------------------------------------
-# script .. : syrx project version sync. 
 # author .. : @sextondjc
 # date .... : 2024.12.03
-# purpose . : creates new local branches across the different Syrx projects. 
-# usage ... : sync-branches.ps1 -branch 2.4.0 
+# purpose . : removes local and - optionally, remote - branches across the different Syrx projects. 
+#			: can also be aliased if you prefer. 
+# usage ... : remove-branches.ps1 -branch 2.4.0 
+# aliases	: syrx-rb -branch 2.4.0
 # -------------------------------------------------------------------------------------------------
 param ( 
 	[Parameter(Mandatory=$true)] 

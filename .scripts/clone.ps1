@@ -1,9 +1,9 @@
 # -------------------------------------------------------------------------------------------------
-# script .. : syrx project version sync. 
 # author .. : @sextondjc
 # date .... : 2024.12.03
-# purpose . : creates new local branches across the different Syrx projects. 
-# usage ... : remove-branches.ps1 -branch 2.4.0 
+# purpose . : clones each of the repos to a local path. will optionally delete exisiting clone (there be dragons!).  
+# usage ... : clone.ps1 -path "C:\Projects\" 
+# aliases . : syrx-clone -path "C:\Projects\"
 # -------------------------------------------------------------------------------------------------
 param ( 
 	[Parameter(Mandatory=$true)] [string]$path,
