@@ -13,35 +13,31 @@ param(
    [Parameter(Mandatory=$false, HelpMessage="The output type. T for Table. Anything else for object")]
    [string]$output = "O"
 )
+# -------------------------------------------------------------------------------------------------
+# import our common functions. 
+# -------------------------------------------------------------------------------------------------
+Import-Module Syrx
+# -------------------------------------------------------------------------------------------------
+# local variables 
+# -------------------------------------------------------------------------------------------------
+# store the current location so that we can set back to it later. 
+$execute_location = Get-Location
 
-# Ensure the path ends with a backslash
-function Ensure-TrailingBackslash {
-    param (
-        [string]$Path
-    )
-    if ($Path[-1] -ne '\') {
-        $Path += '\'
-    }
-    return $Path
+
+function Process{
 }
 
-$path = Ensure-TrailingBackslash -Path $path
-
-Write-Debug "Path: $path"
+# Ensure the path ends with a backslash
+$path = Format-Path -path $path
 
 # Check if the path exists and is a Git repository
-if (Test-Path -Path "$path.git") {
-    # Get the repository name from the path
-    $repo = Split-Path -Leaf $path.TrimEnd('\')
-    Write-Debug "The repository name is: $repo"
-} else {
-    Write-Host "The specified path is not a Git repository." -ForegroundColor "Red"
+$result = Confirm-IsGitRepository $path
+if(-not $result){
 	break
 }
 
+
 set-location $path
-
-
 
 # get branch information
 $branches = (git branch -l 2>&1 | Out-String) -split "`n" 
@@ -58,10 +54,10 @@ foreach ($branch in $branches) {
 		$altered = ($status -split "`n").Count 
 		
 		# Get the number of commits ahead/behind 
-		$aheadBehind = git rev-list --left-right --count origin/$name...$name 2>&1 | Out-String 
-		$aheadBehind = $aheadBehind.Trim() -split "\s+" 	
-		$ahead = $aheadBehind[0] 
-		$behind = $aheadBehind[1] 
+		$commits = git rev-list --left-right --count origin/$name...$name 2>&1 | Out-String 
+		$commits = $commits.Trim() -split "\s+" 	
+		$ahead = $commits[0] 
+		$behind = $commits[1] 
 			
 		if($name -eq $current){
 			$name = "* $name"
@@ -80,7 +76,7 @@ foreach ($branch in $branches) {
 $switch = git switch -q $current
 
 # Return to the original directory
-Set-Location -Path $PSScriptRoot
+Set-Location -Path $execute_location
 
 if($output -eq "T"){
 	$details | Format-Table -Property Repo, Branch, Altered, Ahead, Behind -AutoSize
@@ -88,3 +84,4 @@ if($output -eq "T"){
 else {
 	return $details
 }
+

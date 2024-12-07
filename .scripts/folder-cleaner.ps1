@@ -1,0 +1,1 @@
+Get-ChildItem -Path . -Recurse -Directory | Where-Object { $_.Name -eq "bin" -or $_.Name -eq "obj" } | ForEach-Object { Write-Output "Deleting: $($_.FullName)"; Remove-Item -Path $_.FullName -Recurse -Force }

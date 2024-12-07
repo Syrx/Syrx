@@ -1,0 +1,11 @@
+{
+    "root": "C:\\Projects\\",
+    "repositories" : [
+		"Syrx", 
+		"Syrx.Commanders.Databases", 
+		"Syrx.MySql",
+		"Syrx.NpgSql",
+		"Syrx.Oracle",
+		"Syrx.SqlServer"
+	]
+}
