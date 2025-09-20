@@ -4,6 +4,15 @@ Syrx allows you to write the same repository code to target multiple different d
 It is a framework which decouples your .NET repository code from the underlying data store, allowing you to shield your 
 repository code from the underlying storage provider. It's not quite an ORM although it uses a micro-ORM to materialize and persist your objects.
 
+## Table of Contents
+
+- [Quick Look](#quick-look)
+  - [Query](#query)
+  - [Execute](#execute)
+- [Configuration](#configuration)
+- [Support Runtimes and Vendors](#support-runtimes-and-vendors)
+- [Credits and Caveats](#credits-and-caveats)
+
 Syrx places emphasis on:
 * _Control_: You should be in control of your data and execution. 
 * _Speed_: Performance is a feature. Syrx inherits its speed from Dapper.

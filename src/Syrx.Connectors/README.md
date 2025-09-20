@@ -2,6 +2,16 @@
 
 Core connector abstractions for the Syrx data access framework.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Components](#key-components)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Database Providers](#database-providers)
+- [License](#license)
+- [Credits](#credits)
+
 ## Overview
 
 `Syrx.Connectors` provides the foundational interfaces and abstractions for connecting to data sources within the Syrx ecosystem. This package defines the `IConnector<TConnection, TSetting>` interface that all database-specific connectors implement.

@@ -2,6 +2,21 @@
 
 Configuration settings and abstractions for the Syrx data access framework.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Installation](#installation)
+- [Core Interfaces](#core-interfaces)
+  - [ISettings<TCommandSetting>](#isettingstcommandsetting)
+  - [ICommandSetting](#icommandsetting)
+  - [INamespaceSetting<TCommandSetting>](#inamespacesettingtcommandsetting)
+- [Configuration Hierarchy](#configuration-hierarchy)
+- [Usage](#usage)
+- [Related Packages](#related-packages)
+- [License](#license)
+- [Credits](#credits)
+
 ## Overview
 
 `Syrx.Settings` provides the foundational configuration interfaces and types used throughout the Syrx ecosystem. This package defines the core settings abstractions that enable Syrx's flexible configuration system.

@@ -2,6 +2,18 @@
 
 Dependency injection and service collection extensions for the Syrx data access framework.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Registration](#basic-registration)
+  - [With Configuration](#with-configuration)
+- [Related Packages](#related-packages)
+- [License](#license)
+- [Credits](#credits)
+
 ## Overview
 
 `Syrx.Extensions` provides extension methods and utilities for integrating Syrx with Microsoft.Extensions.DependencyInjection and other .NET extension frameworks. This package simplifies the setup and configuration of Syrx components in your applications.

@@ -2,6 +2,19 @@
 
 Command and configuration readers for the Syrx data access framework.
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Installation](#installation)
+- [Key Interfaces](#key-interfaces)
+  - [IReader](#ireader)
+- [Usage](#usage)
+- [Command Resolution](#command-resolution)
+- [Related Packages](#related-packages)
+- [License](#license)
+- [Credits](#credits)
+
 ## Overview
 
 `Syrx.Readers` provides the core reading abstractions and implementations for retrieving command settings and configurations within the Syrx ecosystem. This package defines interfaces and base implementations for reading command configurations from various sources.
