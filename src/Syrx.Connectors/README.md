@@ -35,7 +35,7 @@ Install-Package Syrx.Connectors
 
 **PackageReference**
 ```xml
-<PackageReference Include="Syrx.Connectors" Version="2.4.5" />
+<PackageReference Include="Syrx.Connectors" Version="2.4.3" />
 ```
 
 ## Usage

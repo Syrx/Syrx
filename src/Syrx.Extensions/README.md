@@ -38,7 +38,7 @@ Install-Package Syrx.Extensions
 
 **PackageReference**
 ```xml
-<PackageReference Include="Syrx.Extensions" Version="2.4.5" />
+<PackageReference Include="Syrx.Extensions" Version="2.4.3" />
 ```
 
 ## Usage
@@ -54,12 +54,6 @@ public void ConfigureServices(IServiceCollection services)
         // Configure your database providers and settings
     );
 }
-```
-
-### Basic Registration
-
-```csharp
-services.AddSyrx<MyRepository>(ServiceLifetime.Scoped);
 ```
 
 ### With Configuration

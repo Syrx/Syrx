@@ -47,7 +47,7 @@ Install-Package Syrx
 
 **PackageReference**
 ```xml
-<PackageReference Include="Syrx" Version="2.4.5" />
+<PackageReference Include="Syrx" Version="2.4.3" />
 ```
 
 > **Note**: This is the core package providing interfaces only. You'll also need a database-specific provider package such as `Syrx.SqlServer`, `Syrx.MySql`, `Syrx.Npgsql`, or `Syrx.Oracle`.

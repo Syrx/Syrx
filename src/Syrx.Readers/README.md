@@ -39,7 +39,7 @@ Install-Package Syrx.Readers
 
 **PackageReference**
 ```xml
-<PackageReference Include="Syrx.Readers" Version="2.4.5" />
+<PackageReference Include="Syrx.Readers" Version="2.4.3" />
 ```
 
 ## Key Interfaces

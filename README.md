@@ -166,20 +166,30 @@ namespace Syrx.Samples
 ```
 
 
-### Support Runtimes and Vendors
-Syrx is cross-platforn and currently supports up to .NET 8. 
+## Support Runtimes and Vendors
 
-Syrx currently supports the RDBMS vendors vendors below and this list is growing. Implementing support for a new ADO.NET provider is easily accomplished. 
+Syrx is cross-platform and currently supports .NET 8.0 and later versions.
+
+Syrx currently supports the following RDBMS vendors, and this list is growing. Implementing support for a new ADO.NET provider is easily accomplished:
 
 |Vendor|Package|Extensions Package|
 |--|--|--|
 |SQL Server|[Syrx.SqlServer](https://www.nuget.org/packages/Syrx.SqlServer)|[Syrx.SqlServer.Extensions](https://www.nuget.org/packages/Syrx.SqlServer.Extensions)|
-|MySql|[Syrx.MySql](https://www.nuget.org/packages/Syrx.MySql)|[Syrx.MySql.Extensions](https://www.nuget.org/packages/Syrx.MySql.Extensions)|
-|PostgreSql|[Syrx.Npgsql](https://www.nuget.org/packages/Syrx.Npgsql)|[Syrx.Npgsql.Extensions](https://www.nuget.org/packages/Syrx.Npgsql.Extensions)|
+|MySQL|[Syrx.MySql](https://www.nuget.org/packages/Syrx.MySql)|[Syrx.MySql.Extensions](https://www.nuget.org/packages/Syrx.MySql.Extensions)|
+|PostgreSQL|[Syrx.Npgsql](https://www.nuget.org/packages/Syrx.Npgsql)|[Syrx.Npgsql.Extensions](https://www.nuget.org/packages/Syrx.Npgsql.Extensions)|
 |Oracle|[Syrx.Oracle](https://www.nuget.org/packages/Syrx.Oracle)|[Syrx.Oracle.Extensions](https://www.nuget.org/packages/Syrx.Oracle.Extensions)|
 
-In fact, any vendor that has a DbProviderFactory can be supported. 
+Any vendor that has a `DbProviderFactory` can be supported through Syrx's extensible provider architecture. 
 
-### Credits and Caveats
-Syrx inspired by and in part based on [Dapper](https://github.com/StackExchange/Dapper).
-Syrx will not generate SQL for you (although this feature may be added in the future). 
+## Additional Resources
+
+- **[Quick Start Guide](.docs/quick-start.md)**: Get up and running with Syrx in minutes
+- **[Architecture Documentation](.docs/architecture.md)**: Comprehensive framework architecture overview
+- **[ICommander Interface Guide](.docs/icommander-guide.md)**: Detailed guide to the core ICommander interface
+- **[Configuration Guide](.docs/configuration-guide.md)**: Complete configuration documentation
+
+## Credits and Caveats
+
+Syrx is inspired by and built on top of [Dapper](https://github.com/StackExchange/Dapper), inheriting its performance characteristics and micro-ORM philosophy.
+
+**Note**: Syrx does not generate SQL for you. It focuses on providing a clean abstraction layer while giving you full control over your SQL commands through external configuration. 
