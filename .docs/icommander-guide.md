@@ -9,6 +9,7 @@ This document provides comprehensive guidance on using the `ICommander<TReposito
 - [Query Operations](#query-operations)
 - [Execute Operations](#execute-operations)
 - [Multi-map Queries](#multi-map-queries)
+- [Multiple Result Sets](#multiple-result-sets)
 - [Method Resolution](#method-resolution)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -225,7 +226,479 @@ public async Task<IEnumerable<User>> GetUsersWithOptionalDataAsync()
 }
 ```
 
+## Multiple Result Sets
+
+Multiple Result Sets queries enable processing of SQL commands that return multiple independent result sets, such as stored procedures or batch queries that execute multiple SELECT statements. Unlike multi-mapping which combines related data into objects, Multiple Result Sets handle completely separate data collections returned from a single database call.
+
+### Supported Overloads
+
+Syrx supports Multiple Result Sets queries with up to 16 result sets, each returning its own collection of strongly-typed objects:
+
+```csharp
+// Single result set (equivalent to regular QueryAsync but with mapping function)
+Task<IEnumerable<TResult>> QueryAsync<T1, TResult>(
+    Func<IEnumerable<T1>, IEnumerable<TResult>> map,
+    object parameters = null,
+    CancellationToken cancellationToken = default,
+    [CallerMemberName] string method = null);
+
+// Two result sets
+Task<IEnumerable<TResult>> QueryAsync<T1, T2, TResult>(
+    Func<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<TResult>> map,
+    object parameters = null,
+    CancellationToken cancellationToken = default,
+    [CallerMemberName] string method = null);
+
+// Three result sets
+Task<IEnumerable<TResult>> QueryAsync<T1, T2, T3, TResult>(
+    Func<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<TResult>> map,
+    object parameters = null,
+    CancellationToken cancellationToken = default,
+    [CallerMemberName] string method = null);
+
+// ... up to 16 result sets
+```
+
+### Database-Specific SQL Patterns
+
+Each database provider requires different SQL syntax for multiple result sets:
+
+#### SQL Server
+```sql
+-- Using dynamic SQL with loops
+DECLARE @sets INT = 3,
+        @loop INT = 1,
+        @template NVARCHAR(MAX) = N'SELECT * FROM Users WHERE DepartmentId = @deptId AND Id <= @maxId';
+
+WHILE @loop <= @sets
+BEGIN
+    EXEC sp_executesql @template, N'@deptId INT, @maxId INT', @deptId = @loop, @maxId = @loop * 10;
+    SET @loop = @loop + 1;
+END;
+```
+
+#### MySQL
+```sql
+-- Multiple SELECT statements
+SELECT * FROM Users WHERE DepartmentId = 1;
+SELECT * FROM Users WHERE DepartmentId = 2;
+SELECT * FROM Users WHERE DepartmentId = 3;
+```
+
+#### PostgreSQL  
+```sql
+-- Multiple SELECT statements
+SELECT * FROM users WHERE department_id = 1;
+SELECT * FROM users WHERE department_id = 2;
+SELECT * FROM users WHERE department_id = 3;
+```
+
+#### Oracle
+```sql
+-- Using REF CURSORS
+BEGIN
+    OPEN :1 FOR SELECT * FROM users WHERE department_id = 1;
+    OPEN :2 FOR SELECT * FROM users WHERE department_id = 2; 
+    OPEN :3 FOR SELECT * FROM users WHERE department_id = 3;
+END;
+```
+
+### Usage Examples
+
+#### Basic Two Result Sets
+```csharp
+public class ReportsRepository
+{
+    private readonly ICommander<ReportsRepository> _commander;
+
+    public async Task<DashboardData> GetDashboardDataAsync()
+    {
+        return await _commander.QueryAsync<User, Order, DashboardData>(MapDashboardData);
+    }
+
+    // Mapping function defined as a private method
+    private static IEnumerable<DashboardData> MapDashboardData(IEnumerable<User> users, IEnumerable<Order> orders)
+    {
+        return new List<DashboardData>
+        {
+            new DashboardData
+            {
+                TotalUsers = users.Count(),
+                ActiveUsers = users.Count(u => u.IsActive),
+                TotalOrders = orders.Count(),
+                TotalRevenue = orders.Sum(o => o.Total),
+                AverageOrderValue = orders.Any() ? orders.Average(o => o.Total) : 0
+            }
+        };
+    }
+}
+```
+
+**Configuration (JSON):**
+```json
+{
+  "Commands": {
+    "GetDashboardDataAsync": {
+      "CommandText": "SELECT * FROM Users; SELECT * FROM Orders WHERE CreatedDate >= DATEADD(month, -1, GETDATE());",
+      "ConnectionAlias": "Default"
+    }
+  }
+}
+```
+
+#### Department Analytics with Three Result Sets
+```csharp
+public class DepartmentRepository
+{
+    private readonly ICommander<DepartmentRepository> _commander;
+
+    public async Task<DepartmentAnalytics> GetDepartmentAnalyticsAsync(int departmentId)
+    {
+        return await _commander.QueryAsync<Employee, Project, Budget, DepartmentAnalytics>(
+            (employees, projects, budgets) => MapDepartmentAnalytics(employees, projects, budgets, departmentId),
+            new { departmentId });
+    }
+
+    // Mapping function defined as a private method
+    private static IEnumerable<DepartmentAnalytics> MapDepartmentAnalytics(
+        IEnumerable<Employee> employees, 
+        IEnumerable<Project> projects, 
+        IEnumerable<Budget> budgets,
+        int departmentId)
+    {
+        var analytics = new DepartmentAnalytics
+        {
+            DepartmentId = departmentId,
+            EmployeeCount = employees.Count(),
+            ActiveProjects = projects.Count(p => p.Status == "Active"),
+            CompletedProjects = projects.Count(p => p.Status == "Completed"),
+            TotalBudget = budgets.Sum(b => b.AllocatedAmount),
+            SpentBudget = budgets.Sum(b => b.SpentAmount),
+            AverageSalary = employees.Any() ? employees.Average(e => e.Salary) : 0,
+            TopPerformers = employees
+                .OrderByDescending(e => e.PerformanceScore)
+                .Take(5)
+                .ToList()
+        };
+
+        return new List<DepartmentAnalytics> { analytics };
+    }
+}
+```
+
+**Configuration (XML):**
+```xml
+<Command Key="GetDepartmentAnalyticsAsync">
+  <CommandText><![CDATA[
+    SELECT * FROM Employees WHERE DepartmentId = @departmentId;
+    SELECT * FROM Projects WHERE DepartmentId = @departmentId;
+    SELECT * FROM Budgets WHERE DepartmentId = @departmentId AND FiscalYear = YEAR(GETDATE());
+  ]]></CommandText>
+  <ConnectionAlias>Default</ConnectionAlias>
+  <CommandTimeout>60</CommandTimeout>
+</Command>
+```
+
+#### Complex Financial Report with Multiple Result Sets
+```csharp
+public class FinancialRepository
+{
+    private readonly ICommander<FinancialRepository> _commander;
+
+    public async Task<FinancialReport> GenerateQuarterlyReportAsync(int year, int quarter)
+    {
+        return await _commander.QueryAsync<Sale, Expense, Customer, Product, Employee, FinancialReport>(
+            (sales, expenses, customers, products, employees) => 
+                MapFinancialReport(sales, expenses, customers, products, employees, year, quarter),
+            new { year, quarter });
+    }
+
+    // Mapping function defined as a private method
+    private static IEnumerable<FinancialReport> MapFinancialReport(
+        IEnumerable<Sale> sales,
+        IEnumerable<Expense> expenses,
+        IEnumerable<Customer> customers,
+        IEnumerable<Product> products,
+        IEnumerable<Employee> employees,
+        int year,
+        int quarter)
+    {
+        var report = new FinancialReport
+        {
+            Year = year,
+            Quarter = quarter,
+            GeneratedDate = DateTime.UtcNow,
+            
+            // Sales Analysis
+            TotalSales = sales.Sum(s => s.Amount),
+            SalesCount = sales.Count(),
+            AverageSaleAmount = sales.Any() ? sales.Average(s => s.Amount) : 0,
+            TopSellingProducts = sales
+                .GroupBy(s => s.ProductId)
+                .Select(g => new { ProductId = g.Key, TotalSales = g.Sum(s => s.Amount) })
+                .OrderByDescending(x => x.TotalSales)
+                .Take(10)
+                .Join(products, s => s.ProductId, p => p.Id, (s, p) => new TopProduct
+                {
+                    ProductName = p.Name,
+                    TotalSales = s.TotalSales
+                })
+                .ToList(),
+            
+            // Expense Analysis
+            TotalExpenses = expenses.Sum(e => e.Amount),
+            ExpensesByCategory = expenses
+                .GroupBy(e => e.Category)
+                .ToDictionary(g => g.Key, g => g.Sum(e => e.Amount)),
+            
+            // Customer Analysis
+            NewCustomers = customers.Count(c => c.CreatedDate >= GetQuarterStart(year, quarter)),
+            ActiveCustomers = customers.Count(c => c.LastOrderDate >= GetQuarterStart(year, quarter)),
+            CustomerRetentionRate = CalculateRetentionRate(customers),
+            
+            // Performance Metrics
+            NetProfit = sales.Sum(s => s.Amount) - expenses.Sum(e => e.Amount),
+            TopPerformers = employees
+                .OrderByDescending(e => e.QuarterlySales)
+                .Take(5)
+                .ToList()
+        };
+
+        return new List<FinancialReport> { report };
+    }
+
+    private static DateTime GetQuarterStart(int year, int quarter)
+    {
+        return new DateTime(year, (quarter - 1) * 3 + 1, 1);
+    }
+
+    private static decimal CalculateRetentionRate(IEnumerable<Customer> customers)
+    {
+        var totalCustomers = customers.Count();
+        if (totalCustomers == 0) return 0;
+        
+        var retainedCustomers = customers.Count(c => c.IsRetained);
+        return (decimal)retainedCustomers / totalCustomers * 100;
+    }
+}
+```
+
+#### Stored Procedure with Multiple Result Sets
+```csharp
+public class UserRepository
+{
+    private readonly ICommander<UserRepository> _commander;
+
+    public async Task<ComprehensiveUserReport> GetUserReportAsync(int userId)
+    {
+        return await _commander.QueryAsync<UserProfile, Order, Address, PaymentMethod, ComprehensiveUserReport>(
+            MapUserReport,
+            new { userId });
+    }
+
+    // Mapping function defined as a private method
+    private IEnumerable<ComprehensiveUserReport> MapUserReport(
+        IEnumerable<UserProfile> profiles,
+        IEnumerable<Order> orders,
+        IEnumerable<Address> addresses,
+        IEnumerable<PaymentMethod> paymentMethods)
+    {
+        var profile = profiles.FirstOrDefault();
+        if (profile == null)
+            return Enumerable.Empty<ComprehensiveUserReport>();
+
+        var report = new ComprehensiveUserReport
+        {
+            User = profile,
+            OrderHistory = orders.OrderByDescending(o => o.CreatedDate).ToList(),
+            Addresses = addresses.ToList(),
+            PaymentMethods = paymentMethods.Where(pm => pm.IsActive).ToList(),
+            TotalSpent = orders.Sum(o => o.Total),
+            OrderCount = orders.Count(),
+            AverageOrderValue = orders.Any() ? orders.Average(o => o.Total) : 0,
+            LastOrderDate = orders.Any() ? orders.Max(o => o.CreatedDate) : (DateTime?)null,
+            PreferredShippingAddress = addresses.FirstOrDefault(a => a.IsDefault),
+            AccountStatus = DetermineAccountStatus(profile, orders)
+        };
+
+        return new List<ComprehensiveUserReport> { report };
+    }
+
+    private static string DetermineAccountStatus(UserProfile profile, IEnumerable<Order> orders)
+    {
+        // Implementation logic for determining account status
+        return "Active"; // Simplified for example
+    }
+}
+```
+
+**Stored Procedure (SQL Server):**
+```sql
+CREATE PROCEDURE sp_GetUserReport
+    @userId INT
+AS
+BEGIN
+    -- User Profile
+    SELECT * FROM Users WHERE Id = @userId;
+    
+    -- Order History (last 2 years)
+    SELECT * FROM Orders 
+    WHERE UserId = @userId 
+      AND CreatedDate >= DATEADD(year, -2, GETDATE())
+    ORDER BY CreatedDate DESC;
+    
+    -- User Addresses
+    SELECT * FROM UserAddresses WHERE UserId = @userId;
+    
+    -- Payment Methods
+    SELECT * FROM PaymentMethods 
+    WHERE UserId = @userId AND IsActive = 1;
+END;
+```
+
+### Error Handling and Best Practices
+
+#### Graceful Error Handling
+```csharp
+public class ReportsRepository
+{
+    private readonly ICommander<ReportsRepository> _commander;
+    private readonly ILogger<ReportsRepository> _logger;
+
+    public async Task<DashboardData> GetDashboardDataSafeAsync()
+    {
+        try
+        {
+            return await _commander.QueryAsync<User, Order, DashboardData>(MapSafeDashboard);
+        }
+        catch (SqlException ex) when (ex.Number == 2) // Timeout
+        {
+            _logger.LogWarning("Dashboard query timed out, returning empty data");
+            return new DashboardData { HasData = false, ErrorMessage = "Data temporarily unavailable" };
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error generating dashboard data");
+            throw;
+        }
+    }
+
+    // Mapping function defined as a private method
+    private static IEnumerable<DashboardData> MapSafeDashboard(IEnumerable<User> users, IEnumerable<Order> orders)
+    {
+        // Handle null collections
+        users ??= Enumerable.Empty<User>();
+        orders ??= Enumerable.Empty<Order>();
+
+        return new List<DashboardData>
+        {
+            new DashboardData
+            {
+                TotalUsers = users.Count(),
+                TotalOrders = orders.Count(),
+                HasData = users.Any() || orders.Any()
+            }
+        };
+    }
+}
+```
+
+#### Performance Optimization
+```csharp
+public async Task<LargeDatasetReport> GetOptimizedReportAsync(int pageSize = 1000)
+{
+    Func<IEnumerable<Summary>, IEnumerable<Detail>, IEnumerable<LargeDatasetReport>> mapOptimizedReport =
+        (summaries, details) =>
+        {
+            // Process data efficiently
+            var summaryLookup = summaries.ToDictionary(s => s.Id);
+            
+            var report = new LargeDatasetReport
+            {
+                Summaries = summaries.ToList(),
+                // Only include details that have corresponding summaries
+                ProcessedDetails = details
+                    .Where(d => summaryLookup.ContainsKey(d.SummaryId))
+                    .GroupBy(d => d.SummaryId)
+                    .ToDictionary(g => g.Key, g => g.ToList())
+            };
+
+            return new List<LargeDatasetReport> { report };
+        };
+
+    return await _commander.QueryAsync<Summary, Detail, LargeDatasetReport>(
+        mapOptimizedReport,
+        new { pageSize });
+}
+```
+
+### Configuration Examples
+
+#### Programmatic Configuration
+```csharp
+services.UseSyrx(builder => builder
+    .UseSqlServer(sqlServer => sqlServer
+        .AddConnectionString("Default", connectionString)
+        .AddCommand(types => types
+            .ForType<ReportsRepository>(methods => methods
+                .ForMethod(nameof(ReportsRepository.GetDashboardDataAsync), cmd => cmd
+                    .UseConnectionAlias("Default")
+                    .UseCommandText(@"
+                        SELECT Id, Name, Email, IsActive, CreatedDate FROM Users;
+                        SELECT Id, UserId, Total, CreatedDate FROM Orders 
+                        WHERE CreatedDate >= DATEADD(month, -1, GETDATE());")
+                    .SetCommandTimeout(120))
+                .ForMethod(nameof(ReportsRepository.GetUserReportAsync), cmd => cmd
+                    .UseConnectionAlias("Default")
+                    .UseCommandText("sp_GetUserReport")
+                    .SetCommandType(CommandType.StoredProcedure)
+                    .SetCommandTimeout(60))))));
+```
+
+#### JSON Configuration
+```json
+{
+  "Namespaces": [
+    {
+      "Name": "MyApp.Repositories",
+      "Types": [
+        {
+          "Name": "ReportsRepository",
+          "Commands": {
+            "GetDashboardDataAsync": {
+              "CommandText": "SELECT * FROM Users; SELECT * FROM Orders WHERE CreatedDate >= DATEADD(month, -1, GETDATE());",
+              "ConnectionAlias": "Default",
+              "CommandTimeout": 120
+            },
+            "GetDepartmentAnalyticsAsync": {
+              "CommandText": "SELECT * FROM Employees WHERE DepartmentId = @departmentId; SELECT * FROM Projects WHERE DepartmentId = @departmentId; SELECT * FROM Budgets WHERE DepartmentId = @departmentId;",
+              "ConnectionAlias": "Default",
+              "CommandTimeout": 90
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Key Differences from Multi-mapping
+
+| Feature | Multi-mapping | Multiple Result Sets |
+|---------|---------------|---------------------|
+| **Purpose** | Combine related data into objects | Process independent result sets |
+| **SQL Pattern** | JOINs with split-on points | Multiple SELECT statements |
+| **Input Types** | Individual records from joined results | Complete collections per result set |
+| **Mapping Function** | `Func<T1, T2, TResult>` | `Func<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<TResult>>` |
+| **Use Cases** | Object composition, parent-child relationships | Dashboards, reports, batch operations |
+| **Performance** | Efficient for related data | Efficient for independent queries |
+
+Multiple Result Sets is ideal for scenarios where you need to execute multiple independent queries in a single database round-trip, such as dashboard data loading, comprehensive reports, or batch data processing operations.
+
 ## Method Resolution
+
+Method Resolution
 
 Syrx uses the `[CallerMemberName]` attribute to automatically resolve C# method names to SQL commands.
 

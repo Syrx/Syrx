@@ -12,6 +12,7 @@ This document provides comprehensive guidance on configuring Syrx for various da
 - [Connection Management](#connection-management)
 - [Command Configuration](#command-configuration)
 - [Environment-Specific Configuration](#environment-specific-configuration)
+- [Configuration from External Sources](#configuration-from-external-sources)
 - [Best Practices](#best-practices)
 - [Troubleshooting](#troubleshooting)
 
@@ -374,6 +375,497 @@ public void ConfigureServices(IServiceCollection services)
                         .UseCommandText("SELECT * FROM Users")
                         .UseCommandTimeout(commandTimeout))));
         });
+    });
+}
+```
+
+## Configuration from External Sources
+
+Syrx supports loading configuration from external files (JSON and XML) using the Settings Extensions packages. This approach is ideal for applications that need to separate configuration from code or support environment-specific settings.
+
+### Required Packages
+
+For external configuration, install the appropriate extensions alongside your core Syrx packages:
+
+>**Note**    
+These packages are automatically installed with provider specific implementations. For instance, for SQL Server **[SyrxSqlServer.Extensions](https://www.nuget.org/packages/Syrx.SqlServer.Extensions/)**.
+
+
+```xml
+<!-- For JSON configuration files -->
+<PackageReference Include="Syrx.Commanders.Databases.Settings.Extensions.Json" Version="3.0.0" />
+
+<!-- For XML configuration files -->
+<PackageReference Include="Syrx.Commanders.Databases.Settings.Extensions.Xml" Version="3.0.0" />
+
+<!-- For programmatic builder pattern -->
+<PackageReference Include="Syrx.Commanders.Databases.Settings.Extensions" Version="3.0.0" />
+```
+
+### JSON Configuration
+
+#### Service Registration with JSON Files
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Syrx.Extensions;
+using Syrx.Commanders.Databases.Settings.Extensions.Json;
+
+public void ConfigureServices(IServiceCollection services)
+{
+    var configBuilder = new ConfigurationBuilder();
+    
+    // Single JSON file
+    services.UseSyrx(builder => builder
+        .UseFile("syrx.json", configBuilder));
+    
+    // Multiple JSON files with environment overrides
+    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    services.UseSyrx(builder => {
+        var syrxBuilder = builder.UseFile("syrx.json", configBuilder);
+        
+        // Environment-specific override file
+        var environmentFile = $"syrx.{environment}.json";
+        if (File.Exists(environmentFile))
+        {
+            syrxBuilder.UseFile(environmentFile, configBuilder);
+        }
+        
+        return syrxBuilder;
+    });
+}
+```
+
+#### JSON Configuration File Structure (`syrx.json`)
+
+```json
+{
+  "Connections": [
+    {
+      "Alias": "DefaultConnection",
+      "ConnectionString": "Server=localhost;Database=MyApp;Trusted_Connection=true;"
+    },
+    {
+      "Alias": "ReadOnlyConnection",
+      "ConnectionString": "Server=readonly;Database=MyApp;Trusted_Connection=true;"
+    }
+  ],
+  "Namespaces": [
+    {
+      "Name": "MyApp.Repositories",
+      "Types": [
+        {
+          "Name": "UserRepository",
+          "Commands": {
+            "GetAllUsersAsync": {
+              "CommandText": "SELECT * FROM Users WHERE IsActive = 1",
+              "ConnectionAlias": "ReadOnlyConnection",
+              "CommandTimeout": 30
+            },
+            "GetUserByIdAsync": {
+              "CommandText": "SELECT * FROM Users WHERE Id = @id",
+              "ConnectionAlias": "ReadOnlyConnection",
+              "CommandTimeout": 30
+            },
+            "CreateUserAsync": {
+              "CommandText": "INSERT INTO Users (Name, Email, CreatedDate) VALUES (@Name, @Email, @CreatedDate)",
+              "ConnectionAlias": "DefaultConnection",
+              "CommandTimeout": 60
+            },
+            "GetUsersWithProfilesAsync": {
+              "CommandText": "SELECT u.*, p.* FROM Users u JOIN UserProfiles p ON u.Id = p.UserId WHERE u.IsActive = 1",
+              "ConnectionAlias": "ReadOnlyConnection",
+              "SplitOn": "Id",
+              "CommandTimeout": 45
+            }
+          }
+        },
+        {
+          "Name": "ProductRepository", 
+          "Commands": {
+            "GetProductsAsync": {
+              "CommandText": "SELECT * FROM Products WHERE IsActive = 1",
+              "ConnectionAlias": "ReadOnlyConnection"
+            },
+            "ProcessInventoryAsync": {
+              "CommandText": "sp_ProcessInventory",
+              "ConnectionAlias": "DefaultConnection",
+              "CommandType": "StoredProcedure",
+              "CommandTimeout": 300,
+              "IsolationLevel": "Serializable"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### XML Configuration
+
+#### Service Registration with XML Files
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Syrx.Extensions;
+using Syrx.Commanders.Databases.Settings.Extensions.Xml;
+
+public void ConfigureServices(IServiceCollection services)
+{
+    var configBuilder = new ConfigurationBuilder();
+    
+    // Single XML file
+    services.UseSyrx(builder => builder
+        .UseFile("syrx.xml", configBuilder));
+    
+    // Multiple XML files with environment overrides
+    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    services.UseSyrx(builder => {
+        var syrxBuilder = builder.UseFile("syrx.xml", configBuilder);
+        
+        // Environment-specific override file
+        var environmentFile = $"syrx.{environment}.xml";
+        if (File.Exists(environmentFile))
+        {
+            syrxBuilder.UseFile(environmentFile, configBuilder);
+        }
+        
+        return syrxBuilder;
+    });
+}
+```
+
+#### XML Configuration File Structure (`syrx.xml`)
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<CommanderSettings xmlns="http://schemas.syrx.dev/commander-settings">
+  <Connections>
+    <ConnectionStringSetting>
+      <Alias>DefaultConnection</Alias>
+      <ConnectionString>Server=localhost;Database=MyApp;Trusted_Connection=true;</ConnectionString>
+    </ConnectionStringSetting>
+    <ConnectionStringSetting>
+      <Alias>ReadOnlyConnection</Alias>
+      <ConnectionString>Server=readonly;Database=MyApp;Trusted_Connection=true;</ConnectionString>
+    </ConnectionStringSetting>
+  </Connections>
+  <Namespaces>
+    <NamespaceSetting>
+      <Name>MyApp.Repositories</Name>
+      <Types>
+        <TypeSetting>
+          <Name>UserRepository</Name>
+          <Commands>
+            <Command Key="GetAllUsersAsync">
+              <CommandText>SELECT * FROM Users WHERE IsActive = 1</CommandText>
+              <ConnectionAlias>ReadOnlyConnection</ConnectionAlias>
+              <CommandTimeout>30</CommandTimeout>
+            </Command>
+            <Command Key="GetUserByIdAsync">
+              <CommandText>SELECT * FROM Users WHERE Id = @id</CommandText>
+              <ConnectionAlias>ReadOnlyConnection</ConnectionAlias>
+              <CommandTimeout>30</CommandTimeout>
+            </Command>
+            <Command Key="CreateUserAsync">
+              <CommandText>INSERT INTO Users (Name, Email, CreatedDate) VALUES (@Name, @Email, @CreatedDate)</CommandText>
+              <ConnectionAlias>DefaultConnection</ConnectionAlias>
+              <CommandTimeout>60</CommandTimeout>
+            </Command>
+            <Command Key="GetUsersWithProfilesAsync">
+              <CommandText><![CDATA[
+                SELECT u.*, p.*
+                FROM Users u
+                JOIN UserProfiles p ON u.Id = p.UserId
+                WHERE u.IsActive = 1
+              ]]></CommandText>
+              <ConnectionAlias>ReadOnlyConnection</ConnectionAlias>
+              <SplitOn>Id</SplitOn>
+              <CommandTimeout>45</CommandTimeout>
+            </Command>
+          </Commands>
+        </TypeSetting>
+        <TypeSetting>
+          <Name>ProductRepository</Name>
+          <Commands>
+            <Command Key="GetProductsAsync">
+              <CommandText>SELECT * FROM Products WHERE IsActive = 1</CommandText>
+              <ConnectionAlias>ReadOnlyConnection</ConnectionAlias>
+            </Command>
+            <Command Key="ProcessInventoryAsync">
+              <CommandText>sp_ProcessInventory</CommandText>
+              <ConnectionAlias>DefaultConnection</ConnectionAlias>
+              <CommandType>StoredProcedure</CommandType>
+              <CommandTimeout>300</CommandTimeout>
+              <IsolationLevel>Serializable</IsolationLevel>
+            </Command>
+          </Commands>
+        </TypeSetting>
+      </Types>
+    </NamespaceSetting>
+  </Namespaces>
+</CommanderSettings>
+```
+
+### Command Text Constants Pattern
+
+For better maintainability, declare command text strings as constants in separate classes:
+
+#### Command Constants Class
+
+```csharp
+namespace MyApp.Data.Commands
+{
+    /// <summary>
+    /// SQL command constants for User operations
+    /// </summary>
+    public static class UserCommands
+    {
+        public const string GetAllUsers = @"SELECT Id, Name, Email, CreatedDate, IsActive 
+                                           FROM Users 
+                                           WHERE IsActive = 1
+                                           ORDER BY Name";
+        
+        public const string GetUserById = @"SELECT Id, Name, Email, CreatedDate, IsActive 
+                                           FROM Users 
+                                           WHERE Id = @id";
+        
+        public const string CreateUser = @"INSERT INTO Users (Name, Email, CreatedDate, IsActive)
+                                          VALUES (@Name, @Email, @CreatedDate, 1);
+                                          SELECT SCOPE_IDENTITY();";
+        
+        public const string UpdateUser = @"UPDATE Users 
+                                          SET Name = @Name, Email = @Email, ModifiedDate = @ModifiedDate
+                                          WHERE Id = @Id";
+        
+        public const string DeleteUser = @"UPDATE Users 
+                                          SET IsActive = 0, DeletedDate = @DeletedDate
+                                          WHERE Id = @Id";
+        
+        public const string GetUsersWithProfiles = @"SELECT u.*, p.*
+                                                     FROM Users u
+                                                     JOIN UserProfiles p ON u.Id = p.UserId
+                                                     WHERE u.IsActive = 1
+                                                     ORDER BY u.Name";
+    }
+    
+    /// <summary>
+    /// SQL command constants for Product operations
+    /// </summary>
+    public static class ProductCommands
+    {
+        public const string GetAllProducts = @"SELECT Id, Name, Description, Price, CategoryId, IsActive
+                                              FROM Products
+                                              WHERE IsActive = 1
+                                              ORDER BY Name";
+        
+        public const string GetProductById = @"SELECT Id, Name, Description, Price, CategoryId, IsActive
+                                              FROM Products
+                                              WHERE Id = @id AND IsActive = 1";
+        
+        public const string GetProductsByCategory = @"SELECT Id, Name, Description, Price, CategoryId, IsActive
+                                                     FROM Products
+                                                     WHERE CategoryId = @categoryId AND IsActive = 1
+                                                     ORDER BY Name";
+        
+        public const string CreateProduct = @"INSERT INTO Products (Name, Description, Price, CategoryId, IsActive)
+                                             VALUES (@Name, @Description, @Price, @CategoryId, 1);
+                                             SELECT SCOPE_IDENTITY();";
+        
+        public const string ProcessInventory = "sp_ProcessInventory"; // Stored procedure
+    }
+}
+```
+
+#### Using Command Constants in Configuration
+
+**JSON Configuration with Constants:**
+
+```json
+{
+  "Namespaces": [
+    {
+      "Name": "MyApp.Repositories",
+      "Types": [
+        {
+          "Name": "UserRepository",
+          "Commands": {
+            "GetAllUsersAsync": {
+              "CommandText": "SELECT Id, Name, Email, CreatedDate, IsActive FROM Users WHERE IsActive = 1 ORDER BY Name",
+              "ConnectionAlias": "ReadOnlyConnection"
+            },
+            "GetUserByIdAsync": {
+              "CommandText": "SELECT Id, Name, Email, CreatedDate, IsActive FROM Users WHERE Id = @id",
+              "ConnectionAlias": "ReadOnlyConnection"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Programmatic Configuration with Constants:**
+
+```csharp
+using Syrx.Commanders.Databases.Settings.Extensions;
+using MyApp.Data.Commands;
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.UseSyrx(builder => builder
+        .AddConnectionString("Default", connectionString)
+        .AddConnectionString("ReadOnly", readOnlyConnectionString)
+        .AddCommand(namespaces => namespaces
+            .ForNamespace("MyApp.Repositories", ns => ns
+                .ForType<UserRepository>(type => type
+                    .ForMethod(nameof(UserRepository.GetAllUsersAsync), cmd => cmd
+                        .UseCommandText(UserCommands.GetAllUsers)
+                        .UseConnectionAlias("ReadOnly"))
+                    .ForMethod(nameof(UserRepository.GetUserByIdAsync), cmd => cmd
+                        .UseCommandText(UserCommands.GetUserById)
+                        .UseConnectionAlias("ReadOnly"))
+                    .ForMethod(nameof(UserRepository.CreateUserAsync), cmd => cmd
+                        .UseCommandText(UserCommands.CreateUser)
+                        .UseConnectionAlias("Default")
+                        .SetCommandTimeout(60)))
+                .ForType<ProductRepository>(type => type
+                    .ForMethod(nameof(ProductRepository.GetAllProductsAsync), cmd => cmd
+                        .UseCommandText(ProductCommands.GetAllProducts)
+                        .UseConnectionAlias("ReadOnly"))
+                    .ForMethod(nameof(ProductRepository.ProcessInventoryAsync), cmd => cmd
+                        .UseCommandText(ProductCommands.ProcessInventory)
+                        .UseConnectionAlias("Default")
+                        .SetCommandType(CommandType.StoredProcedure)
+                        .SetCommandTimeout(300))))));
+}
+```
+
+### Repository Implementation Pattern
+
+Your repositories should use `ICommander<TRepository>` dependency injection:
+
+```csharp
+using Syrx.Commanders.Databases;
+
+namespace MyApp.Repositories
+{
+    public class UserRepository
+    {
+        private readonly ICommander<UserRepository> _commander;
+        
+        public UserRepository(ICommander<UserRepository> commander)
+        {
+            _commander = commander;
+        }
+        
+        // Method names automatically map to configuration commands
+        // Pattern: {Namespace}.{ClassName}.{MethodName}
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await _commander.QueryAsync<User>();
+        }
+        
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            var users = await _commander.QueryAsync<User>(new { id });
+            return users.FirstOrDefault();
+        }
+        
+        public async Task<User> CreateUserAsync(User user)
+        {
+            user.CreatedDate = DateTime.UtcNow;
+            return await _commander.ExecuteAsync(user) ? user : null;
+        }
+        
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            user.ModifiedDate = DateTime.UtcNow;
+            return await _commander.ExecuteAsync(user);
+        }
+        
+        public async Task<bool> DeleteUserAsync(int id)
+        {
+            return await _commander.ExecuteAsync(new { Id = id, DeletedDate = DateTime.UtcNow });
+        }
+        
+        // Multi-mapping example
+        public async Task<IEnumerable<User>> GetUsersWithProfilesAsync()
+        {
+            return await _commander.QueryAsync<User, UserProfile, User>(
+                (user, profile) => 
+                {
+                    user.Profile = profile;
+                    return user;
+                });
+        }
+    }
+    
+    public class ProductRepository
+    {
+        private readonly ICommander<ProductRepository> _commander;
+        
+        public ProductRepository(ICommander<ProductRepository> commander)
+        {
+            _commander = commander;
+        }
+        
+        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        {
+            return await _commander.QueryAsync<Product>();
+        }
+        
+        public async Task<Product?> GetProductByIdAsync(int id)
+        {
+            var products = await _commander.QueryAsync<Product>(new { id });
+            return products.FirstOrDefault();
+        }
+        
+        public async Task<bool> ProcessInventoryAsync(int productId, int quantity)
+        {
+            return await _commander.ExecuteAsync(new { ProductId = productId, Quantity = quantity });
+        }
+    }
+}
+```
+
+### Environment-Specific Configuration Files
+
+Support multiple environments with override files:
+
+```
+Project/
+├── syrx.json                    # Base configuration
+├── syrx.Development.json        # Development overrides
+├── syrx.Staging.json           # Staging overrides
+├── syrx.Production.json        # Production overrides
+└── Program.cs
+```
+
+Configuration loading with environment support:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+    var configBuilder = new ConfigurationBuilder();
+    
+    services.UseSyrx(builder => {
+        // Load base configuration
+        var syrxBuilder = builder.UseFile("syrx.json", configBuilder);
+        
+        // Load environment-specific overrides
+        var environmentFile = $"syrx.{environment}.json";
+        if (File.Exists(environmentFile))
+        {
+            syrxBuilder.UseFile(environmentFile, configBuilder);
+        }
+        
+        return syrxBuilder;
     });
 }
 ```
