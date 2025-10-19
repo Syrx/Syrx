@@ -15,7 +15,7 @@
     <!-- ============================================================================ -->
     <!-- packaging info -->
     <!-- ============================================================================ -->
-    <Version>2.4.3</Version>
+    <Version>3.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EnablePackageValidation>true</EnablePackageValidation>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

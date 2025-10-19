@@ -38,7 +38,7 @@ Install-Package Syrx.Extensions
 
 **PackageReference**
 ```xml
-<PackageReference Include="Syrx.Extensions" Version="2.4.3" />
+<PackageReference Include="Syrx.Extensions" Version="3.0.0" />
 ```
 
 ## Usage

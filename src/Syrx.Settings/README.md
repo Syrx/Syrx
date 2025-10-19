@@ -41,7 +41,7 @@ Install-Package Syrx.Settings
 
 **PackageReference**
 ```xml
-<PackageReference Include="Syrx.Settings" Version="2.4.3" />
+<PackageReference Include="Syrx.Settings" Version="3.0.0" />
 ```
 
 ## Core Interfaces
