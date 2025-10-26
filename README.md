@@ -168,7 +168,7 @@ namespace Syrx.Samples
 
 ## Support Runtimes and Vendors
 
-Syrx is cross-platform and currently supports .NET 8.0 and later versions.
+Syrx is cross-platform and currently supports **.NET 8.0** and **.NET 9.0**.
 
 Syrx currently supports the following RDBMS vendors, and this list is growing. Implementing support for a new ADO.NET provider is easily accomplished:
 

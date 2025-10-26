@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<Title>Syrx.Settings</Title>
 		<Description>This package hosts the base ICommandSetting which is what will be executed by the Syrx.ICommander.</Description>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.39" />
+	</ItemGroup>
 </Project>
