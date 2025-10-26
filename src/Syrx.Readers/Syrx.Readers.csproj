@@ -1,10 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<Title>Syrx.Readers</Title>
 		<Description>This package hosts the core IReader interface for reading ICommandSettings. </Description>
+		<PackageReadmeFile>readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Syrx.Settings\Syrx.Settings.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.39" />
 	</ItemGroup>
 
 </Project>

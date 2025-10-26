@@ -4,4 +4,7 @@
 		<Description>Home of the Syrx ICommander. A micro-orm built over Dapper to offering exception flexibility in connecting to arbitrary data sources. </Description>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>		
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.39" />
+	</ItemGroup>
 </Project>
