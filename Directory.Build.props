@@ -4,7 +4,7 @@
     <!-- build info-->
     <!-- ============================================================================ -->
     <!-- Set the target frameworks for all projects -->
-    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <!-- Set the configuration to Debug by default -->
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <!-- Enable nullable reference types -->
@@ -20,7 +20,7 @@
     <EnablePackageValidation>true</EnablePackageValidation>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>syrx;data access;orm;micro-orm</PackageTags>
-    <PackageReleaseNotes>Last release on .NET8.0 exclusively. Next release will include .NET9.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 3.0.0 exclusively targets .NET 10.0, removing support for .NET 8.0 and .NET 9.0. This release includes comprehensive documentation updates, readme files added to all packages, updated package references, and improved project structure.</PackageReleaseNotes>
     <!-- ============================================================================ -->
     <!-- organization info -->
     <!-- ============================================================================ -->
