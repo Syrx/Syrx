@@ -16,11 +16,11 @@ namespace Syrx
         /// <summary>
         ///     Queries the data source asynchronously.
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>        
+        /// <typeparam name="TResult">The type to map the query results to.</typeparam>
         /// <param name="parameters">The parameters to be passed to operation.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">The method.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<TResult>
             (object parameters = null,
             CancellationToken cancellationToken = default,
@@ -34,9 +34,9 @@ namespace Syrx
         /// <typeparam name="TResult">The result type.</typeparam>
         /// <param name="map">Mapping predicate used to compose the result type.</param>
         /// <param name="parameters">Optional parameters to pass to the query.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<T1, T2, TResult>(Func<T1, T2, TResult> map,
             object parameters = null,
             CancellationToken cancellationToken = default,
@@ -51,9 +51,9 @@ namespace Syrx
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="map">The mapping predicate to use to compose the result type.</param>
         /// <param name="parameters">Optional parameters to pass to the query.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<T1, T2, T3, TResult>(
             Func<T1, T2, T3, TResult> map,
             object parameters = null,
@@ -70,9 +70,9 @@ namespace Syrx
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="map">The mapping predicate to use to compose the result type.</param>
         /// <param name="parameters">Optional parameters to pass to the query.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<T1, T2, T3, T4, TResult>(
             Func<T1, T2, T3, T4, TResult> map,
             object parameters = null,
@@ -90,9 +90,9 @@ namespace Syrx
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="map">The mapping predicate to use to compose the result type.</param>
         /// <param name="parameters">Optional parameters to pass to the query.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<T1, T2, T3, T4, T5, TResult>(
             Func<T1, T2, T3, T4, T5, TResult> map,
             object parameters = null, CancellationToken cancellationToken = default,
@@ -110,9 +110,9 @@ namespace Syrx
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="map">The mapping predicate to use to compose the result type.</param>
         /// <param name="parameters">Optional parameters to pass to the query.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<T1, T2, T3, T4, T5, T6, TResult>(
             Func<T1, T2, T3, T4, T5, T6, TResult> map,
             object parameters = null,
@@ -132,9 +132,9 @@ namespace Syrx
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="map">The mapping predicate to use to compose the result type.</param>
         /// <param name="parameters">Optional parameters to pass to the query.</param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <param name="method">Optionally pass a method name to use as the key to finding a command setting.</param>
-        /// <returns></returns>
+        /// <returns>A task representing the asynchronous operation that returns a collection of TResult.</returns>
         Task<IEnumerable<TResult>> QueryAsync<T1, T2, T3, T4, T5, T6, T7, TResult>(
             Func<T1, T2, T3, T4, T5, T6, T7, TResult> map,
             object parameters = null,
