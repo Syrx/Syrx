@@ -9,7 +9,7 @@ Syrx places emphasis on:
 * _Speed_: Performance is a feature. Syrx inherits its speed from Dapper.
 * _Flexibilty_: Your choice of database technology should be as easy to change as any other component in your solution. 
 * _Testability_: We believe strongly in the power of testing at all levels of your applications. Syrx is fully testable and fully tested.
-* _Extensibility_: Syrx is granular and componentised, allowing you two swap out components for your own needs. 
+* _Extensibility_: Syrx is granular and componentised, allowing you to swap out components for your own needs. 
 * _Readability_: Syrx aims to keep the intent of your code clear and concise. 
 
 ## Quick Look
@@ -25,7 +25,7 @@ The central construct in Syrx is the ICommander interface. This interface expose
 Syrx allows you to retrieve both primitive and complex types from the underlying database very simply. 
 There are no special attribute declarations, no special inheritance structures. Very often, complex 
 types can be retrieved with a single line of code. More complex types can be composed using predicates. 
-Syrx supports Func<> predicate with up to 16 inputs for composition. 
+Syrx supports `Func<>` predicate with up to 16 inputs for composition. 
 
 
 _Example_
@@ -159,7 +159,7 @@ namespace Syrx.Samples
 
 ## Support Runtimes and Vendors
 
-Syrx is cross-platform and currently supports .NET 8.0 and later versions.
+Syrx is cross-platform and currently supports .NET 10.0.
 
 Syrx currently supports the following RDBMS vendors, and this list is growing. Implementing support for a new ADO.NET provider is easily accomplished:
 

@@ -449,7 +449,7 @@ public async Task<User> GetUserByIdAsync(int id)
 
 ## Version and Compatibility
 
-- **Target Framework**: .NET 8.0+
+- **Target Framework**: .NET 10.0+
 - **Database Support**: SQL Server, MySQL, PostgreSQL, Oracle
 - **Dependencies**: Minimal dependencies (primarily Dapper and Microsoft.Extensions.*)
 - **Breaking Changes**: Follow semantic versioning principles

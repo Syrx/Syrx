@@ -99,8 +99,8 @@ This document tracks outstanding tasks, improvements, and issues that need to be
 
 ### Version 3.0.0
 
-- [ ] **Complete migration to .NET 8.0**
-  - Ensure all packages target .NET 8.0
+- [x] **Complete migration to .NET 10.0**
+  - Ensure all packages target .NET 10.0
   - Update all dependencies to compatible versions
 
 - [ ] **Breaking changes documentation**
@@ -109,7 +109,7 @@ This document tracks outstanding tasks, improvements, and issues that need to be
 
 ### Future Versions
 
-- [ ] **Consider .NET 9.0 support**
+- [ ] **Monitor future .NET releases**
   - Evaluate new features that could benefit Syrx
   - Plan migration timeline
 

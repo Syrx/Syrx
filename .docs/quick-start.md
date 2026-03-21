@@ -14,7 +14,7 @@ Get up and running with Syrx in minutes. This guide will walk you through creati
 
 ## Prerequisites
 
-- .NET 8.0 or later
+- .NET 10.0
 - SQL Server, MySQL, PostgreSQL, or Oracle database
 - Visual Studio 2022 or Visual Studio Code
 
