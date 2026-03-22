@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Title>Syrx.Extensions</Title>
 		<Description>This package hosts extension methods to simplify wiring up Syrx. </Description>
@@ -7,11 +7,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-		<PackageReference Include="Syrx.Analyzers.Usings" Version="1.1.1">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
+</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Syrx\Syrx.csproj" />

@@ -1,15 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Title>Syrx</Title>
 		<Description>Home of the Syrx ICommander. A micro-orm built over Dapper to offering exception flexibility in connecting to arbitrary data sources. </Description>
 		<PackageReadmeFile>readme.md</PackageReadmeFile>		
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Syrx.Analyzers.Usings" Version="1.1.1">
-	    <PrivateAssets>all</PrivateAssets>
-	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-	  </PackageReference>
-	</ItemGroup>
+</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Update="DotNet.ReproducibleBuilds" Version="2.0.2" />
 	</ItemGroup>
